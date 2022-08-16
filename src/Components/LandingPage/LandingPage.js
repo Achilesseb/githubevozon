@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Dropdown } from "./Dropdown";
+import "./landingPage.css";
 
 export function LandingPage() {
   const [username, setUsername] = useState("");
@@ -13,7 +15,7 @@ export function LandingPage() {
   async function getData() {
     const userData = await fetch(`https://api.github.com/users/${username}`);
     const result = await userData.json();
-    return result;
+    return [result];
   }
 
   const searchRepos = async () => {
@@ -24,7 +26,7 @@ export function LandingPage() {
 
   return (
     <div>
-      <div>
+      <div style={{ width: "300px" }} className="header">
         <form>
           <input
             className="input-username"
@@ -36,6 +38,10 @@ export function LandingPage() {
             {loading ? "Searching..." : "Search"}
           </button>
         </form>
+        {user.length > 0 &&
+          user.map((item) => {
+            return <Dropdown />;
+          })}
       </div>
     </div>
   );
