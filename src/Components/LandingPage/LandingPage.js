@@ -1,26 +1,25 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../../utils";
 export function LandingPage() {
+  const dispatch = useDispatch();
+  const userPrimaryData = useSelector((data) => data.user);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchRepos();
-  };
-
-  async function getData() {
-    const userData = await fetch(`https://api.github.com/users/${username}`);
-    const result = await userData.json();
-    return result;
-  }
-
-  const searchRepos = async () => {
-    setLoading(true);
-    setUser(await getData());
-    setLoading(false);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   searchRepos();
+  // };
+  // const searchRepos = () => {
+  //   setLoading(true);
+  //   getData(dispatch, username);
+  //   setLoading(false);
+  // };
+  useEffect(() => {
+    setLoading(!loading);
+    getData(dispatch, username);
+    setLoading(!loading);
+  }, [username]);
 
   return (
     <div>
@@ -28,14 +27,14 @@ export function LandingPage() {
         <form>
           <input
             className="input-username"
-            value={username}
             placeholder="GitHub Username"
             onChange={(e) => setUsername(e.target.value)}
           />
-          <button className="button" onClick={handleSubmit}>
+          {/* <button className="button" onClick={handleSubmit}>
             {loading ? "Searching..." : "Search"}
-          </button>
+          </button> */}
         </form>
+        <div>{userPrimaryData.name}</div>
       </div>
     </div>
   );
