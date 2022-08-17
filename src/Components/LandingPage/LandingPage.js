@@ -6,7 +6,7 @@ import "./landingPage.css";
 export function LandingPage() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   return (
-    <div className="full-page ">
+    <div className="full-page">
       <div className="navbar">
         <NavBar />
       </div>

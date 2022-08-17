@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
+import { MenuList } from "./MenuList";
 import "./navBar.css";
 
 export function NavBar() {
@@ -23,38 +24,17 @@ export function NavBar() {
       </div>
 
       <ul
-        className={`md:flex md:items-center md:z-auto md:static absolute bg-black w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 ${
-          sidebar ? "top-[-400px]" : "md:justify-center"
+        className={`md:flex md:items-center content-center md:z-auto md:static absolute md:bg-black bg-gray-600 w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 ${
+          sidebar ? "top-[-400px]" : null
         } transition-all ease-in duration-500`}
       >
-        <li
-          className={`mx-4 my-6 md:my-0 z-1 ${
-            sidebar ? null : "hover:bg-gray-200"
-          }`}
-        >
-          <a
-            href="#"
-            className="text-xl text-white hover:text-cyan-500 duration-500"
-          >
-            HOME
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0 z-1">
-          <a
-            href="#"
-            className="text-xl text-white hover:text-cyan-500 duration-500"
-          >
-            ALT HOME
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0 z-1">
-          <a
-            href="#"
-            className="text-xl text-white hover:text-cyan-500 duration-500"
-          >
-            INCA UN HOME
-          </a>
-        </li>
+        {MenuList.map((data) => {
+          return (
+            <li className={data.listClassName}>
+              <a className={data.anchorClassname}>{data.name}</a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
