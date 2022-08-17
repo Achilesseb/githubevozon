@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getData } from "../../utils";
 export function LandingPage() {
   const dispatch = useDispatch();
   const userPrimaryData = useSelector((data) => data.user);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   searchRepos();
-  // };
-  // const searchRepos = () => {
-  //   setLoading(true);
-  //   getData(dispatch, username);
-  //   setLoading(false);
-  // };
-  useEffect(() => {
-    setLoading(!loading);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchRepos();
+  };
+  const searchRepos = () => {
+    setLoading(true);
     getData(dispatch, username);
-    setLoading(!loading);
-  }, [username]);
+    setLoading(false);
+  };
 
   return (
     <div>
@@ -31,11 +26,11 @@ export function LandingPage() {
             placeholder="GitHub Username"
             onChange={(e) => setUsername(e.target.value)}
           />
-          {/* <button className="button" onClick={handleSubmit}>
+          <button className="button" onClick={handleSubmit}>
             {loading ? "Searching..." : "Search"}
-          </button> */}
+          </button>
         </form>
-        <Link to={`${username}`}>
+        <Link to={`/${username}`}>
           <div>{userPrimaryData.name}</div>
         </Link>
       </div>

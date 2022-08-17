@@ -9,6 +9,10 @@ module.exports = {
       },
       colors: {
         "tab-fill": "#0d1117",
+        "orange-primary": "#F9A03C",
+      },
+      height: {
+        150: "80vh",
       },
     },
   },
