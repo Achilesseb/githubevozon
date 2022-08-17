@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getData } from "../../utils";
 export function LandingPage() {
   const dispatch = useDispatch();
@@ -34,7 +35,9 @@ export function LandingPage() {
             {loading ? "Searching..." : "Search"}
           </button> */}
         </form>
-        <div>{userPrimaryData.name}</div>
+        <Link to={`${username}`}>
+          <div>{userPrimaryData.name}</div>
+        </Link>
       </div>
     </div>
   );
