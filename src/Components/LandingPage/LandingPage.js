@@ -1,51 +1,26 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../../utils";
-import { Dropdown } from "./Dropdown";
+import { useState } from "react";
+import { NavBar } from "../NavBar/NavBar";
+import { SearchBar } from "../SearchBar/SearchBar";
 import "./landingPage.css";
 
 export function LandingPage() {
-  const dispatch = useDispatch();
-  const userPrimaryData = useSelector((data) => data.user);
-  const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchRepos();
-  };
-  const searchRepos = () => {
-    setLoading(true);
-    getData(dispatch, username);
-    setLoading(false);
-    userPrimaryData.length > 0 && console.log(userPrimaryData);
-  };
-  // useEffect(() => {
-  //   setLoading(!loading);
-  //   getData(dispatch, username);
-  //   setLoading(!loading);
-  //   console.log(userPrimaryData);
-  // }, [username]);
-
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   return (
-    <div>
-      <div style={{ width: "300px" }} className="header">
-        <form>
-          <input
-            value={username}
-            className="input-username"
-            placeholder="GitHub Username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button className="button" onClick={handleSubmit}>
-            {loading ? "Searching..." : "Search"}
+    <div className="full-page ">
+      <div className="navbar">
+        <NavBar />
+      </div>
+      <div className="search-container">
+        {isSearchVisible ? (
+          <SearchBar />
+        ) : (
+          <button
+            onClick={() => setIsSearchVisible(true)}
+            className="border-solid border-2 border-white font-bold text-white text-xl font-sans durations-500 px-10 py-4 hover:bg-white hover:text-black "
+          >
+            Get Started
           </button>
-        </form>
-        {userPrimaryData.length > 0 &&
-          userPrimaryData.map((user) => {
-            console.log(user);
-            return <Dropdown />;
-          })}
+        )}
       </div>
     </div>
   );
