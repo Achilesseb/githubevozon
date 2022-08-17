@@ -3,6 +3,7 @@ import { getRepositoryData } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PAGINATION_NUMBER as increaser } from "../../utils";
+import { timeSince } from "../../utils";
 const usePaginationHook = () => {
   const [page, setPage] = useState(0);
   const [reposOnPage, setReposPage] = useState(null);
@@ -19,10 +20,11 @@ const usePaginationHook = () => {
   }, [userRepositories.repositories, page]);
   userRepositories.repositories.forEach((repo) => {
     const { name, language, updated_at, visibility } = repo;
+    const howLongAgo = timeSince(new Date(updated_at));
     repositoriesData.push({
       repoName: name,
       language,
-      Last_update: updated_at,
+      Last_update: `${howLongAgo} ago`,
       visibility,
     });
   });

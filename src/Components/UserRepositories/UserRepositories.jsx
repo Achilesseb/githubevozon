@@ -5,9 +5,10 @@ import Button from "../ButtonComponent/ButtonComponent";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import usePaginationHook from "./customPaginationHook";
+import { useParams } from "react-router-dom";
 const UserRepositories = () => {
   const { reposOnPage, handleClick, page } = usePaginationHook();
-  const userRepositories = useSelector((data) => data);
+  console.log(reposOnPage, reposOnPage);
   return (
     <div className="h-full">
       {reposOnPage === null ? (
@@ -21,7 +22,7 @@ const UserRepositories = () => {
           <ul className="flex flex-col justify-start h-full text-white align-top gap-y-2">
             {reposOnPage.map((repo) => (
               <Link
-                to={`${userRepositories.user.login}/${repo.repoName}`}
+                to={`${repo.repoName}`}
                 className="grid grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"
                 key={repo.repoName}
               >
