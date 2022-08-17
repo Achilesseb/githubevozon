@@ -9,6 +9,7 @@ export function SearchBar() {
   const userPrimaryData = useSelector((data) => data.user);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
+  console.log(userPrimaryData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
