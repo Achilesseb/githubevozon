@@ -1,38 +1,26 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getData } from "../../utils";
-export function LandingPage() {
-  const dispatch = useDispatch();
-  const userPrimaryData = useSelector((data) => data.user);
-  const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchRepos();
-  };
-  const searchRepos = () => {
-    setLoading(true);
-    getData(dispatch, username);
-    setLoading(false);
-  };
+import { useState } from "react";
+import { NavBar } from "../NavBar/NavBar";
+import { SearchBar } from "../SearchBar/SearchBar";
+import "./landingPage.css";
 
+export function LandingPage() {
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   return (
-    <div>
-      <div>
-        <form>
-          <input
-            className="input-username"
-            placeholder="GitHub Username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button className="button" onClick={handleSubmit}>
-            {loading ? "Searching..." : "Search"}
+    <div className="full-page">
+      <div className="navbar">
+        <NavBar />
+      </div>
+      <div className="search-container">
+        {isSearchVisible ? (
+          <SearchBar />
+        ) : (
+          <button
+            onClick={() => setIsSearchVisible(!isSearchVisible)}
+            className="px-10 py-4 font-sans text-xl font-bold text-white border-2 border-white border-solid durations-500 hover:bg-white hover:text-black "
+          >
+            Get Started
           </button>
-        </form>
-        <Link to={`/${username}`}>
-          <div>{userPrimaryData.name}</div>
-        </Link>
+        )}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/:login" element={<UserPage />} />
+          <Route path={`/:login`} element={<UserPage />} />
         </Routes>
       </Router>
     </div>

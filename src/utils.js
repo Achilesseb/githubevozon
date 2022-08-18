@@ -5,6 +5,8 @@ const USER_URL = "https://api.github.com/users/";
 export const getData = async (dispatch, username) => {
   const userData = await fetch(`${USER_URL}${username}`);
   const result = await userData.json();
+  console.log(result);
+
   dispatch(setUserData(result));
 };
 export const getRepositoryData = async (dispatch, username) => {
