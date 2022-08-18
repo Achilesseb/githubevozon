@@ -16,8 +16,6 @@ export function SearchBar() {
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
       setescNotPressed(false);
-    } else if (event.key === "Enter") {
-      setescNotPressed(true);
     }
   }, []);
 
@@ -29,14 +27,12 @@ export function SearchBar() {
     };
   }, [escFunction]);
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsername(e.target.value);
   };
   const changeDropdownVisibility = (decision) => {
+    setescNotPressed(decision);
     return setIsVisible(decision);
   };
   useEffect(() => {
@@ -74,8 +70,7 @@ export function SearchBar() {
   return (
     <>
       <form
-        onSubmit={onFormSubmit}
-        onMouseOut={() => changeDropdownVisibility(false)}
+        onMouseOut={() => setescNotPressed(false)}
         onClick={() => changeDropdownVisibility(true)}
         className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
       >
@@ -97,23 +92,11 @@ export function SearchBar() {
 
         {/* INPUT BAR */}
         <input
-          type="search"
+          type="text"
           className="ml-6 bg-transparent "
           placeholder="GitHub Username"
           onChange={debouncedResults}
         />
-
-        {/* SUBMIT BUTTON */}
-        <button
-          type="submit"
-          className="px-4 py-2 font-bold text-white bg-gray-600 border border-gray-700 rounded hover:bg-gray-700"
-          onClick={(e) => {
-            handleSubmit(e);
-            setescNotPressed(true);
-          }}
-        >
-          Search
-        </button>
       </form>
       {canRenderDropdown()}
     </>
