@@ -1,0 +1,24 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.full-page {
+  background: url("../../Content/landingPage-background.jpg");
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  height: 50%;
+}
+
+.search-container {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
