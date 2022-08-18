@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../utils";
 import { Dropdown } from "../Dropdown/Dropdown";
@@ -11,6 +11,27 @@ export function SearchBar() {
   const userPrimaryData = useSelector((data) => data.users);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
+  const [escNotPressed, setescNotPressed] = useState(true);
+  console.log(userPrimaryData);
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      setescNotPressed(false);
+    } else if (event.key === "Enter") {
+      setescNotPressed(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction);
+    };
+  }, [escFunction]);
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsername(e.target.value);
@@ -19,6 +40,7 @@ export function SearchBar() {
     return setIsVisible(decision);
   };
   useEffect(() => {
+    console.log(username);
     searchRepos();
   }, [username]);
   const debouncedResults = useMemo(() => {
@@ -39,12 +61,23 @@ export function SearchBar() {
     getUsers(dispatch, username);
     setLoading(false);
   };
+  const canRenderDropdown = () => {
+    if (
+      userPrimaryData.items?.length > 0 &&
+      !userPrimaryData.message &&
+      isVisible &&
+      escNotPressed
+    ) {
+      return <Dropdown />;
+    }
+  };
   return (
     <>
-      <div
-        className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
+      <form
+        onSubmit={onFormSubmit}
         onMouseOut={() => changeDropdownVisibility(false)}
         onClick={() => changeDropdownVisibility(true)}
+        className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
       >
         {/* SEARCH ICON */}
         <svg
@@ -72,15 +105,17 @@ export function SearchBar() {
 
         {/* SUBMIT BUTTON */}
         <button
+          type="submit"
           className="px-4 py-2 font-bold text-white bg-gray-600 border border-gray-700 rounded hover:bg-gray-700"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            handleSubmit(e);
+            setescNotPressed(true);
+          }}
         >
-          {loading ? "Searching..." : "Search"}
+          Search
         </button>
-      </div>
-      {userPrimaryData?.items?.length > 0 &&
-        !userPrimaryData.message &&
-        isVisible && <Dropdown />}
+      </form>
+      {canRenderDropdown()}
     </>
   );
 }

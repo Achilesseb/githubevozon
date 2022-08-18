@@ -14,6 +14,7 @@ export const getData = async (dispatch, username) => {
 export const getUsers = async (dispatch, username) => {
   const userData = await fetch(`${SEARCH_USERS_URL}?q=${username}`);
   const result = await userData.json();
+  console.log(result);
   dispatch(setUsersSearched(result));
 };
 export const getRepositoryData = async (dispatch, username) => {
