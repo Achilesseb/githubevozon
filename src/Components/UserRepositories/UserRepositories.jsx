@@ -4,11 +4,10 @@ import { Tab } from "@headlessui/react";
 import Button from "../ButtonComponent/ButtonComponent";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
-import usePaginationHook from "./customPaginationHook";
+import usePaginationHook from "../../customHooks/customPaginationHook";
 import { useParams } from "react-router-dom";
 const UserRepositories = () => {
-  const { reposOnPage, handleClick, page } = usePaginationHook();
-  console.log(reposOnPage, reposOnPage);
+  const { reposOnPage, changePage, page } = usePaginationHook();
   return (
     <div className="h-full">
       {reposOnPage === null ? (
@@ -36,7 +35,7 @@ const UserRepositories = () => {
             <Button
               modifiers="w-[150px]"
               type="primary"
-              handleClick={handleClick}
+              changePage={changePage}
             >
               Next
             </Button>
@@ -46,7 +45,7 @@ const UserRepositories = () => {
             <Button
               modifiers="w-[150px]"
               type="secondary"
-              handleClick={handleClick}
+              changePage={changePage}
             >
               Previous
             </Button>

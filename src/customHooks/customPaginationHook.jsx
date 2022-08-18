@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { getRepositoryData } from "../../utils";
+import { getRepositoryData } from "../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { PAGINATION_NUMBER as increaser } from "../../utils";
-import { timeSince } from "../../utils";
+import { PAGINATION_NUMBER as increaser } from "../utils";
+import { timeSince } from "../utils";
 const usePaginationHook = () => {
   const [page, setPage] = useState(0);
   const [reposOnPage, setReposPage] = useState(null);
@@ -28,10 +28,8 @@ const usePaginationHook = () => {
       visibility,
     });
   });
-  const handleClick = (direction) => {
-    direction === "Next"
-      ? setPage(Math.ceil(page + 1))
-      : setPage(Math.ceil(page - 1));
+  const changePage = (direction) => {
+    direction.toLowerCase() === "next" ? setPage(page + 1) : setPage(page - 1);
   };
   const setReposOnPage = () => {
     if (repositoriesData.length !== 0)
@@ -46,6 +44,6 @@ const usePaginationHook = () => {
       )
     );
   };
-  return { reposOnPage, handleClick, page };
+  return { reposOnPage, changePage, page };
 };
 export default usePaginationHook;

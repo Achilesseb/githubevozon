@@ -1,7 +1,6 @@
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
 import { MenuList } from "./MenuList";
-import "./navBar.css";
 
 export function NavBar() {
   const [sidebar, setSidebar] = useState(true);
@@ -28,9 +27,9 @@ export function NavBar() {
           sidebar ? "top-[-400px]" : null
         } transition-all ease-in duration-500`}
       >
-        {MenuList.map((data) => {
+        {MenuList.map((data, index) => {
           return (
-            <li className={data.listClassName}>
+            <li key={index} className={data.listClassName}>
               <a className={data.anchorClassname}>{data.name}</a>
             </li>
           );

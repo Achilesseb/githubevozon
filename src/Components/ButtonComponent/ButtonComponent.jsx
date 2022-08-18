@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Button({ children, type, modifiers, handleClick }) {
+export default function Button({ children, type, modifiers, changePage }) {
   const defaultButton = "px-2 py-2 rounded-full font-bold w-30 h-10";
   const types = {
     primary: "bg-orange-primary text-white",
@@ -10,7 +10,7 @@ export default function Button({ children, type, modifiers, handleClick }) {
   return (
     <button
       className={`${defaultButton} ${types[type]} ${modifiers}`}
-      onClick={() => handleClick(children)}
+      onClick={() => changePage(children)}
     >
       {children}
     </button>
