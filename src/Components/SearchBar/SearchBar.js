@@ -1,28 +1,79 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../../utils";
+import { getUsers } from "../../utils";
 import { Dropdown } from "../Dropdown/Dropdown";
-import "./searchBar.css";
+import debounce from "lodash.debounce";
+import { useMemo } from "react";
 
 export function SearchBar() {
+  const [isVisible, setIsVisible] = useState(true);
   const dispatch = useDispatch();
-  const userPrimaryData = useSelector((data) => data.user);
+  const userPrimaryData = useSelector((data) => data.users);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
+  const [escNotPressed, setescNotPressed] = useState(true);
   console.log(userPrimaryData);
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      setescNotPressed(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction);
+    };
+  }, [escFunction]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchRepos();
+    setUsername(e.target.value);
   };
+  const changeDropdownVisibility = (decision) => {
+    setescNotPressed(decision);
+    return setIsVisible(decision);
+  };
+  useEffect(() => {
+    console.log(username);
+    searchRepos();
+  }, [username]);
+  const debouncedResults = useMemo(() => {
+    return debounce(handleSubmit, 500);
+  }, []);
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+  useEffect(() => {
+    return () => {
+      getUsers(dispatch, {});
+    };
+  }, []);
   const searchRepos = () => {
     setLoading(true);
-    getData(dispatch, username);
+    getUsers(dispatch, username);
     setLoading(false);
   };
-
+  const canRenderDropdown = () => {
+    if (
+      userPrimaryData.items?.length > 0 &&
+      !userPrimaryData.message &&
+      isVisible &&
+      escNotPressed
+    ) {
+      return <Dropdown />;
+    }
+  };
   return (
     <>
-      <div className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80">
+      <form
+        onMouseOut={() => setescNotPressed(false)}
+        onClick={() => changeDropdownVisibility(true)}
+        className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
+      >
         {/* SEARCH ICON */}
         <svg
           className="absolute left-0 w-5 h-5 ml-1 top-5"
@@ -41,23 +92,13 @@ export function SearchBar() {
 
         {/* INPUT BAR */}
         <input
+          type="text"
           className="ml-6 bg-transparent "
-          value={username}
           placeholder="GitHub Username"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={debouncedResults}
         />
-
-        {/* SUBMIT BUTTON */}
-        <button
-          className="px-4 py-2 font-bold text-white bg-gray-600 border border-gray-700 rounded hover:bg-gray-700"
-          onClick={handleSubmit}
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
-      </div>
-      {Object.keys(userPrimaryData).length > 0 && !userPrimaryData.message && (
-        <Dropdown />
-      )}
+      </form>
+      {canRenderDropdown()}
     </>
   );
 }

@@ -1,13 +1,21 @@
-import { setUserData, setUserRepositories } from "./redux/actions";
+import {
+  setUserData,
+  setUserRepositories,
+  setUsersSearched,
+} from "./redux/actions";
 export const PAGINATION_NUMBER = 6;
 const USER_URL = "https://api.github.com/users/";
-
+const SEARCH_USERS_URL = "https://api.github.com/search/users";
 export const getData = async (dispatch, username) => {
   const userData = await fetch(`${USER_URL}${username}`);
   const result = await userData.json();
-  console.log(result);
-
   dispatch(setUserData(result));
+};
+export const getUsers = async (dispatch, username) => {
+  const userData = await fetch(`${SEARCH_USERS_URL}?q=${username}`);
+  const result = await userData.json();
+  console.log(result);
+  dispatch(setUsersSearched(result));
 };
 export const getRepositoryData = async (dispatch, username) => {
   const repositories = await fetch(`${USER_URL}${username}/repos`);
