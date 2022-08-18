@@ -10,7 +10,7 @@ export function NavBar() {
 
   return (
     <nav className="p-5 bg-black shadow md:flex md:items-center md:justify-between">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <span className="text-2xl text-white font-[Poppins]">
           GitHub Project
         </span>
@@ -18,7 +18,7 @@ export function NavBar() {
         <span>
           <AiIcons.AiOutlineMenu
             onClick={() => handleSidebar()}
-            className="text-white text-3xl cursor-pointer md:hidden block"
+            className="block text-3xl text-white cursor-pointer md:hidden"
           />
         </span>
       </div>

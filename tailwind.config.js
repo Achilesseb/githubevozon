@@ -1,8 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "background-fill":
+          "linear-gradient(to right, rgb(55, 65, 81), rgb(17, 24, 39), rgb(0, 0, 0))",
+      },
+      colors: {
+        "tab-fill": "#0d1117",
+        "orange-primary": "#F9A03C",
+      },
+      height: {
+        150: "80vh",
+      },
+    },
   },
   plugins: [],
 };

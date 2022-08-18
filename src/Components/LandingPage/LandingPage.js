@@ -16,8 +16,8 @@ export function LandingPage() {
           <SearchBar />
         ) : (
           <button
-            onClick={() => setIsSearchVisible(true)}
-            className="border-solid border-2 border-white font-bold text-white text-xl font-sans durations-500 px-10 py-4 hover:bg-white hover:text-black "
+            onClick={() => setIsSearchVisible(!isSearchVisible)}
+            className="px-10 py-4 font-sans text-xl font-bold text-white border-2 border-white border-solid durations-500 hover:bg-white hover:text-black "
           >
             Get Started
           </button>

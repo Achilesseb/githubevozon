@@ -6,7 +6,7 @@ import "./searchBar.css";
 
 export function SearchBar() {
   const dispatch = useDispatch();
-  const userPrimaryData = useSelector((data) => data.user);
+  const userData = useSelector((data) => data.user);
   const [username, setUsername] = useState("");
   const [escNotPressed, setescNotPressed] = useState(true);
 
@@ -28,7 +28,6 @@ export function SearchBar() {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    setescNotPressed(true);
   };
 
   const handleSubmit = (e) => {
@@ -40,17 +39,13 @@ export function SearchBar() {
   };
 
   const canRenderDropdown = () => {
-    let value = true;
     if (
-      userPrimaryData.length > 0 &&
-      !userPrimaryData[0].message &&
+      Object.keys(userData).length > 0 &&
+      !userData.message &&
       escNotPressed
     ) {
-      value = true;
-    } else {
-      value = false;
+      return <Dropdown />;
     }
-    return value;
   };
 
   return (
@@ -61,7 +56,7 @@ export function SearchBar() {
       >
         {/* SEARCH ICON */}
         <svg
-          className="absolute h-5 w-5 left-0 top-5 ml-1"
+          className="absolute left-0 w-5 h-5 ml-1 top-5"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -87,12 +82,15 @@ export function SearchBar() {
         <button
           type="submit"
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded"
-          onClick={(handleSubmit, () => setescNotPressed(true))}
+          onClick={(e) => {
+            handleSubmit(e);
+            setescNotPressed(true);
+          }}
         >
           Search
         </button>
       </form>
-      {canRenderDropdown() && <Dropdown />}
+      {canRenderDropdown()}
     </>
   );
 }
