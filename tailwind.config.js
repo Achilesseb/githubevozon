@@ -3,11 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        "background-fill":
-          "linear-gradient(to right, rgb(55, 65, 81), rgb(17, 24, 39), rgb(0, 0, 0))",
-      },
+      backgroundImage: {},
       colors: {
+        "background-fill": "#374151",
         "tab-fill": "#0d1117",
         "orange-primary": "#F9A03C",
       },

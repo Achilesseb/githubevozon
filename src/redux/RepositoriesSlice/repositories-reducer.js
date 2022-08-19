@@ -1,12 +1,13 @@
-import { types } from "./types";
+import { types } from "./repositories-types";
 const INITIAL_STATE = {
   users: [],
   user: {},
   repositories: [],
   repository: {},
   content: [],
+  nesting: [],
 };
-const reducer = (state = INITIAL_STATE, action) => {
+const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.SET_USER_DATA: {
       return { ...state, user: action.payload };
@@ -23,9 +24,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.SET_USER_CONTENT: {
       return { ...state, content: action.payload };
     }
+    case types.SET_DATA_FOR_NESTING: {
+      return { ...state, nesting: [action.payload] };
+    }
     default: {
       return state;
     }
   }
 };
-export default reducer;
+export default repo_reducer;

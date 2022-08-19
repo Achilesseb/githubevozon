@@ -1,4 +1,4 @@
-import { types } from "./types";
+import { types } from "./repositories-types";
 export const setUserData = (data) => ({
   type: types.SET_USER_DATA,
   payload: data,
@@ -17,5 +17,9 @@ export const setUserRepository = (data) => ({
 });
 export const setContentFromRepository = (data) => ({
   type: types.SET_USER_CONTENT,
+  payload: data,
+});
+export const setDataForNesting = (data) => ({
+  type: types.SET_DATA_FOR_NESTING,
   payload: data,
 });

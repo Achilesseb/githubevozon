@@ -8,8 +8,8 @@ const usePaginationHook = () => {
   const [page, setPage] = useState(0);
   const [reposOnPage, setReposPage] = useState(null);
   const dispatch = useDispatch();
-  const userRepositories = useSelector((data) => data);
-  const { login, repositoryName } = useParams();
+  const userRepositories = useSelector((data) => data.repositories);
+  const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
   console.log(userRepositories);

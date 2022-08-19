@@ -6,21 +6,21 @@ const ulClassName =
 
 export const options = [
   {
-    name: "CODE",
+    name: "Code",
     icon: "ICON",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
-    name: "ALT HOME",
+    name: "Select item",
     icon: "ICON",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
-    name: "INCA UN HOME",
+    name: "Select item",
     icon: "ICON",
     divClassName: divClassName,
     iconClassName: iconClassName,

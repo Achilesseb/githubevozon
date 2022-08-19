@@ -1,11 +1,24 @@
 import {
   setContentFromRepository,
+  setDataForNesting,
   setUserData,
   setUserRepositories,
   setUserRepository,
   setUsersSearched,
-} from "./redux/actions";
+} from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
+export const urlForGoingBack = {};
+export const URLNames = [];
+
+// SAVE NAME FOR GOING BACK
+export const saveURLNames = (key, value) => {
+  URLNames.push({ [key]: value });
+};
+
+// // SAVE URL FOR GOOING BACK
+// export const saveURL = (url) => {
+//   urlForGoingBack.push(url);
+// };
 const USER_URL = "https://api.github.com/users/";
 const SEARCH_USERS_URL = "https://api.github.com/search/users";
 const USER_REPOSITORY_URL = "https://api.github.com/repos/";
@@ -41,6 +54,7 @@ export const getSpecificRepositoryData = async (
     `${USER_REPOSITORY_URL}${username}/${repoName}`
   );
   const result = await repository.json();
+  console.log(result);
   dispatch(setUserRepository(result));
 };
 
@@ -55,6 +69,13 @@ export const getContentFromRepositoryData = async (
   );
   const result = await repository.json();
   dispatch(setContentFromRepository(result));
+};
+
+// GET DATA FOR NESTING FILES
+export const getDataForNesting = async (dispatch, fileURL) => {
+  const repository = await fetch(fileURL);
+  const result = await repository.json();
+  dispatch(setDataForNesting(result));
 };
 
 export function classNames(...classes) {

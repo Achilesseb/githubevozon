@@ -1,7 +1,7 @@
 import React from "react";
 import { Tab } from "@headlessui/react";
-import UserBasicInfo from "../UserBasicInfo/UserBasicInfo";
-import UserRepositories from "../UserRepositories/UserRepositories";
+import UserBasicInfo from "./UserBasicInfo/UserBasicInfo";
+import UserRepositories from "./UserRepositories/UserRepositories.jsx";
 import { classNames } from "../../utils";
 import { useParams } from "react-router-dom";
 import { getData } from "../../utils";
@@ -43,7 +43,7 @@ const UserPage = () => {
         </Tab.List>
         <Tab.Panels className="mt-5 h-[85vh]">
           <UserBasicInfo idx="basic-info" key="basic-info" />
-          <UserRepositories idx="repositories" id="repositories" />
+          <UserRepositories idx="repositories" key="repositories" />
         </Tab.Panels>
       </Tab.Group>
     </div>
