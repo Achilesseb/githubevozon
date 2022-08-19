@@ -15,7 +15,6 @@ export function SearchBar({ isClicked, onClick }) {
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
       setescNotPressed(false);
-      console.log(escNotPressed);
     }
   }, []);
 
@@ -94,7 +93,6 @@ export function SearchBar({ isClicked, onClick }) {
       return <Dropdown />;
     }
   };
-
   return (
     <>
       <div
@@ -103,11 +101,10 @@ export function SearchBar({ isClicked, onClick }) {
           setescNotPressed(true);
         }}
         className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
-      />
-      {/* SEARCH ICON */}
-      <div className="flex flex-row items-center align-middle justify-evenly">
+      >
+        {/* SEARCH ICON */}
         <svg
-          className="w-5 ml-1 "
+          className="absolute left-0 w-5 h-5 ml-1 top-5"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

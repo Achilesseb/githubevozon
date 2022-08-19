@@ -41,6 +41,7 @@ export const getSpecificRepositoryData = async (
     `${USER_REPOSITORY_URL}${username}/${repoName}`
   );
   const result = await repository.json();
+  console.log(result);
   dispatch(setUserRepository(result));
 };
 

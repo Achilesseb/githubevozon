@@ -6,11 +6,12 @@ import { getContentFromRepositoryData } from "../../../utils";
 
 export function RepositoryFiles() {
   const { repositoryName, login } = useParams();
+  console.log(login, repositoryName);
   const dispatch = useDispatch();
   useEffect(() => {
     getContentFromRepositoryData(dispatch, login, repositoryName);
   }, []);
-  const contents = useSelector((data) => data.content);
+  const contents = useSelector((data) => data.repositories.content);
   console.log(contents);
 
   return (
