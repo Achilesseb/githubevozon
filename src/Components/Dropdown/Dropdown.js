@@ -9,7 +9,7 @@ export function Dropdown() {
     return usersPrimaryData.push({ avatar, fullName, login });
   });
   return (
-    <div className="p-2 bg-blue-200 rounded w-80">
+    <div className="w-full p-2 bg-blue-200 rounded">
       {/*  USER CONTAINER  */}
       {usersPrimaryData
         .filter((users, index) => index < 5)
@@ -17,7 +17,7 @@ export function Dropdown() {
           <Link
             key={user.login}
             to={`/${user.login}`}
-            className="flex items-center gap-3 p-2 bg-gray-400 rounded hover:bg-gray-600 hover:cursor-pointer"
+            className="flex items-center gap-3 p-2 transition duration-1000 ease-in-out bg-gray-400 rounded hover:bg-gray-600 hover:cursor-pointer"
           >
             <div>
               <img className="w-20 rounded-full" src={user.avatar} />

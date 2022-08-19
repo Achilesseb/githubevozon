@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@headlessui/react";
-import Button from "../ButtonComponent/ButtonComponent";
+import Button from "../../ButtonComponent/ButtonComponent";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
-import usePaginationHook from "../../customHooks/customPaginationHook";
-import { useParams } from "react-router-dom";
+import usePaginationHook from "../../../customHooks/customPaginationHook";
+
 const UserRepositories = () => {
   const { reposOnPage, changePage, page } = usePaginationHook();
   return (
@@ -16,13 +16,13 @@ const UserRepositories = () => {
         <Tab.Panel
           idx="repositories"
           key="repositories"
-          className="relative h-full w-100"
+          className=" flex relative h-full w-[100vw]  justify-center "
         >
-          <ul className="flex flex-col justify-start h-full text-white align-top gap-y-2">
+          <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
             {reposOnPage.map((repo) => (
               <Link
                 to={`${repo.repoName}`}
-                className="grid grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"
+                className="grid w-[90%] grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"
                 key={repo.repoName}
               >
                 {Object.values(repo).map((data) => (
@@ -31,7 +31,7 @@ const UserRepositories = () => {
               </Link>
             ))}
           </ul>
-          <div className="absolute bottom-0 flex flex-row text-white align-middle justify-evenly w-sreen right-[30px]">
+          <div className="absolute bottom-0 flex flex-row text-white align-middle justify-evenly w-sreen right-[25px]">
             <Button
               modifiers="w-[150px]"
               type="primary"

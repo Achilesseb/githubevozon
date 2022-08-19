@@ -13,11 +13,13 @@ const UserBasicInfo = () => {
     public_repos: repositories,
     followers,
     following,
+    location,
   } = userData;
   userBasicInfo.push({
     name,
     company,
     avatar,
+    location,
     bio,
     repositories,
     followers,
@@ -25,8 +27,8 @@ const UserBasicInfo = () => {
   });
 
   return (
-    <Tab.Panel key="basic-info" className="h-full align-middle w-100">
-      <ul className="flex flex-col h-full font-normal text-white capitalize justify-evenly text-s text-start">
+    <Tab.Panel key="basic-info" className="w-auto h-full align-middle ">
+      <ul className="flex flex-col items-center h-full font-normal text-white capitalize justify-evenly text-s">
         {Object.entries(userBasicInfo[0]).map((info) =>
           info[0] === "avatar" ? (
             <li key={info[0]} className="order-first">
