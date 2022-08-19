@@ -1,14 +1,15 @@
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { MenuList } from "./MenuList";
 
 export function NavBar() {
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
 
   const handleSidebar = () => setSidebar(!sidebar);
 
   return (
-    <nav className="p-5 bg-black shadow md:flex md:items-center md:justify-between">
+    <nav className="h-full p-2 shadow bg-tab-fill md:flex md:items-center md:justify-between">
       <div className="flex items-center justify-between">
         <span className="text-2xl text-white font-[Poppins]">
           GitHub Project
@@ -21,20 +22,25 @@ export function NavBar() {
           />
         </span>
       </div>
-
-      <ul
-        className={`md:flex md:items-center content-center md:z-auto md:static absolute md:bg-black bg-gray-600 w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 ${
-          sidebar ? "top-[-400px]" : null
-        } transition-all ease-in duration-500`}
-      >
-        {MenuList.map((data, index) => {
-          return (
-            <li key={index} className={data.listClassName}>
-              <a className={data.anchorClassname}>{data.name}</a>
-            </li>
-          );
-        })}
-      </ul>
+      {sidebar === true ? (
+        <ul
+          className={`md:flex md:items-center w-full content-center md:z-auto md:static absolute md:bg-black bg-tab-fill z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 md:opacity-100 transition ease-in-out duration-5000`}
+        >
+          {MenuList.map((data, index) => {
+            return (
+              <li key={index} className={data.listClassName}>
+                <Link
+                  to={data?.to}
+                  className={data.anchorClassname}
+                  onClick={() => setSidebar(!sidebar)}
+                >
+                  {data.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
     </nav>
   );
 }

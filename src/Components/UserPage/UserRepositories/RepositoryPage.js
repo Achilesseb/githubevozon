@@ -45,10 +45,10 @@ export function RepositoryPage() {
       <div className="my-6 font-serif text-center text-white">
         {repositoryName.toUpperCase()}
       </div>
-      <nav className="p-2 h-[7%] bg-white flex justify-around z-1">
+      <nav className="p-2 h-[10%] bg-white flex justify-around z-1">
         {options.map((option, index) => {
           return (
-            <div key={index} className="w-[30%] flex flex-col z-i">
+            <div key={index} className="w-[30%] flex flex-col ">
               <div className={option.divClassName}>
                 <AiIcons.AiOutlineMenu
                   onClick={() => {

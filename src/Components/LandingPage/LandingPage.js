@@ -12,11 +12,8 @@ export function LandingPage() {
   };
 
   return (
-    <div className="full-page">
-      <div className="navbar">
-        <NavBar />
-      </div>
-      <div className="search-container">
+    <div className=" full-page">
+      <div className="mt-6 search-container">
         {isSearchVisible ? (
           <SearchBar isClicked={isClicked} onClick={handleClick} />
         ) : (

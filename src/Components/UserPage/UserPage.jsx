@@ -5,9 +5,10 @@ import UserRepositories from "./UserRepositories/UserRepositories.jsx";
 import { classNames } from "../../utils";
 import { useParams } from "react-router-dom";
 import { getData } from "../../utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 const UserPage = () => {
+  const data = useSelector((data) => data.repositories.user);
   const dispatch = useDispatch();
   const { login } = useParams();
   useEffect(() => {
@@ -21,9 +22,9 @@ const UserPage = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-[100vh] justify-start">
+    <div className="flex flex-col justify-between w-full h-full">
       <Tab.Group>
-        <Tab.List className="flex p-1 space-x-1 rounded-xl bg-tab-fill ">
+        <Tab.List className="relative flex order-1 p-1 m-2 space-x-1 rounded-xl bg-tab-fill">
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}
@@ -41,7 +42,7 @@ const UserPage = () => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-5 h-[85vh]">
+        <Tab.Panels className="h-auto mt-4">
           <UserBasicInfo idx="basic-info" key="basic-info" />
           <UserRepositories idx="repositories" key="repositories" />
         </Tab.Panels>
