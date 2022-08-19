@@ -1,35 +1,27 @@
-import { useEffect } from "react";
-import * as AiIcons from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getContentFromRepositoryData } from "../../../utils";
+// import { useEffect, useState } from "react";
+// import * as AiIcons from "react-icons/ai";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Link, useParams } from "react-router-dom";
+// import { getContentFromRepositoryData } from "../../../utils";
+// import { NestingFiles } from "./NestingFiles";
+// import { RootFile } from "./RootFile";
 
-export function RepositoryFiles() {
-  const { repositoryName, login } = useParams();
-  console.log(login, repositoryName);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getContentFromRepositoryData(dispatch, login, repositoryName);
-  }, []);
-  const contents = useSelector((data) => data.repositories.content);
-  console.log(contents);
+// export function RepositoryFiles({ selectedFile }) {
+//   const { repositoryName, login } = useParams();
+//   const [isRootFilesVisible, setIsRootFilesVisible] = useState(true);
+//   selectedFile = "text";
 
-  return (
-    <>
-      <div className="flex flex-col gap-4 p-2 my-6 bg-white ">
-        {contents.map((file) => {
-          return (
-            <div key={file.name} className="flex items-center gap-4">
-              {file.type == "file" ? (
-                <AiIcons.AiOutlineFile />
-              ) : (
-                <AiIcons.AiFillFolderOpen />
-              )}
-              <div>{file.name}</div>
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
-}
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     getContentFromRepositoryData(dispatch, login, repositoryName);
+//   }, []);
+//   const contents = useSelector((data) => data.repositories.content);
+//   console.log(contents);
+
+//   return (
+//     <>
+//       {canRenderRootFiles()}
+//       {nestingFiles()}
+//     </>
+//   );
+// }

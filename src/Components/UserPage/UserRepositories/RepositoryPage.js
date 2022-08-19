@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getSpecificRepositoryData } from "../../../utils";
+import { getContentFromRepositoryData } from "../../../utils";
 import * as AiIcons from "react-icons/ai";
 import { options } from "./options";
 import { RepositoryFiles } from "./RepositoryFiles";
+import { RootFile } from "./RootFile";
+import { NestingFiles } from "./NestingFiles";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
   const [listBar, setListBar] = useState(options.length + 1);
+  const [isRootFilesVisible, setIsRootFilesVisible] = useState(true);
 
+  // HANDLE SHOWING LISTBAR MENU
   const handleSidebar = (index) => {
     if (listBar !== index) {
       setListBar(index);
@@ -17,17 +21,31 @@ export function RepositoryPage() {
       setListBar(options.length + 1);
     }
   };
+
+  // GET CONTENTS FROM REPOSITORY
   const dispatch = useDispatch();
   useEffect(() => {
-    getSpecificRepositoryData(dispatch, login, repositoryName);
+    getContentFromRepositoryData(dispatch, login, repositoryName);
   }, []);
 
+  // RENDER ROOTFILES COMPONENT
+  const canRenderRootFiles = () => {
+    if (isRootFilesVisible) {
+      return <RootFile setIsRootFilesVisible={setIsRootFilesVisible} />;
+    }
+  };
+  // RENDER NESTINGFILES COMPONENT
+  const nestingFiles = () => {
+    if (!isRootFilesVisible) {
+      return <NestingFiles setIsRootFilesVisible={setIsRootFilesVisible} />;
+    }
+  };
   return (
-    <>
+    <div className="">
       <div className="my-6 font-serif text-center text-white">
         {repositoryName.toUpperCase()}
       </div>
-      <nav className="p-2 h-[7%] bg-white flex justify-around z-1">
+      <nav className="p-2 h-[10%] bg-white flex justify-around z-1">
         {options.map((option, index) => {
           return (
             <div key={index} className="w-[30%] flex flex-col ">
@@ -35,11 +53,10 @@ export function RepositoryPage() {
                 <AiIcons.AiOutlineMenu
                   onClick={() => {
                     handleSidebar(index);
-                    console.log(option.divClassNames);
                   }}
                   className={option.iconClassName}
                 />
-                <span className="md:w-[70%] text-center">{option.name}</span>
+                <span className="md:w-[70%] ">{option.name}</span>
               </div>
 
               <ul
@@ -49,15 +66,16 @@ export function RepositoryPage() {
                     : option.ulClassName
                 }
               >
-                <li>CEVA</li>
-                <li>CEVA</li>
-                <li>CEVA</li>
+                <li>COMING SOON</li>
+                <li>COMING SOON</li>
               </ul>
             </div>
           );
         })}
       </nav>
-      <RepositoryFiles />
-    </>
+
+      {canRenderRootFiles()}
+      {nestingFiles()}
+    </div>
   );
 }

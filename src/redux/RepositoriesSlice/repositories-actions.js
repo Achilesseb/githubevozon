@@ -19,3 +19,7 @@ export const setContentFromRepository = (data) => ({
   type: types.SET_USER_CONTENT,
   payload: data,
 });
+export const setDataForNesting = (data) => ({
+  type: types.SET_DATA_FOR_NESTING,
+  payload: data,
+});
