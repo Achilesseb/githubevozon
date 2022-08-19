@@ -30,7 +30,7 @@ export function RepositoryPage() {
       <nav className="p-2 h-[7%] bg-white flex justify-around z-1">
         {options.map((option, index) => {
           return (
-            <div key={index} className="w-[30%] flex flex-col ">
+            <div key={index} className="w-[30%] flex flex-col z-i">
               <div className={option.divClassName}>
                 <AiIcons.AiOutlineMenu
                   onClick={() => {
@@ -51,13 +51,12 @@ export function RepositoryPage() {
               >
                 <li>CEVA</li>
                 <li>CEVA</li>
-                <li>CEVA</li>
               </ul>
             </div>
           );
         })}
       </nav>
-      <RepositoryFiles />
+      <RepositoryFiles className="z-0" />
     </>
   );
 }

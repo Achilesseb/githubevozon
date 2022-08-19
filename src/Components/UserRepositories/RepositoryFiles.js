@@ -15,7 +15,7 @@ export function RepositoryFiles() {
 
   return (
     <>
-      <div className="my-6 bg-white flex flex-col p-2 gap-4 ">
+      <div className="my-20 bg-white flex flex-col p-2 gap-4 ">
         {contents.map((file) => {
           return (
             <div key={file.name} className="flex items-center gap-4">
