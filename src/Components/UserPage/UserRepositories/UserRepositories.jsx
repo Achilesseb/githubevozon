@@ -16,7 +16,7 @@ const UserRepositories = () => {
         <Tab.Panel
           idx="repositories"
           key="repositories"
-          className=" flex relative h-full w-[100vw]  justify-center "
+          className=" flex h-[80vh] w-[100vw]  justify-center relative "
         >
           <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
             {reposOnPage.map((repo) => (

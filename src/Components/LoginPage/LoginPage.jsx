@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./GitHub-Mark-32px.png";
 import useLoginHook from "../../customHooks/customLoginHook";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getDataByUserId } from "../../utils";
+
 const LoginPage = () => {
   const { login, isPending } = useLoginHook();
-
+  const dispatch = useDispatch();
+  const data = useSelector((data) => data);
+  useEffect(() => {
+    if (data.user.id !== null) getDataByUserId(dispatch, data.user.id);
+  }, [data.user.id]);
   return (
     <div
-      className="relative flex justify-center bg-center bg-no-repeat bg-cover"
+      className="relative flex justify-center mt-8 bg-no-repeat bg-cover"
       //   style="background-image: url(https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80);"
     >
       <div className="absolute inset-0 z-0 opacity-75 "></div>
-      <div className="flex justify-center min-h-screen mx-0 align-middle sm:flex sm:flex-row">
-        <div className="z-10 flex self-center justify-center">
-          <div className="p-12 mx-auto bg-white rounded-2xl w-100 ">
+      <div className="flex justify-center mx-0 align-middle sm:flex sm:flex-row">
+        <div className="z-0 flex justify-center a">
+          <div className="p-6 mx-auto bg-white rounded-2xl w-100 ">
             <div className="mb-4">
               <h3 className="text-2xl font-semibold text-gray-800">Sign In </h3>
               <p className="text-gray-500">Please sign in to your account.</p>
@@ -94,6 +103,9 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      {data.repositories.user.login && (
+        <Navigate to={`/${data.repositories.user.login}`} replace={true} />
+      )}
     </div>
   );
 };

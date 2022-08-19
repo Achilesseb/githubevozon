@@ -1,3 +1,4 @@
+import { setLoginUser } from "./redux/LoginSlice/login-actions";
 import {
   setContentFromRepository,
   setUserData,
@@ -6,17 +7,22 @@ import {
   setUsersSearched,
 } from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
-const USER_URL = "https://api.github.com/users/";
+const USER_URL = "https://api.github.com/user/";
+const USERS_URL = "https://api.github.com/users/";
 const SEARCH_USERS_URL = "https://api.github.com/search/users";
 const USER_REPOSITORY_URL = "https://api.github.com/repos/";
 
 // Get USER DATA
 export const getData = async (dispatch, username) => {
-  const userData = await fetch(`${USER_URL}${username}`);
+  const userData = await fetch(`${USERS_URL}${username}`);
   const result = await userData.json();
   dispatch(setUserData(result));
 };
-
+export const getDataByUserId = async (dispatch, id) => {
+  const user = await fetch(`${USER_URL}${Number(id)}`);
+  const result = await user.json();
+  dispatch(setUserData(result));
+};
 // Get USERS DATA
 export const getUsers = async (dispatch, username) => {
   const userData = await fetch(`${SEARCH_USERS_URL}?q=${username}`);
@@ -26,7 +32,7 @@ export const getUsers = async (dispatch, username) => {
 
 // GET REPOSITORIES FOR A SPECIFIC USER
 export const getRepositoryData = async (dispatch, username) => {
-  const repositories = await fetch(`${USER_URL}${username}/repos`);
+  const repositories = await fetch(`${USERS_URL}${username}/repos`);
   const result = await repositories.json();
   dispatch(setUserRepositories(result));
 };

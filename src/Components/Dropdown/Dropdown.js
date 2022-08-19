@@ -12,7 +12,7 @@ export function Dropdown() {
     return usersPrimaryData.push({ avatar, fullName, login });
   });
   return (
-    <div className="w-full p-2 bg-blue-200 rounded">
+    <div className="w-full p-2 rounded bg-tab-fill">
       {/*  USER CONTAINER  */}
       {usersPrimaryData
         .filter((users, index) => index < 5)

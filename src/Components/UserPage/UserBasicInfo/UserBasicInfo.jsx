@@ -27,14 +27,14 @@ const UserBasicInfo = () => {
   });
 
   return (
-    <Tab.Panel key="basic-info" className="w-auto h-full align-middle ">
+    <Tab.Panel key="basic-info" className="w-auto h-[80vh] align-middle ">
       <ul className="flex flex-col items-center h-full font-normal text-white capitalize justify-evenly text-s">
         {Object.entries(userBasicInfo[0]).map((info) =>
           info[0] === "avatar" ? (
             <li key={info[0]} className="order-first">
               <img
                 src={info[1]}
-                style={{ height: "180px", borderRadius: "100px" }}
+                style={{ height: "30vh", borderRadius: "100px" }}
               />
             </li>
           ) : (

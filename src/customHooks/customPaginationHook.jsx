@@ -12,7 +12,6 @@ const usePaginationHook = () => {
   const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
-  console.log(userRepositories);
   useEffect(() => {
     getRepositoryData(dispatch, login);
   }, []);
