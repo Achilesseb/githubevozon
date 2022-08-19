@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getRepositoryData } from "../utils";
+import { getRepositoryData, getSpecificRepositoryData } from "../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PAGINATION_NUMBER as increaser } from "../utils";
@@ -12,6 +12,7 @@ const usePaginationHook = () => {
   const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
+  console.log(userRepositories);
   useEffect(() => {
     getRepositoryData(dispatch, login);
   }, []);

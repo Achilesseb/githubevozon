@@ -5,14 +5,13 @@ import { Dropdown } from "../Dropdown/Dropdown";
 import debounce from "lodash.debounce";
 import { useMemo } from "react";
 
-export function SearchBar() {
-  const [isVisible, setIsVisible] = useState(true);
+export function SearchBar({ isClicked, onClick }) {
   const dispatch = useDispatch();
   const userPrimaryData = useSelector((data) => data.repositories.users);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [escNotPressed, setescNotPressed] = useState(true);
-  console.log(userPrimaryData);
+
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
       setescNotPressed(false);
@@ -20,6 +19,29 @@ export function SearchBar() {
     }
   }, []);
 
+  // CHECK IF USERNAME LENGTH HAS BEEN CHANGED
+  useEffect(() => {
+    setescNotPressed(true);
+    onClick(true);
+  }, [username]);
+
+  // DETECT WHEN CLICK IS OUTSIDE OF INPUT
+  useEffect(() => {
+    const handleClickOutside = () => {
+      onClick(false);
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, [onClick]);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick(true);
+  };
+
+  // DETECT WHEN ESC KEY IS PRESSED
   useEffect(() => {
     document.addEventListener("keydown", escFunction);
 
@@ -28,31 +50,35 @@ export function SearchBar() {
     };
   }, [escFunction]);
 
+  // SUBMIT INPUT FOR FETCHING DATA
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsername(e.target.value);
   };
-  const changeDropdownVisibility = (decision) => {
-    setescNotPressed(decision);
-    return setIsVisible(decision);
-  };
+
+  // HANDLE SUBMIT OVER 0.5 SEC
   useEffect(() => {
-    console.log(username);
     searchRepos();
   }, [username]);
   const debouncedResults = useMemo(() => {
     return debounce(handleSubmit, 500);
   }, []);
+
+  // RESET HANDLE SUBMIT
   useEffect(() => {
     return () => {
       debouncedResults.cancel();
     };
   });
+
+  // RESET USERDATA
   useEffect(() => {
     return () => {
       getUsers(dispatch, {});
     };
   }, []);
+
+  // FETCHING DATA
   const searchRepos = () => {
     setLoading(true);
     getUsers(dispatch, username);
@@ -62,47 +88,48 @@ export function SearchBar() {
     if (
       userPrimaryData.items?.length > 0 &&
       !userPrimaryData.message &&
-      isVisible &&
+      isClicked &&
       escNotPressed
     ) {
       return <Dropdown />;
     }
   };
-  console.log(escNotPressed, isVisible);
+
   return (
     <>
       <div
-        onMouseLeave={() => setescNotPressed(false)}
-        onClick={() => changeDropdownVisibility(true)}
-        className="relative flex flex-col gap-4 p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80 justify-evenly"
-      >
-        {/* SEARCH ICON */}
-        <div className="flex flex-row items-center align-middle justify-evenly">
-          <svg
-            className="w-5 ml-1 "
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-
-          {/* INPUT BAR */}
-          <input
-            type="text"
-            className="ml-6 bg-transparent "
-            placeholder="GitHub Username"
-            onChange={debouncedResults}
+        onClick={(e) => {
+          handleClick(e);
+          setescNotPressed(true);
+        }}
+        className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
+      />
+      {/* SEARCH ICON */}
+      <div className="flex flex-row items-center align-middle justify-evenly">
+        <svg
+          className="w-5 ml-1 "
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
-        </div>
-        {canRenderDropdown()}
+        </svg>
+
+        {/* INPUT BAR */}
+        <input
+          // type="text"
+          className="ml-6 bg-transparent "
+          placeholder="GitHub Username"
+          onChange={debouncedResults}
+        />
       </div>
+      {canRenderDropdown()}
     </>
   );
 }

@@ -5,6 +5,7 @@ import UserPage from "./Components/UserPage/UserPage.jsx";
 import { useSelector } from "react-redux";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import userLoginHook from "./customHooks/customLoginHook";
+import { RepositoryPage } from "./Components/UserPage/UserRepositories/RepositoryPage";
 function App() {
   const { login, isPending } = userLoginHook();
   console.log(login, isPending);
@@ -16,6 +17,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path={`/:login`} element={<UserPage />} />
+          <Route
+            path={`/:login/:repositoryName`}
+            element={<RepositoryPage />}
+          />
         </Routes>
       </Router>
     </div>

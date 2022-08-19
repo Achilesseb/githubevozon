@@ -3,6 +3,8 @@ const INITIAL_STATE = {
   users: [],
   user: {},
   repositories: [],
+  repository: {},
+  content: [],
 };
 const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -14,6 +16,12 @@ const repo_reducer = (state = INITIAL_STATE, action) => {
     }
     case types.SET_USERS_SEARCHED: {
       return { ...state, users: action.payload };
+    }
+    case types.SET_USER_REPOSITORY: {
+      return { ...state, repository: action.payload };
+    }
+    case types.SET_USER_CONTENT: {
+      return { ...state, content: action.payload };
     }
     default: {
       return state;
