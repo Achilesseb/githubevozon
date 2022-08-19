@@ -5,20 +5,42 @@ import { Dropdown } from "../Dropdown/Dropdown";
 import debounce from "lodash.debounce";
 import { useMemo } from "react";
 
-export function SearchBar() {
-  const [isVisible, setIsVisible] = useState(true);
+export function SearchBar({ isClicked, onClick }) {
   const dispatch = useDispatch();
   const userPrimaryData = useSelector((data) => data.users);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [escNotPressed, setescNotPressed] = useState(true);
-  console.log(userPrimaryData);
+
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
       setescNotPressed(false);
     }
   }, []);
 
+  // CHECK IF USERNAME LENGTH HAS BEEN CHANGED
+  useEffect(() => {
+    setescNotPressed(true);
+    onClick(true);
+  }, [username]);
+
+  // DETECT WHEN CLICK IS OUTSIDE OF INPUT
+  useEffect(() => {
+    const handleClickOutside = () => {
+      onClick(false);
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, [onClick]);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick(true);
+  };
+
+  // DETECT WHEN ESC KEY IS PRESSED
   useEffect(() => {
     document.addEventListener("keydown", escFunction);
 
@@ -27,31 +49,35 @@ export function SearchBar() {
     };
   }, [escFunction]);
 
+  // SUBMIT INPUT FOR FETCHING DATA
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsername(e.target.value);
   };
-  const changeDropdownVisibility = (decision) => {
-    setescNotPressed(decision);
-    return setIsVisible(decision);
-  };
+
+  // HANDLE SUBMIT OVER 0.5 SEC
   useEffect(() => {
-    console.log(username);
     searchRepos();
   }, [username]);
   const debouncedResults = useMemo(() => {
     return debounce(handleSubmit, 500);
   }, []);
+
+  // RESET HANDLE SUBMIT
   useEffect(() => {
     return () => {
       debouncedResults.cancel();
     };
   });
+
+  // RESET USERDATA
   useEffect(() => {
     return () => {
       getUsers(dispatch, {});
     };
   }, []);
+
+  // FETCHING DATA
   const searchRepos = () => {
     setLoading(true);
     getUsers(dispatch, username);
@@ -61,7 +87,7 @@ export function SearchBar() {
     if (
       userPrimaryData.items?.length > 0 &&
       !userPrimaryData.message &&
-      isVisible &&
+      isClicked &&
       escNotPressed
     ) {
       return <Dropdown />;
@@ -69,9 +95,11 @@ export function SearchBar() {
   };
   return (
     <>
-      <form
-        onMouseOut={() => setescNotPressed(false)}
-        onClick={() => changeDropdownVisibility(true)}
+      <div
+        onClick={(e) => {
+          handleClick(e);
+          setescNotPressed(true);
+        }}
         className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
       >
         {/* SEARCH ICON */}
@@ -92,12 +120,12 @@ export function SearchBar() {
 
         {/* INPUT BAR */}
         <input
-          type="text"
+          // type="text"
           className="ml-6 bg-transparent "
           placeholder="GitHub Username"
           onChange={debouncedResults}
         />
-      </form>
+      </div>
       {canRenderDropdown()}
     </>
   );

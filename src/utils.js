@@ -1,27 +1,62 @@
 import {
+  setContentFromRepository,
   setUserData,
   setUserRepositories,
+  setUserRepository,
   setUsersSearched,
 } from "./redux/actions";
 export const PAGINATION_NUMBER = 6;
 const USER_URL = "https://api.github.com/users/";
 const SEARCH_USERS_URL = "https://api.github.com/search/users";
+const USER_REPOSITORY_URL = "https://api.github.com/repos/";
+
+// Get USER DATA
 export const getData = async (dispatch, username) => {
   const userData = await fetch(`${USER_URL}${username}`);
   const result = await userData.json();
   dispatch(setUserData(result));
 };
+
+// Get USERS DATA
 export const getUsers = async (dispatch, username) => {
   const userData = await fetch(`${SEARCH_USERS_URL}?q=${username}`);
   const result = await userData.json();
-  console.log(result);
   dispatch(setUsersSearched(result));
 };
+
+// GET REPOSITORIES FOR A SPECIFIC USER
 export const getRepositoryData = async (dispatch, username) => {
   const repositories = await fetch(`${USER_URL}${username}/repos`);
   const result = await repositories.json();
   dispatch(setUserRepositories(result));
 };
+
+// GET A SPECIFIC REPOSITORY FOR A SPECIFIC USER
+export const getSpecificRepositoryData = async (
+  dispatch,
+  username,
+  repoName
+) => {
+  const repository = await fetch(
+    `${USER_REPOSITORY_URL}${username}/${repoName}`
+  );
+  const result = await repository.json();
+  dispatch(setUserRepository(result));
+};
+
+// GET CONTENT FROM A REPOSITORY FOR A SPECIFIC USER
+export const getContentFromRepositoryData = async (
+  dispatch,
+  username,
+  repoName
+) => {
+  const repository = await fetch(
+    `${USER_REPOSITORY_URL}${username}/${repoName}/contents`
+  );
+  const result = await repository.json();
+  dispatch(setContentFromRepository(result));
+};
+
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
