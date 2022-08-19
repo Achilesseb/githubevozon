@@ -8,7 +8,7 @@ import { useMemo } from "react";
 export function SearchBar() {
   const [isVisible, setIsVisible] = useState(true);
   const dispatch = useDispatch();
-  const userPrimaryData = useSelector((data) => data.users);
+  const userPrimaryData = useSelector((data) => data.repositories.users);
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [escNotPressed, setescNotPressed] = useState(true);

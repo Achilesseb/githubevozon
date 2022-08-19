@@ -2,7 +2,7 @@ import {
   setUserData,
   setUserRepositories,
   setUsersSearched,
-} from "./redux/actions";
+} from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
 const USER_URL = "https://api.github.com/users/";
 const SEARCH_USERS_URL = "https://api.github.com/search/users";

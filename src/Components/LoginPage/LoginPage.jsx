@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "./GitHub-Mark-32px.png";
+import useLoginHook from "../../customHooks/customLoginHook";
 const LoginPage = () => {
+  const { login, isPending } = useLoginHook();
+
   return (
     <div
       className="relative flex justify-center bg-center bg-no-repeat bg-cover"
@@ -82,7 +85,10 @@ const LoginPage = () => {
             <div className="flex justify-center w-full p-3 font-semibold text-gray-400">
               Or continue with
             </div>
-            <button className="flex justify-center w-full p-5 mt-2 font-semibold tracking-wide transition duration-500 ease-in border-2 shadow-2xl cursor-pointer rounded-xl ">
+            <button
+              onClick={login}
+              className="flex justify-center w-full p-5 mt-2 font-semibold tracking-wide transition duration-500 ease-in border-2 shadow-2xl cursor-pointer rounded-xl "
+            >
               <img className="flex justify-center" src={logo} />
             </button>
           </div>

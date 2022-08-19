@@ -3,7 +3,7 @@ import { Tab } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
 const UserBasicInfo = () => {
-  const userData = useSelector((data) => data.user);
+  const userData = useSelector((data) => data.repositories.user);
   let userBasicInfo = [];
   const {
     name,

@@ -4,8 +4,11 @@ import { LandingPage } from "./Components/LandingPage/LandingPage.js";
 import UserPage from "./Components/UserPage/UserPage.jsx";
 import { useSelector } from "react-redux";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import userLoginHook from "./customHooks/customLoginHook";
 function App() {
-  const { login } = useSelector((data) => data.user);
+  const { login, isPending } = userLoginHook();
+  console.log(login, isPending);
+
   return (
     <div className="flex flex-col justify-start w-full h-screen p-1 py-2 align-top bg-background-fill">
       <Router>

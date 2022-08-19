@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export function Dropdown() {
-  const usersSearchedData = useSelector((data) => data.users.items);
+  const usersSearchedData = useSelector(
+    (data) => data.repositories.users.items
+  );
   let usersPrimaryData = [];
   usersSearchedData.forEach((user) => {
     const { avatar_url: avatar, name: fullName, login } = user;

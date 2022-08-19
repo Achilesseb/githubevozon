@@ -1,10 +1,10 @@
-import { types } from "./types";
+import { types } from "./repositories-types";
 const INITIAL_STATE = {
   users: [],
   user: {},
   repositories: [],
 };
-const reducer = (state = INITIAL_STATE, action) => {
+const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.SET_USER_DATA: {
       return { ...state, user: action.payload };
@@ -20,4 +20,4 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
   }
 };
-export default reducer;
+export default repo_reducer;
