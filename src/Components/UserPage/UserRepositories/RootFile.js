@@ -10,7 +10,7 @@ export function RootFile({ setIsRootFilesVisible }) {
 
   return (
     <div className="my-20 bg-white flex flex-col p-2 gap-1 z-0 h-auto">
-      <div className="text-white">text</div>
+      <div className="">{repositoryName}</div>
       {contents.map((file, index) => {
         return (
           <div
