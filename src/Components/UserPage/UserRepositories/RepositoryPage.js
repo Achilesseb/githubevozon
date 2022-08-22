@@ -4,6 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import { options } from "./options";
 import { getSpecificRepositoryData } from "../../../utils";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
@@ -23,14 +24,14 @@ export function RepositoryPage() {
   };
 
   return (
-    <div className="">
-      <div className="my-6 font-serif text-center text-white">
+    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 mb-8">
+      <div className="mt-2 font-serif text-xl text-center text-white ">
         {repositoryName.toUpperCase()}
       </div>
-      <nav className="p-2 h-[10%] bg-white flex justify-around z-1">
+      <nav className="p-0 h-[10vh] flex flex-row justify-evenly z-1 ">
         {options.map((option, index) => {
           return (
-            <div key={index} className="w-[30%] flex flex-col ">
+            <Link to="files" key={index} className="w-[30vw]  ">
               <div className={option.divClassName}>
                 <AiIcons.AiOutlineMenu
                   onClick={() => {
@@ -51,11 +52,13 @@ export function RepositoryPage() {
                 <li>COMING SOON</li>
                 <li>COMING SOON</li>
               </ul>
-            </div>
+            </Link>
           );
         })}
       </nav>
-      <Outlet />
+      <div className="flex self-center w-[90%] ">
+        <Outlet />
+      </div>
     </div>
   );
 }

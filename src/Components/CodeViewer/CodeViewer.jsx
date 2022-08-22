@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { useSelector } from "react-redux";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Buffer } from "buffer";
 
 const CodeViewer = () => {
-  const state = useSelector((data) => data.repositories.fileCode);
+  const fileContent = useSelector((data) => data.repositories.content);
   const [code, setCode] = useState(null);
+
   const getCode = async () => {
-    const fetchData = await fetch(state.url);
-    const code = await fetchData.json();
-    const decoded = Buffer.from(code.content, "base64").toString("ascii");
-    setCode(decoded);
+    const fetchData = await fetch(fileContent.url);
+    const result = await fetchData.json();
+    const decodedCode = Buffer.from(result.content, "base64").toString("ascii");
+    setCode(decodedCode);
   };
   useEffect(() => {
     getCode();
   }, []);
   return (
-    <SyntaxHighlighter language="javascript" style={docco}>
+    <SyntaxHighlighter
+      language="javascript"
+      style={dracula}
+      customStyle={{ width: "100%" }}
+    >
       {code}
     </SyntaxHighlighter>
   );

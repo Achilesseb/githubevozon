@@ -9,7 +9,7 @@ export function NavBar() {
   const handleSidebar = () => setSidebar(!sidebar);
 
   return (
-    <nav className="h-full p-2 shadow bg-tab-fill md:flex md:items-center md:justify-between">
+    <nav className="h-[10vh] p-2 shadow bg-tab-fill md:flex md:items-center md:justify-between">
       <div className="flex items-center justify-between">
         <span className="text-2xl text-white font-[Poppins]">
           GitHub Project
