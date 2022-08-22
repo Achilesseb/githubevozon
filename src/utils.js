@@ -64,12 +64,16 @@ export const getSpecificRepositoryData = async (
 export const getContentFromRepositoryData = async (
   dispatch,
   username,
-  repoName
+  repoName,
+  ad
 ) => {
   const repository = await fetch(
-    `${USER_REPOSITORY_URL}${username}/${repoName}/contents`
+    `${USER_REPOSITORY_URL}${username}/${repoName}/contents/${ad
+      .join("/")
+      .replaceAll(",", "")}`
   );
   const result = await repository.json();
+  console.log(result);
   dispatch(setContentFromRepository(result));
 };
 
