@@ -7,21 +7,21 @@ const ulClassName =
 export const options = [
   {
     name: "Code",
-    icon: "ICON",
+    to: "files",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
-    name: "Select item",
-    icon: "ICON",
+    name: "Commits",
+    to: "commits",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
-    name: "Select item",
-    icon: "ICON",
+    name: "Merges",
+    to: "merges",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,

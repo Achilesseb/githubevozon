@@ -8,13 +8,6 @@ import {
   setUsersSearched,
 } from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
-export const urlForGoingBack = {};
-export const URLNames = [];
-
-// SAVE NAME FOR GOING BACK
-export const saveURLNames = (key, value) => {
-  URLNames.push({ [key]: value });
-};
 
 const USER_URL = "https://api.github.com/user/";
 const USERS_URL = "https://api.github.com/users/";
@@ -24,6 +17,7 @@ const USER_REPOSITORY_URL = "https://api.github.com/repos/";
 // Get USER DATA
 export const getData = async (dispatch, username) => {
   const userData = await fetch(`${USERS_URL}${username}`);
+  console.log(console.log(userData));
   const result = await userData.json();
   dispatch(setUserData(result));
 };
@@ -55,8 +49,9 @@ export const getSpecificRepositoryData = async (
   const repository = await fetch(
     `${USER_REPOSITORY_URL}${username}/${repoName}`
   );
+  console.log(repository);
   const result = await repository.json();
-  console.log(result);
+
   dispatch(setUserRepository(result));
 };
 
@@ -73,13 +68,15 @@ export const getContentFromRepositoryData = async (
       .replaceAll(",", "")}`
   );
   const result = await repository.json();
-  console.log(result);
   dispatch(setContentFromRepository(result));
 };
 
 // GET DATA FOR NESTING FILES
 export const getDataForNesting = async (dispatch, fileURL) => {
-  const repository = await fetch(fileURL);
+  const repository = await fetch(
+    "https://api.github.com/repos/PaMarius/pikachu-go/languages"
+  );
+  console.log(repository);
   const result = await repository.json();
   dispatch(setDataForNesting(result));
 };

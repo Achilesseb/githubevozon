@@ -19,7 +19,8 @@ export function Dropdown() {
         .map((user) => (
           <Link
             key={user.login}
-            to={`/${user.login}`}
+            to={`/${user.login}/info
+            `}
             className="flex items-center gap-3 p-2 transition duration-1000 ease-in-out bg-gray-400 rounded hover:bg-gray-600 hover:cursor-pointer"
           >
             <div>

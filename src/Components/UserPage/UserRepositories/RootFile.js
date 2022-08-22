@@ -13,7 +13,7 @@ export function RootFile() {
   const contents = useSelector((data) => data.repositories.content);
   const dispatch = useDispatch();
   const path = useMatch("/*");
-  const ad = path.pathname.split("/").filter((params, index) => index > 3);
+  const ad = path.pathname.split("/").filter((params, index) => index > 4);
   useEffect(() => {
     getContentFromRepositoryData(
       dispatch,
@@ -23,7 +23,7 @@ export function RootFile() {
     );
   }, [path]);
   return (
-    <div className="z-0 flex flex-col h-auto gap-1 p-2 my-20 bg-white">
+    <div className="z-0 flex flex-col h-auto gap-1 p-2 my-10 bg-white">
       <div className="">{params.repositoryName}</div>
       {}
       {contents.map((file, index) => {
@@ -38,7 +38,8 @@ export function RootFile() {
           </Link>
         ) : (
           <Link
-            to={`/${params.login}/${params.repositoryName}/${file.name}/viewer`}
+            to={`/${params.login}/repos/${params.repositoryName}/${file.name}/viewer`}
+            key={index}
             onClick={(e) => {
               handleOpenViewer(e, file);
             }}
