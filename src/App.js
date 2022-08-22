@@ -9,28 +9,23 @@ import { RootFile } from "./Components/UserPage/UserRepositories/RootFile";
 import CodeViewer from "./Components/CodeViewer/CodeViewer";
 import { RepositoryPage } from "./Components/UserPage/UserRepositories/RepositoryPage";
 function App() {
-  const data = useSelector((data) => data);
-  console.log(data);
   return (
     <div className="flex flex-col justify-start w-full h-full align-top bg-background-fill">
-      <Router>
-        <div className="navbar">
-          <NavBar />
-        </div>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path={`/:login`} element={<UserPage />} />
-          <Route
-            exact
-            path={`/:login/:repositoryName`}
-            element={<RepositoryPage />}
-          >
-            <Route path={`files*`} element={<RootFile />} />
-            <Route path={`:pathname/viewer`} element={<CodeViewer />} />
-          </Route>
-        </Routes>
-      </Router>
+      <div className="navbar">
+        <NavBar />
+      </div>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path={`/:login`} element={<UserPage />} />
+        <Route
+          exact
+          path={`/:login/:repositoryName`}
+          element={<RepositoryPage />}
+        >
+          <Route path={`files*`} element={<RootFile />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
