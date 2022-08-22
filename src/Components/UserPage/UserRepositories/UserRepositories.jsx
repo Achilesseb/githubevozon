@@ -32,11 +32,7 @@ const UserRepositories = () => {
             ))}
           </ul>
           <div className="absolute bottom-0 flex flex-row text-white align-middle justify-evenly w-sreen right-[25px]">
-            <Button
-              modifiers="w-[150px]"
-              type="primary"
-              changePage={changePage}
-            >
+            <Button modifiers="w-[150px]" type="primary" callback={changePage}>
               Next
             </Button>
             <span className="h-10 px-2 text-3xl font-bold rounded-full w-30">
@@ -45,7 +41,7 @@ const UserRepositories = () => {
             <Button
               modifiers="w-[150px]"
               type="secondary"
-              changePage={changePage}
+              callback={changePage}
             >
               Previous
             </Button>
