@@ -4,8 +4,10 @@ import { LandingPage } from "./Components/LandingPage/LandingPage.js";
 import UserPage from "./Components/UserPage/UserPage.jsx";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import { NavBar } from "./Components/NavBar/NavBar";
-import { RepositoryPage } from "./Components/UserPage/UserRepositories/RepositoryPage";
 import { useSelector } from "react-redux";
+import { RootFile } from "./Components/UserPage/UserRepositories/RootFile";
+import CodeViewer from "./Components/CodeViewer/CodeViewer";
+import { RepositoryPage } from "./Components/UserPage/UserRepositories/RepositoryPage";
 function App() {
   const data = useSelector((data) => data);
   console.log(data);
@@ -20,9 +22,13 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path={`/:login`} element={<UserPage />} />
           <Route
+            exact
             path={`/:login/:repositoryName`}
             element={<RepositoryPage />}
-          />
+          >
+            <Route path={`files*`} element={<RootFile />} />
+            <Route path={`:pathname/viewer`} element={<CodeViewer />} />
+          </Route>
         </Routes>
       </Router>
     </div>

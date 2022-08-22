@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   repositories: [],
   repository: {},
   content: [],
-  nesting: [],
+  fileCode: [],
 };
 const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -25,7 +25,7 @@ const repo_reducer = (state = INITIAL_STATE, action) => {
       return { ...state, content: action.payload };
     }
     case types.SET_DATA_FOR_NESTING: {
-      return { ...state, nesting: [action.payload] };
+      return { ...state, fileCode: action.payload };
     }
     default: {
       return state;

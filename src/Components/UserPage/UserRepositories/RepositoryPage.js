@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getContentFromRepositoryData } from "../../../utils";
+import { Outlet, useParams } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
 import { options } from "./options";
-import { RepositoryFiles } from "./RepositoryFiles";
-import { RootFile } from "./RootFile";
-import { NestingFiles } from "./NestingFiles";
+import { getSpecificRepositoryData } from "../../../utils";
+import { useDispatch } from "react-redux";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
-  const [listBar, setListBar] = useState(options.length + 1);
-  const [isRootFilesVisible, setIsRootFilesVisible] = useState(true);
+  const dispatch = useDispatch();
 
+  const [listBar, setListBar] = useState(options.length + 1);
+  useEffect(() => {
+    getSpecificRepositoryData(dispatch, login, repositoryName);
+  }, []);
   // HANDLE SHOWING LISTBAR MENU
   const handleSidebar = (index) => {
     if (listBar !== index) {
@@ -22,24 +22,6 @@ export function RepositoryPage() {
     }
   };
 
-  // GET CONTENTS FROM REPOSITORY
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getContentFromRepositoryData(dispatch, login, repositoryName);
-  }, []);
-
-  // RENDER ROOTFILES COMPONENT
-  const canRenderRootFiles = () => {
-    if (isRootFilesVisible) {
-      return <RootFile setIsRootFilesVisible={setIsRootFilesVisible} />;
-    }
-  };
-  // RENDER NESTINGFILES COMPONENT
-  const nestingFiles = () => {
-    if (!isRootFilesVisible) {
-      return <NestingFiles setIsRootFilesVisible={setIsRootFilesVisible} />;
-    }
-  };
   return (
     <div className="">
       <div className="my-6 font-serif text-center text-white">
@@ -73,9 +55,7 @@ export function RepositoryPage() {
           );
         })}
       </nav>
-
-      {canRenderRootFiles()}
-      {nestingFiles()}
+      <Outlet />
     </div>
   );
 }
