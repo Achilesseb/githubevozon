@@ -23,11 +23,10 @@ const UserPage = () => {
 
   const checkRoute = (category) => {
     if (
-      location.pathname == `/${login}/${category[1]}` ||
-      location.pathname == `/${login}/${category[1]}/`
+      location.pathname === `/${login}/${category[1]}` ||
+      location.pathname === `/${login}/${category[1]}/`
     ) {
       return true;
-    } else {
     }
   };
 
@@ -39,7 +38,7 @@ const UserPage = () => {
             <Tab
               onClick={() => navigate(category[1])}
               key={category[0]}
-              className={({ selected }) =>
+              className={() =>
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 transition ease-in-out duration-300",
                   "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",

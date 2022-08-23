@@ -1,12 +1,41 @@
 import { useState } from "react";
 import * as AiIcons from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { MenuList } from "./MenuList";
+import { useLogout } from "../../customHooks/customLogOutHook";
+import { setLoggedInUserId, setLoginUser } from "../../redux/LoginSlice/login-actions";
+import { anchorClassname, listClassName, MenuList } from "./MenuList";
 
 export function NavBar() {
   const [sidebar, setSidebar] = useState(true);
+  const dispatch = useDispatch();
+  const { logout } = useLogout();
+  const { user } = useSelector((data) => data.user);
 
   const handleSidebar = () => setSidebar(!sidebar);
+
+  const getLogoutButton = () => {
+    if(!user) return;
+    return <li key={'logout-button'} className={listClassName}>
+      <Link
+        to={'/'}
+        className={anchorClassname}
+        onClick={() => {
+          logout()
+            .then(() => {
+              dispatch(setLoginUser(null));
+              dispatch(setLoggedInUserId(null));
+              console.log("Successfully logged out");
+            }).catch(err => {
+              console.log("Something went wrong when logging out??", err);
+          })
+          }
+        }
+      >
+        Logout
+      </Link>
+    </li>
+  }
 
   return (
     <nav className="h-[10vh] p-2 shadow bg-tab-fill md:flex md:items-center md:justify-between">
@@ -37,11 +66,12 @@ export function NavBar() {
                 className={data.anchorClassname}
                 onClick={() => setSidebar(!sidebar)}
               >
-                {data.name}
+                {data.name === 'Login' && user ? 'My Profile' : data.name}
               </Link>
             </li>
           );
         })}
+        {getLogoutButton()}
       </ul>
     </nav>
   );
