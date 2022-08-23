@@ -5,3 +5,6 @@ export const setProfileBranch = (data, branchName) => ({
   payload: data,
   branchName: branchName,
 });
+export const setDeleteBranches = () => ({
+  type: types.DELETE_BRANCHES,
+});

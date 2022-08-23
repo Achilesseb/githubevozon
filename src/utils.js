@@ -2,6 +2,7 @@ import { setProfileBranch } from "./redux/Branches/branches-actions";
 import {
   setContentFromRepository,
   setDataForBranches,
+  setDataForCommits,
   setDataForNesting,
   setUserData,
   setUserRepositories,
@@ -12,10 +13,10 @@ export const PAGINATION_NUMBER = 6;
 
 // Calc percent for Code Lines
 export const colors = {
-  JavaScript: "red-600",
-  HTML: "yellow-400",
-  CSS: "blue-700",
-  SCSS: "green-600",
+  JavaScript: "bg-red-600",
+  HTML: "bg-yellow-400",
+  CSS: "bg-blue-700",
+  SCSS: "bg-green-600",
   JSON: "[#f37c27]",
   TypeScript: "[#f327c0]",
   Shell: "[#27aff3]",
@@ -34,6 +35,9 @@ export const calcPercent = (languagesUsed) => {
   languagesUsed.map((language) => {
     percent = (language[1] / sumOfLines) * 100;
     lines[language[0]] = {
+      style: {
+        width: `${percent.toFixed(2)}%`,
+      },
       percent: percent.toFixed(2),
       lines: language[1],
     };
@@ -122,6 +126,15 @@ export const getProfileBranches = async (dispatch, url, branchName) => {
   const profileBranch = await fetch(url);
   const result = await profileBranch.json();
   dispatch(setProfileBranch(result, branchName));
+};
+
+// GET DATA FOR COMMITS
+export const getDataForCommits = async (dispatch, login, repositoryName) => {
+  const commits = await fetch(
+    `${USER_REPOSITORY_URL}${login}/${repositoryName}/commits`
+  );
+  const result = await commits.json();
+  dispatch(setDataForCommits(result));
 };
 
 export function classNames(...classes) {
