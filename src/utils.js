@@ -1,4 +1,3 @@
-import { setProfileBranch } from "./redux/Branches/branches-actions";
 import {
   setContentFromRepository,
   setDataForBranches,
@@ -7,6 +6,7 @@ import {
   setUserRepositories,
   setUserRepository,
   setUsersSearched,
+  setProfileBranch,
 } from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
 
@@ -115,13 +115,18 @@ export const getDataForBranches = async (dispatch, login, repositoryName) => {
   );
   const result = await branches.json();
   dispatch(setDataForBranches(result));
+  getProfileBranches(dispatch, await result.map((res) => res.commit.url));
 };
 
 // GET PROFILE BRANCH
-export const getProfileBranches = async (dispatch, url, branchName) => {
-  const profileBranch = await fetch(url);
-  const result = await profileBranch.json();
-  dispatch(setProfileBranch(result, branchName));
+export const getProfileBranches = async (dispatch, urls) => {
+  const fetchLinks = urls.map((url) => fetch(url));
+  const responses = Promise.all(fetchLinks).then((result) =>
+    result.map((res) => res.json())
+  );
+  responses.then((res) => {
+    res.map((res) => res.then((re) => dispatch(setProfileBranch(re))));
+  });
 };
 
 export function classNames(...classes) {

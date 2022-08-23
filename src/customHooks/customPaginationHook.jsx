@@ -4,30 +4,54 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PAGINATION_NUMBER as increaser } from "../utils";
 import { timeSince } from "../utils";
-const usePaginationHook = () => {
+const usePaginationHook = (data) => {
+  const [sortByName, setSortByName] = useState(false);
+  const [filteredRepositories, setFilteredRepositories] = useState(data);
+  const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
   const [reposOnPage, setReposPage] = useState(null);
   const dispatch = useDispatch();
-  const userRepositories = useSelector((data) => data.repositories);
+  const handleSort = () => {
+    if (sortByName) {
+      return (a, b) => (a.name > b.name ? 1 : -1);
+    } else {
+      return (a, b) => (a.name > b.name ? -1 : 1);
+    }
+  };
+
   const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
+
   useEffect(() => {
-    getRepositoryData(dispatch, login);
-  }, []);
+    let filteredRepositories = data.filter(
+      (repo) =>
+        repo.name.toLowerCase().includes(filter.toLowerCase()) || filter === ""
+    );
+    setFilteredRepositories(filteredRepositories);
+  }, [filter]);
   useEffect(() => {
     setReposOnPage();
-  }, [userRepositories.repositories, page]);
-  userRepositories.repositories.forEach((repo) => {
-    const { name, language, updated_at, visibility } = repo;
-    const howLongAgo = timeSince(new Date(updated_at));
-    repositoriesData.push({
-      repoName: name,
-      language,
-      Last_update: `${howLongAgo} ago`,
-      visibility,
-    });
+  }, [filteredRepositories, page, filter]);
+  useEffect(() => {
+    setFilteredRepositories(data);
+  }, [data]);
+  filteredRepositories?.forEach((repo) => {
+    if (!repo.commit) {
+      const { name, language, updated_at, visibility } = repo;
+      const howLongAgo = timeSince(new Date(updated_at));
+      repositoriesData.push({
+        repoName: name,
+        language,
+        Last_update: `${howLongAgo} ago`,
+        visibility,
+      });
+    } else {
+      const { name, commit } = repo;
+      repositoriesData.push({ name: name, commit: commit });
+    }
   });
+
   const changePage = (direction) => {
     direction.toLowerCase() === "next" ? setPage(page + 1) : setPage(page - 1);
   };
@@ -44,6 +68,16 @@ const usePaginationHook = () => {
       )
     );
   };
-  return { reposOnPage, changePage, page };
+
+  return {
+    reposOnPage,
+    changePage,
+    page,
+    filter,
+    setFilter,
+    handleSort,
+    sortByName,
+    setSortByName,
+  };
 };
 export default usePaginationHook;
