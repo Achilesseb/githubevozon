@@ -14,7 +14,7 @@ export function RootFile() {
   const contents = useSelector((data) => data.repositories.content);
   const dispatch = useDispatch();
   const path = useMatch("/*");
-  const ad = path.pathname.split("/").filter((params, index) => index > 3);
+  const ad = path.pathname.split("/").filter((params, index) => index > 4);
   useEffect(() => {
     getContentFromRepositoryData(
       dispatch,
@@ -24,7 +24,7 @@ export function RootFile() {
     );
   }, [path]);
   return (
-    <div className="z-0 flex flex-col h-auto gap-1 p-4   bg-white self-center w-[100%]">
+    <div className="z-0 flex flex-col h-auto gap-1 p-4 mb-8 mx-[4%] bg-white self-center w-[100%]">
       <div className="">{params.repositoryName}</div>
       {contents.type === "file" ? (
         <CodeViewer />

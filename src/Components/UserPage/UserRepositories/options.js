@@ -8,22 +8,21 @@ const ulClassName =
 export const options = [
   {
     name: "Code",
-    icon: "ICON",
-    to: "/files",
+    to: "files",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
     name: "Commits",
-    icon: "ICON",
+    to: "commits",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
   },
   {
     name: "Merges",
-    icon: "ICON",
+    to: "merges",
     divClassName: divClassName,
     iconClassName: iconClassName,
     ulClassName: ulClassName,
