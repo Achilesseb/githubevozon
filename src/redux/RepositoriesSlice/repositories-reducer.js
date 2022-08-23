@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   content: [],
   fileCode: [],
   branches: [],
+  commits: [],
   branchesData: [],
 };
 const repo_reducer = (state = INITIAL_STATE, action) => {
@@ -31,6 +32,9 @@ const repo_reducer = (state = INITIAL_STATE, action) => {
     }
     case types.SET_DATA_FOR_BRANCHES: {
       return { ...state, branches: action.payload };
+    }
+    case types.SET_DATA_FOR_COMMITS: {
+      return { ...state, commits: action.payload };
     }
     case types.SET_DATA_FOR_PROFILE_BRANCHES: {
       return {
