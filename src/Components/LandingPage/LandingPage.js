@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavBar } from "../NavBar/NavBar";
 import { SearchBar } from "../SearchBar/SearchBar";
 import "./landingPage.css";
 
@@ -12,7 +11,7 @@ export function LandingPage() {
   };
 
   return (
-    <div className=" full-page">
+    <div className=" full-page min-h-[90vh]">
       <div className="mt-6 search-container">
         {isSearchVisible ? (
           <SearchBar isClicked={isClicked} onClick={handleClick} />
