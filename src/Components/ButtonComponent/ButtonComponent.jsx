@@ -7,7 +7,6 @@ export default function Button({ children, type, modifiers, callback }) {
     secondary: "bg-white text-orange-primary",
     default: "bg-white text-black",
   };
-  console.log(callback);
   return (
     <button
       className={`${defaultButton} ${types[type]} ${modifiers}`}

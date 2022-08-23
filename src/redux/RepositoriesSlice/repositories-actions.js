@@ -27,3 +27,7 @@ export const setDataForBranches = (data) => ({
   type: types.SET_DATA_FOR_BRANCHES,
   payload: data,
 });
+export const setProfileBranch = (data) => ({
+  type: types.SET_DATA_FOR_PROFILE_BRANCHES,
+  payload: data,
+});
