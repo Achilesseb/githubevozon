@@ -23,3 +23,7 @@ export const setDataForNesting = (data) => ({
   type: types.SET_DATA_FOR_NESTING,
   payload: data,
 });
+export const setDataForBranches = (data) => ({
+  type: types.SET_DATA_FOR_BRANCHES,
+  payload: data,
+});

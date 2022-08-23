@@ -1,6 +1,7 @@
-import { setLoginUser } from "./redux/LoginSlice/login-actions";
+import { setProfileBranch } from "./redux/Branches/branches-actions";
 import {
   setContentFromRepository,
+  setDataForBranches,
   setDataForNesting,
   setUserData,
   setUserRepositories,
@@ -8,6 +9,38 @@ import {
   setUsersSearched,
 } from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
+
+// Calc percent for Code Lines
+export const colors = {
+  JavaScript: "red-600",
+  HTML: "yellow-400",
+  CSS: "blue-700",
+  SCSS: "green-600",
+  JSON: "[#f37c27]",
+  TypeScript: "[#f327c0]",
+  Shell: "[#27aff3]",
+  Other: "[#a5f327]",
+};
+export const lines = {};
+// Calc percent of line codes
+export const calcPercent = (languagesUsed) => {
+  let allLineCodes = [];
+  let percent;
+
+  languagesUsed.map((code) => {
+    allLineCodes.push(code[1]);
+  });
+  const sumOfLines = allLineCodes.reduce((a, b) => a + b, 0);
+  languagesUsed.map((language) => {
+    percent = (language[1] / sumOfLines) * 100;
+    lines[language[0]] = {
+      percent: percent.toFixed(2),
+      lines: language[1],
+    };
+  });
+};
+
+// ----------------------------- //
 
 const USER_URL = "https://api.github.com/user/";
 const USERS_URL = "https://api.github.com/users/";
@@ -17,7 +50,6 @@ const USER_REPOSITORY_URL = "https://api.github.com/repos/";
 // Get USER DATA
 export const getData = async (dispatch, username) => {
   const userData = await fetch(`${USERS_URL}${username}`);
-  console.log(console.log(userData));
   const result = await userData.json();
   dispatch(setUserData(result));
 };
@@ -49,9 +81,7 @@ export const getSpecificRepositoryData = async (
   const repository = await fetch(
     `${USER_REPOSITORY_URL}${username}/${repoName}`
   );
-  console.log(repository);
   const result = await repository.json();
-
   dispatch(setUserRepository(result));
 };
 
@@ -73,12 +103,25 @@ export const getContentFromRepositoryData = async (
 
 // GET DATA FOR NESTING FILES
 export const getDataForNesting = async (dispatch, fileURL) => {
-  const repository = await fetch(
-    "https://api.github.com/repos/PaMarius/pikachu-go/languages"
-  );
-  console.log(repository);
+  const repository = await fetch(fileURL);
   const result = await repository.json();
   dispatch(setDataForNesting(result));
+};
+
+// GET DATA FOR BRANCHES
+export const getDataForBranches = async (dispatch, login, repositoryName) => {
+  const branches = await fetch(
+    `${USER_REPOSITORY_URL}${login}/${repositoryName}/branches`
+  );
+  const result = await branches.json();
+  dispatch(setDataForBranches(result));
+};
+
+// GET PROFILE BRANCH
+export const getProfileBranches = async (dispatch, url, branchName) => {
+  const profileBranch = await fetch(url);
+  const result = await profileBranch.json();
+  dispatch(setProfileBranch(result, branchName));
 };
 
 export function classNames(...classes) {

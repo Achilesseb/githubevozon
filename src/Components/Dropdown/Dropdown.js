@@ -5,11 +5,11 @@ export function Dropdown() {
   const usersSearchedData = useSelector(
     (data) => data.repositories.users.items
   );
+  const data = useSelector((data) => data);
   let usersPrimaryData = [];
-
   usersSearchedData.forEach((user) => {
-    const { avatar_url: avatar, name: fullName, login } = user;
-    return usersPrimaryData.push({ avatar, fullName, login });
+    const { avatar_url: avatar, type: type, login } = user;
+    return usersPrimaryData.push({ avatar, type, login });
   });
   return (
     <div className="w-80 p-2 bg-blue-200 rounded">
@@ -27,11 +27,7 @@ export function Dropdown() {
               <img className="w-20 rounded-full" src={user.avatar} />
             </div>
             <div className="flex flex-col justify-around h-20">
-              <div className="text-xs font-bold">
-                {console.log(
-                  "NU UITA SA COMPLETEZI AICI CU CEVA - DROPDOWN - LA FULLNAME"
-                )}
-              </div>
+              <div className="text-xs font-bold">{user.type}</div>
               <div className="text-xs ">{user.login}</div>
             </div>
           </Link>

@@ -104,7 +104,7 @@ export function SearchBar({ isClicked, onClick }) {
       >
         {/* SEARCH ICON */}
         <svg
-          className="absolute left-0 w-5 h-5 ml-1 top-5"
+          className="absolute left-0 w-5 h-5 ml-1"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

@@ -5,6 +5,7 @@ import { getContentFromRepositoryData } from "../../../utils";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { setDataForNesting } from "../../../redux/RepositoriesSlice/repositories-actions";
+import CodeViewer from "../../CodeViewer/CodeViewer";
 export function RootFile() {
   const params = useParams();
   const handleOpenViewer = (e, file) => {
@@ -23,33 +24,36 @@ export function RootFile() {
     );
   }, [path]);
   return (
-    <div className="z-0 flex flex-col h-auto gap-1 p-2 my-10 bg-white">
+    <div className="z-0 flex flex-col h-auto gap-1 p-4 mb-8 mx-[4%] bg-white self-center w-[100%]">
       <div className="">{params.repositoryName}</div>
-      {}
-      {contents.map((file, index) => {
-        return file.type !== "file" ? (
-          <Link
-            to={`${path.pathname}/${file.name}`}
-            key={index}
-            className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
-          >
-            <AiIcons.AiFillFolderOpen />
-            {file.name}
-          </Link>
-        ) : (
-          <Link
-            to={`/${params.login}/repos/${params.repositoryName}/${file.name}/viewer`}
-            key={index}
-            onClick={(e) => {
-              handleOpenViewer(e, file);
-            }}
-            className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
-          >
-            <AiIcons.AiOutlineFile />
-            {file.name}
-          </Link>
-        );
-      })}
+      {contents.type === "file" ? (
+        <CodeViewer />
+      ) : (
+        contents.map((file, index) => {
+          return file.type !== "file" ? (
+            <Link
+              to={`${path.pathname}/${file.name}`}
+              key={index}
+              className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
+            >
+              <AiIcons.AiFillFolderOpen />
+              {file.name}
+            </Link>
+          ) : (
+            <Link
+              to={`${[path.pathname, file.name].join("/").replaceAll(",")}`}
+              onClick={(e) => {
+                handleOpenViewer(e, file);
+              }}
+              key={index}
+              className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
+            >
+              <AiIcons.AiOutlineFile />
+              {file.name}
+            </Link>
+          );
+        })
+      )}
     </div>
   );
 }

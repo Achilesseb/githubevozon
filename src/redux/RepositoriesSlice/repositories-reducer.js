@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   repository: {},
   content: [],
   fileCode: [],
+  branches: [],
 };
 const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -26,6 +27,9 @@ const repo_reducer = (state = INITIAL_STATE, action) => {
     }
     case types.SET_DATA_FOR_NESTING: {
       return { ...state, fileCode: action.payload };
+    }
+    case types.SET_DATA_FOR_BRANCHES: {
+      return { ...state, branches: action.payload };
     }
     default: {
       return state;

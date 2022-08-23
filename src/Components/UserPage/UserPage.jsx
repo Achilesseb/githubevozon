@@ -32,9 +32,9 @@ const UserPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-full h-full">
+    <div className="flex flex-col w-full min-h-[90vh]">
       <Tab.Group>
-        <Tab.List className="relative flex order-1 p-1 m-2 space-x-1 rounded-xl bg-tab-fill">
+        <Tab.List className="flex order-first p-1 m-2 space-x-1 rounded-xl bg-tab-fill">
           {Object.entries(categories).map((category) => (
             <Tab
               onClick={() => navigate(category[1])}
@@ -53,9 +53,7 @@ const UserPage = () => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="h-auto mt-4">
-          <Outlet />
-        </Tab.Panels>
+        <Outlet />
       </Tab.Group>
     </div>
   );

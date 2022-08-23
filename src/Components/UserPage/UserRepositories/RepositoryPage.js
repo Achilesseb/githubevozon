@@ -14,18 +14,16 @@ export function RepositoryPage() {
   }, []);
 
   return (
-    <div className="">
-      <div className="my-6 font-serif text-center text-white">
-        {repositoryName.toUpperCase()}
+    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 items-start">
+      <div className="mt-2 font-serif w-[100%] text-xl text-center text-white ">
+        <Link to={`/${login}/repos/${repositoryName}`}>
+          <span>{repositoryName}</span>
+        </Link>
       </div>
-      <nav className="p-2 h-auto bg-white flex justify-around z-1">
+      <nav className="p-0 h-[10vh] w-[100%] flex flex-row justify-center gap-[2%] ">
         {options.map((option, index) => {
           return (
-            <Link
-              to={`${option.to}`}
-              key={index}
-              className="w-[30%] flex flex-col "
-            >
+            <Link to={`${option.to}`} key={index} className="w-[30vw]  ">
               <div className={option.divClassName}>
                 <AiIcons.AiOutlineMenu className={option.iconClassName} />
                 <span className="md:w-[70%] ">{option.name}</span>
@@ -34,7 +32,9 @@ export function RepositoryPage() {
           );
         })}
       </nav>
-      <Outlet />
+      <div className="flex self-center w-[100%] ">
+        <Outlet />
+      </div>
     </div>
   );
 }
