@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
 import { options } from "./options";
 import { getSpecificRepositoryData } from "../../../utils";
 import { useDispatch } from "react-redux";
-import { setDeleteBranches } from "../../../redux/Branches/branches-actions";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
@@ -24,13 +24,7 @@ export function RepositoryPage() {
       <nav className="p-0 h-[10vh] w-[100%] flex flex-row justify-center gap-[2%] ">
         {options.map((option, index) => {
           return (
-            <Link
-              to={`${option.to}`}
-              key={index}
-              className="w-[30vw] onClick={() => {
-              dispatch(setDeleteBranches());
-            }} "
-            >
+            <Link to={`${option.to}`} key={index} className="w-[30vw]">
               <div className={option.divClassName}>
                 <AiIcons.AiOutlineMenu className={option.iconClassName} />
                 <span className="md:w-[70%] ">{option.name}</span>
