@@ -1,13 +1,15 @@
+import { setLoginUser } from "./redux/LoginSlice/login-actions";
 import {
   setContentFromRepository,
   setDataForBranches,
   setDataForNesting,
+  setProfileBranch,
   setUserData,
   setUserRepositories,
   setUserRepository,
   setUsersSearched,
-  setProfileBranch,
 } from "./redux/RepositoriesSlice/repositories-actions";
+
 export const PAGINATION_NUMBER = 6;
 
 // Calc percent for Code Lines
@@ -56,7 +58,7 @@ export const getData = async (dispatch, username) => {
 export const getDataByUserId = async (dispatch, id) => {
   const user = await fetch(`${USER_URL}${Number(id)}`);
   const result = await user.json();
-  dispatch(setUserData(result));
+  dispatch(setLoginUser(result));
 };
 // Get USERS DATA
 export const getUsers = async (dispatch, username) => {
@@ -66,8 +68,10 @@ export const getUsers = async (dispatch, username) => {
 };
 
 // GET REPOSITORIES FOR A SPECIFIC USER
-export const getRepositoryData = async (dispatch, username) => {
-  const repositories = await fetch(`${USERS_URL}${username}/repos`);
+export const getRepositoryData = async (dispatch, username, sortBy = 'updated', direction = 'desc') => {
+  const url = new URL(`${USERS_URL}${username}/repos`);
+  url.search = new URLSearchParams({sort: sortBy, direction});
+  const repositories = await fetch(url);
   const result = await repositories.json();
   dispatch(setUserRepositories(result));
 };
