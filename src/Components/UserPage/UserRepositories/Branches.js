@@ -13,7 +13,7 @@ const Branches = () => {
   const branches = useSelector((data) => data.repositories.branches);
   const branchesProfile = useSelector((data) => data.repositories.branchesData);
 
-  const { reposOnPage, changePage, page } = usePaginationHook(branches);
+  const { dataOnPage, changePage, page } = usePaginationHook(branches);
   useEffect(() => {
     getDataForBranches(dispatch, login, repositoryName);
   }, []);
@@ -43,7 +43,7 @@ const Branches = () => {
                   <div className="w-[40%]  text-xl font-bold">Branch</div>
                   <div className="w-[60%] text-xl font-bold ml-2 ">Author</div>
                 </div>
-                {reposOnPage?.map((branch) => {
+                {dataOnPage?.map((branch) => {
                   let branchData = branchesProfile?.find(
                     (branchData) => branch.commit.sha === branchData.sha
                   );

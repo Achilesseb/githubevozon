@@ -4,7 +4,6 @@ import date from "../../../Content/date.png";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
-import * as bs from "react-icons/bs";
 import { useEffect } from "react";
 import { getRepositoryData } from "../../../utils";
 import { useDispatch } from "react-redux";
@@ -26,7 +25,7 @@ const UserRepositories = () => {
   useEffect(() => {
     getRepositoryData(dispatch, login, sorter, direction);
   }, [sorter, direction]);
-  const { reposOnPage, changePage, page, filter, setFilter, handleSort } =
+  const { dataOnPage, changePage, page, filter, setFilter, handleSort } =
     usePaginationHook(userRepositories);
 
   return (
@@ -83,7 +82,7 @@ const UserRepositories = () => {
       </div>
 
       <div className="h-auto mb-[20vh] md:mb-0 md:h-[70vh] w-full overflow-hidden">
-        {reposOnPage === null ? (
+        {dataOnPage === null ? (
           <DotLoader />
         ) : (
           <div
@@ -91,7 +90,7 @@ const UserRepositories = () => {
             className=" flex w-[100vw]  justify-center relative"
           >
             <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
-              {reposOnPage.sort(handleSort()).map((repo) => (
+              {dataOnPage.sort(handleSort()).map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
                   className="grid w-[90%] grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
+import * as BsIcons from "react-icons/bs";
 import { options } from "./options";
 import { getSpecificRepositoryData } from "../../../utils";
 import { useDispatch } from "react-redux";
@@ -15,9 +16,12 @@ export function RepositoryPage() {
   }, []);
 
   return (
-    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-2 items-start">
-      <div className="mt-2 font-serif w-[100%] text-xl text-center text-white ">
-        <Link to={`/${login}/repos/${repositoryName}`}>
+    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 items-start">
+      <div className="mt-4 font-serif w-[100%] text-xl text-center text-white ">
+        <Link
+          to={`/${login}/repos/${repositoryName}`}
+          className="p-2 border-2 rounded-xl"
+        >
           <span>{repositoryName}</span>
         </Link>
       </div>
@@ -26,8 +30,15 @@ export function RepositoryPage() {
           return (
             <Link to={`${option.to}`} key={index} className="w-[30vw]">
               <div className={option.divClassName}>
-                <AiIcons.AiOutlineMenu className={option.iconClassName} />
-                <span className="md:w-[70%] ">{option.name}</span>
+                {option.name === "code" ? (
+                  <BsIcons.BsFileEarmarkCode />
+                ) : option.name === "commits" ? (
+                  <BsIcons.BsFileBreak />
+                ) : (
+                  <BsIcons.BsFileBreakFill />
+                )}
+                {/* <AiIcons.AiOutlineMenu className={option.iconClassName} /> */}
+                <span className="md:w-[70%] capitalize ">{option.name}</span>
               </div>
             </Link>
           );
