@@ -31,3 +31,11 @@ export const setDataForCommits = (data) => ({
   type: types.SET_DATA_FOR_COMMITS,
   payload: data,
 });
+export const setProfileBranch = (data) => ({
+  type: types.SET_DATA_FOR_PROFILE_BRANCHES,
+  payload: data,
+});
+export const setContributors = (data) => ({
+  type: types.SET_DATA_FOR_CONTRIBUTORS,
+  payload: data,
+});

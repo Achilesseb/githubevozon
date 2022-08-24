@@ -103,7 +103,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      {data.repositories.user.login && (
+      {!data.repositories.user.login.message && (
         <Navigate to={`/${data.repositories.user.login}`} replace={true} />
       )}
     </div>

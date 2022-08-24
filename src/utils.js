@@ -1,4 +1,3 @@
-import { setProfileBranch } from "./redux/Branches/branches-actions";
 import {
   setContentFromRepository,
   setDataForBranches,
@@ -8,6 +7,8 @@ import {
   setUserRepositories,
   setUserRepository,
   setUsersSearched,
+  setProfileBranch,
+  setContributors,
 } from "./redux/RepositoriesSlice/repositories-actions";
 export const PAGINATION_NUMBER = 6;
 
@@ -119,13 +120,18 @@ export const getDataForBranches = async (dispatch, login, repositoryName) => {
   );
   const result = await branches.json();
   dispatch(setDataForBranches(result));
+  getProfileBranches(dispatch, await result.map((res) => res.commit.url));
 };
 
 // GET PROFILE BRANCH
-export const getProfileBranches = async (dispatch, url, branchName) => {
-  const profileBranch = await fetch(url);
-  const result = await profileBranch.json();
-  dispatch(setProfileBranch(result, branchName));
+export const getProfileBranches = async (dispatch, urls) => {
+  const fetchLinks = urls.map((url) => fetch(url));
+  const responses = Promise.all(fetchLinks).then((result) =>
+    result.map((res) => res.json())
+  );
+  responses.then((res) => {
+    res.map((res) => res.then((re) => dispatch(setProfileBranch(re))));
+  });
 };
 
 // GET DATA FOR COMMITS
@@ -135,6 +141,19 @@ export const getDataForCommits = async (dispatch, login, repositoryName) => {
   );
   const result = await commits.json();
   dispatch(setDataForCommits(result));
+};
+
+// GET DATA FOR CONTRIBUTORS
+export const getDataForContributors = async (
+  dispatch,
+  login,
+  repositoryName
+) => {
+  const contributors = await fetch(
+    `${USER_REPOSITORY_URL}${login}/${repositoryName}/contributors`
+  );
+  const result = await contributors.json();
+  dispatch(setContributors(result));
 };
 
 export function classNames(...classes) {

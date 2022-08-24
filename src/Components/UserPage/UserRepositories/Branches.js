@@ -1,110 +1,91 @@
 import { useEffect, useState } from "react";
-import { getDataForBranches, getProfileBranches } from "../../../utils";
+import { getDataForBranches } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { setDeleteBranches } from "../../../redux/Branches/branches-actions";
-import { INITIAL_BRANCHES } from "../../../redux/Branches/branches-reducer";
+import usePaginationHook from "../../../customHooks/customPaginationHook";
+import PaginationComponent from "../../PaginationComponent/PaginationComponent";
+import DotLoader from "react-spinners/DotLoader";
 
 const Branches = () => {
   const dispatch = useDispatch();
+  const [dotLoaderStatus, setDotLoaderStatus] = useState(true);
   const { login, repositoryName } = useParams();
   const branches = useSelector((data) => data.repositories.branches);
-  const branchesProfile = useSelector((data) => data.branches);
-  const [state, setState] = useState();
-  console.log(INITIAL_BRANCHES);
-  // ------ //
-  setTimeout(() => {
-    setState(1);
-  }, 500);
-
-  // ------ //
-  useEffect(
-    (e) => {
-      getDataForBranches(dispatch, login, repositoryName);
-      if (branches.length > 0) {
-        branches.forEach((branch) => {
-          getProfileBranches(dispatch, branch.commit.url, branch.name);
-        });
-      }
-    },
-    [state]
-  );
-
+  const branchesProfile = useSelector((data) => data.repositories.branchesData);
+  const { reposOnPage, changePage, page } = usePaginationHook(branches);
+  useEffect(() => {
+    getDataForBranches(dispatch, login, repositoryName);
+  }, []);
+  useEffect(() => {
+    setTimeout(() => setDotLoaderStatus(false), 1000);
+  }, []);
   return (
     <>
-      <div className="h-full w-full flex justify-center mb-4">
-        <div className="min-h-[300px] w-[94vw] md:w-[50vw] bg-white">
-          <div className="p-2 font-bold text-xl bg-gray-200">Branches</div>
-          <div className="m-2 flex flex-col pb-2 gap-2 px-2 bg-gray-200 shadow border-2 border-black">
-            <div className="flex">
-              <div className="w-[40%] flex justify-center text-xl font-bold">
-                Branch Name
+      <PaginationComponent
+        changePage={changePage}
+        page={page}
+        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
+      />
+      <div className="flex justify-center w-full h-full mb-4">
+        <div className="min-h-[300px] w-[94vw] md:w-[50vw] bg-gray-200 p-2">
+          <div className="p-2 text-xl font-bold text-center bg-gray-200 ">
+            Branches
+          </div>
+          <div className="flex flex-col gap-2 bg-gray-200 border-2 border-black shadow">
+            {branchesProfile.length === 0 ? (
+              <div className="flex justify-center w-full">
+                <DotLoader color="#F9A03C" />
               </div>
-              <div className="w-[40%] flex justify-center text-xl font-bold ml-2 ">
-                Created by
-              </div>
-              <div className="w-[20%] text-xl font-bold  ml-2 "></div>
-            </div>
-            {Object.keys(branchesProfile).length == branches.length
-              ? branches.map((branch) => {
-                  console.log(branch.name);
-                  if (branch.name == "main" || branch.name == "master") {
-                    return (
-                      <Link
-                        key={branch.name}
-                        to={`/${
-                          branchesProfile[branch.name].author.login
-                        }/info`}
-                        onClick={() => {
-                          dispatch(setDeleteBranches());
-                        }}
+            ) : (
+              <>
+                <div className="flex text-center justify-evenly">
+                  <div className="w-[40%]  text-xl font-bold">Branch</div>
+                  <div className="w-[60%] text-xl font-bold ml-2 ">Author</div>
+                </div>
+                {reposOnPage?.map((branch) => {
+                  let branchData = branchesProfile?.find(
+                    (branchData) => branch.commit.sha === branchData.sha
+                  );
+                  return (
+                    <Link
+                      key={branch.name}
+                      to={
+                        branchData?.author == null
+                          ? `/${login}/error`
+                          : `/${branchData?.author?.login}/info`
+                      }
+                    >
+                      <div
+                        className={`flex gap-2 mb-2 mx-2 border-2 border-black shadow ${
+                          branch.name == "main" || branch.name == "master"
+                            ? "bg-red-200"
+                            : null
+                        } h-auto text-[0.7rem] ${
+                          branch.name == "main" || branch.name == "master"
+                            ? "hover:bg-red-400"
+                            : "hover:bg-gray-400"
+                        } md:text-[1rem] font-semibold p-0  items-center content-center text-center`}
                       >
-                        <div className="shadow hover:bg-red-400 flex gap-4 border-2 border-black bg-red-100">
-                          <div className="w-[40%] flex justify-center items-center ">
-                            {branch.name}
-                          </div>
-                          <div className="w-[40%] flex justify-center items-center ml-2 ">
-                            {branchesProfile[branch.name].author.login}
-                          </div>
-                          <img
-                            className="w-[19%] ml-2 p-2 rounded-full"
-                            src={`${
-                              branchesProfile[branch.name].author.avatar_url
-                            }`}
-                          />
+                        <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
+                          {branch.name}
                         </div>
-                      </Link>
-                    );
-                  } else {
-                    return (
-                      <Link
-                        key={branch.name}
-                        to={`/${
-                          branchesProfile[branch.name].author.login
-                        }/info`}
-                        onClick={() => {
-                          dispatch(setDeleteBranches());
-                        }}
-                      >
-                        <div className="shadow hover:bg-gray-400 flex gap-4 border-2 border-black">
-                          <div className="w-[40%] flex justify-center items-center ">
-                            {branch.name}
-                          </div>
-                          <div className="w-[40%] flex justify-center items-center ml-2 ">
-                            {branchesProfile[branch.name].author.login}
-                          </div>
-                          <img
-                            className="w-[19%] ml-2 p-2 rounded-full"
-                            src={`${
-                              branchesProfile[branch.name].author.avatar_url
-                            }`}
-                          />
+                        <div className="w-[38%] h-auto flex justify-center items-center   ">
+                          {branchData?.author?.login}
                         </div>
-                      </Link>
-                    );
-                  }
-                })
-              : null}
+                        {dotLoaderStatus === true ? (
+                          <DotLoader color="#F9A03C" />
+                        ) : (
+                          <img
+                            className="w-[19%]  p-2 rounded-full "
+                            src={`${branchData?.author?.avatar_url}`}
+                          />
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -19,7 +19,6 @@ const LanguageUsed = () => {
 
   useEffect(() => {
     setLinesProba(lines);
-    console.log(linesProba);
   }, []);
 
   calcPercent(languagesUsed);
