@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import name from "../../../Content/name.png";
+import date from "../../../Content/date.png";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
@@ -11,6 +12,9 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
 const UserRepositories = () => {
+  const [sorter, setSorter] = useState();
+  const [direction, setDirection] = useState();
+  const [directionStatus, setDirectionStatus] = useState(true);
   const userRepositories = useSelector(
     (data) => data.repositories.repositories
   );
@@ -19,19 +23,11 @@ const UserRepositories = () => {
   useEffect(() => {
     getRepositoryData(dispatch, login);
   }, []);
-  const {
-    reposOnPage,
-    changePage,
-    page,
-    filter,
-    setFilter,
-    handleSort,
-    sortByName,
-    setSortByName,
-  } = usePaginationHook(userRepositories);
-
-  const [showArrow, setShowArrow] = useState(false);
-  const [arrow, setArrow] = useState(false);
+  useEffect(() => {
+    getRepositoryData(dispatch, login, sorter, direction);
+  }, [sorter, direction]);
+  const { reposOnPage, changePage, page, filter, setFilter, handleSort } =
+    usePaginationHook(userRepositories);
 
   return (
     <>
@@ -48,62 +44,35 @@ const UserRepositories = () => {
           />
         </div>
         <div className="flex justify-center gap-5 pl-8 pr-4 mt-4 text md:mt-0">
-          <div className="flex w-[20%] h-4">
+          <div className="flex flex-col items-center h-6">
             <img
-              src={name}
+              src={date}
               alt="sort-image"
               onClick={() => {
-                setSortByName(!sortByName);
-                setArrow(!arrow);
-                setShowArrow(true);
+                setSorter("created");
+                directionStatus === true
+                  ? setDirection("asc")
+                  : setDirection("desc");
+                setDirectionStatus(!directionStatus);
               }}
               className="cursor-pointer"
             />
-            {showArrow ? (
-              arrow ? (
-                <bs.BsArrowDownShort />
-              ) : (
-                <bs.BsArrowUpShort />
-              )
-            ) : null}
+            <span className="text-white">Created</span>
           </div>
-          <div className="flex w-[20%] h-4">
+          <div className="flex flex-col items-center h-6">
             <img
               src={name}
               alt="sort-image"
               onClick={() => {
-                setSortByName(!sortByName);
-                setArrow(!arrow);
-                setShowArrow(true);
+                setSorter("updated");
+                directionStatus === true
+                  ? setDirection("asc")
+                  : setDirection("desc");
+                setDirectionStatus(!directionStatus);
               }}
               className="cursor-pointer"
             />
-            {showArrow ? (
-              arrow ? (
-                <bs.BsArrowDownShort />
-              ) : (
-                <bs.BsArrowUpShort />
-              )
-            ) : null}
-          </div>
-          <div className="flex w-[20%] h-4">
-            <img
-              src={name}
-              alt="sort-image"
-              onClick={() => {
-                setSortByName(!sortByName);
-                setArrow(!arrow);
-                setShowArrow(true);
-              }}
-              className="cursor-pointer"
-            />
-            {showArrow ? (
-              arrow ? (
-                <bs.BsArrowDownShort />
-              ) : (
-                <bs.BsArrowUpShort />
-              )
-            ) : null}
+            <span className="text-white">Updated</span>
           </div>
         </div>
         <PaginationComponent

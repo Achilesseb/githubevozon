@@ -48,11 +48,11 @@ export const calcPercent = (languagesUsed) => {
 };
 
 // ----------------------------- //
-
-const USER_URL = "https://api.github.com/user/";
-const USERS_URL = "https://api.github.com/users/";
-const SEARCH_USERS_URL = "https://api.github.com/search/users";
-const USER_REPOSITORY_URL = "https://api.github.com/repos/";
+const GIT_HUB_URL = "https://api.github.com/";
+const USER_URL = `${GIT_HUB_URL}user/`;
+const USERS_URL = `${GIT_HUB_URL}users/`;
+const SEARCH_USERS_URL = `${GIT_HUB_URL}search/users`;
+const USER_REPOSITORY_URL = `${GIT_HUB_URL}repos/`;
 
 // Get USER DATA
 export const getData = async (dispatch, username) => {
