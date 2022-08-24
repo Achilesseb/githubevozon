@@ -40,7 +40,11 @@ const UserBasicInfo = () => {
           if (!info[1]) return;
           return info[0] === "avatar" ? (
             dotLoaderStatus === true ? (
-              <DotLoader className="order-first" color="#0d1117" />
+              <DotLoader
+                key="dotLoader"
+                className="order-first"
+                color="#0d1117"
+              />
             ) : (
               <li key={info[0]} className="order-first">
                 <img
