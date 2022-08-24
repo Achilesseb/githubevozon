@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { cpp } from "react-syntax-highlighter/dist/esm/languages/prism";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
 import { getDataForCommits, timeSince } from "../../../utils";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
@@ -9,8 +8,10 @@ import PaginationComponent from "../../PaginationComponent/PaginationComponent";
 const Commits = () => {
   const dispatch = useDispatch();
   const { login, repositoryName } = useParams();
-  const commits = useSelector((data) => data.repositories.commits);
+  let commits = useSelector((data) => data.repositories.commits);
+
   const { reposOnPage, changePage, page } = usePaginationHook(commits);
+
   useEffect(() => {
     getDataForCommits(dispatch, login, repositoryName);
   }, []);

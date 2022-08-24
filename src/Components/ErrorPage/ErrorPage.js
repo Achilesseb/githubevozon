@@ -108,13 +108,10 @@ const ErrorPage = () => {
       </center>
       <center className="mt-6">
         <Link
-          to={`${location.pathname.slice(
-            0,
-            location.pathname.lastIndexOf("/")
-          )}`}
+          to="/"
           className="text-gray-500 font-mono text-xl bg-gray-200 p-3 rounded-md hover:shadow-md"
         >
-          Go back{" "}
+          Go home{" "}
         </Link>
       </center>
     </div>

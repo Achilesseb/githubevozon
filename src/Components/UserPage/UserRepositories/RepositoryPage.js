@@ -1,19 +1,32 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import * as ai from "react-icons/ai";
 import * as bs from "react-icons/bs";
 import { options } from "./options";
 import { useEffect, useState } from "react";
-import { getDataForContributors } from "../../../utils";
+import {
+  getDataForContributors,
+  getSpecificRepositoryData,
+} from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
+import Contributors from "./Contributors";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const repository = useSelector((data) => data.repositories.repository);
+  if ("message" in repository) navigate("/error");
   const contributors = useSelector((data) => data.repositories.contributors);
-  console.log(contributors);
 
   useEffect(() => {
+    getSpecificRepositoryData(dispatch, login, repositoryName);
     getDataForContributors(dispatch, login, repositoryName);
   }, []);
 
@@ -83,18 +96,7 @@ export function RepositoryPage() {
                   <div className="bg-white flex flex-col gap-2 p-2">
                     {contributors.map((contributor, index) => {
                       return (
-                        <Link to={`/${contributor.login}/info`}>
-                          <div
-                            key={index}
-                            className="flex hover:bg-blue-200 gap-2"
-                          >
-                            <img
-                              src={contributor.avatar_url}
-                              className="rounded-full w-6"
-                            />
-                            <div>{contributor.login}</div>
-                          </div>
-                        </Link>
+                        <Contributors key={index} contributor={contributor} />
                       );
                     })}
                   </div>

@@ -1,6 +1,6 @@
 import * as AiIcons from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { useMatch, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import { getContentFromRepositoryData } from "../../../utils";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -8,13 +8,16 @@ import { setDataForNesting } from "../../../redux/RepositoriesSlice/repositories
 import CodeViewer from "../../CodeViewer/CodeViewer";
 export function RootFile() {
   const params = useParams();
+  const navigate = useNavigate();
   const handleOpenViewer = (e, file) => {
     dispatch(setDataForNesting(file));
   };
   const contents = useSelector((data) => data.repositories.content);
+  if ("message" in contents) navigate("/error");
   const dispatch = useDispatch();
   const path = useMatch("/*");
   const ad = path.pathname.split("/").filter((params, index) => index > 4);
+
   useEffect(() => {
     getContentFromRepositoryData(
       dispatch,

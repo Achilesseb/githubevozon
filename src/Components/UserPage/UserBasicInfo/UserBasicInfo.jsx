@@ -1,10 +1,12 @@
 import React from "react";
 import { Tab } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const UserBasicInfo = () => {
+  const navigate = useNavigate();
   const userData = useSelector((data) => data.repositories.user);
-  let userBasicInfo = [];
+  if ("message" in userData || Object.keys(userData) == 0) navigate("/error");
   const {
     name,
     company,
@@ -15,7 +17,7 @@ const UserBasicInfo = () => {
     following,
     location,
   } = userData;
-  userBasicInfo.push({
+  const userBasicInfo = {
     name,
     company,
     avatar,
@@ -24,13 +26,14 @@ const UserBasicInfo = () => {
     repositories,
     followers,
     following,
-  });
+  };
 
   return (
     <Tab.Panel key="basic-info" className="w-auto h-[80vh] align-middle ">
       <ul className="flex flex-col items-center h-full font-normal text-white capitalize justify-evenly text-s">
-        {Object.entries(userBasicInfo[0]).map((info) =>
-          info[0] === "avatar" ? (
+        {Object.entries(userBasicInfo).map((info) => {
+          if (!info[1]) return;
+          return info[0] === "avatar" ? (
             <li key={info[0]} className="order-first">
               <img
                 src={info[1]}
@@ -41,8 +44,8 @@ const UserBasicInfo = () => {
             <li key={info[0]}>
               {`${info[0].replaceAll("_", " ").toLowerCase()} : ${info[1]}`}
             </li>
-          )
-        )}
+          );
+        })}
       </ul>
     </Tab.Panel>
   );

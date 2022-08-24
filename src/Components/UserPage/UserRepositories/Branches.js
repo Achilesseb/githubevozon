@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { getDataForBranches } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
 import DotLoader from "react-spinners/DotLoader";
 
 const Branches = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [dotLoaderStatus, setDotLoaderStatus] = useState(true);
   const { login, repositoryName } = useParams();
   const branches = useSelector((data) => data.repositories.branches);
   const branchesProfile = useSelector((data) => data.repositories.branchesData);
+  if ("message" in branches) navigate("/error");
   const { reposOnPage, changePage, page } = usePaginationHook(branches);
+
   useEffect(() => {
     getDataForBranches(dispatch, login, repositoryName);
   }, []);

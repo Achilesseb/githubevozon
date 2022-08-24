@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import name from "../../../Content/name.png";
-import Button from "../../ButtonComponent/ButtonComponent";
 import { Link } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
@@ -17,6 +16,7 @@ const UserRepositories = () => {
   );
   const { login } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     getRepositoryData(dispatch, login);
   }, []);

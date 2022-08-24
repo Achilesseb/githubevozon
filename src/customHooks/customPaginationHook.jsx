@@ -22,8 +22,10 @@ const usePaginationHook = (data) => {
   const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
+  // data = [];
 
   useEffect(() => {
+    console.log(data);
     let filteredRepositories = data.filter(
       (repo) =>
         repo.name?.toLowerCase().includes(filter.toLowerCase()) || filter === ""
@@ -36,24 +38,32 @@ const usePaginationHook = (data) => {
   useEffect(() => {
     setFilteredRepositories(data);
   }, [data]);
-  filteredRepositories?.forEach((repo) => {
-    if (repo.id) {
-      const { name, language, updated_at, visibility } = repo;
-      const howLongAgo = timeSince(new Date(updated_at));
-      repositoriesData.push({
-        repoName: name,
-        language,
-        Last_update: `${howLongAgo} ago`,
-        visibility,
-      });
-    } else if (repo.node_id) {
-      const { author, commit } = repo;
-      repositoriesData.push({ author: author, commit: commit });
-    } else {
-      const { name, commit } = repo;
-      repositoriesData.push({ name: name, commit: commit });
-    }
-  });
+  console.log(filteredRepositories);
+  if ("message" in filteredRepositories) {
+    console.log("test");
+  }
+  {
+    // console.log("AICIIIIII", filteredRepositories);
+    filteredRepositories?.forEach((repo) => {
+      if (repo.id) {
+        const { name, language, updated_at, visibility } = repo;
+        const howLongAgo = timeSince(new Date(updated_at));
+        repositoriesData.push({
+          repoName: name,
+          language,
+          Last_update: `${howLongAgo} ago`,
+          visibility,
+        });
+      } else if (repo.node_id) {
+        const { author, commit } = repo;
+        repositoriesData.push({ author: author, commit: commit });
+      } else if (repo.name) {
+        const { name, commit } = repo;
+        repositoriesData.push({ name: name, commit: commit });
+      } else {
+      }
+    });
+  }
 
   const changePage = (direction) => {
     direction.toLowerCase() === "next" ? setPage(page + 1) : setPage(page - 1);
