@@ -125,7 +125,7 @@ export function RepositoryPage() {
             }} "
               >
                 <div className={option.divClassName}>
-                  <ai.AiOutlineMenu className={option.iconClassName} />
+                  <bs.BsFileEarmarkCode className={option.iconClassName} />
                   <span className="md:w-[70%] ">{option.name}</span>
                 </div>
               </Link>

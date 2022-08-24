@@ -22,15 +22,17 @@ const usePaginationHook = (data) => {
   const { login } = useParams();
   let maxPage = 99999;
   let repositoriesData = [];
-  // data = [];
 
   useEffect(() => {
-    console.log(data);
-    let filteredRepositories = data.filter(
-      (repo) =>
-        repo.name?.toLowerCase().includes(filter.toLowerCase()) || filter === ""
-    );
-    setFilteredRepositories(filteredRepositories);
+    if ("message" in data) {
+    } else {
+      let filteredRepositories = data.filter(
+        (repo) =>
+          repo.name?.toLowerCase().includes(filter.toLowerCase()) ||
+          filter === ""
+      );
+      setFilteredRepositories(filteredRepositories);
+    }
   }, [filter]);
   useEffect(() => {
     setReposOnPage();
@@ -38,12 +40,9 @@ const usePaginationHook = (data) => {
   useEffect(() => {
     setFilteredRepositories(data);
   }, [data]);
-  console.log(filteredRepositories);
+
   if ("message" in filteredRepositories) {
-    console.log("test");
-  }
-  {
-    // console.log("AICIIIIII", filteredRepositories);
+  } else {
     filteredRepositories?.forEach((repo) => {
       if (repo.id) {
         const { name, language, updated_at, visibility } = repo;
