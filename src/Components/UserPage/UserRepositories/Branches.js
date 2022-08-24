@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { getDataForBranches } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import usePaginationHook from "../../../customHooks/customPaginationHook";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
 import DotLoader from "react-spinners/DotLoader";
 
 const Branches = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [dotLoaderStatus, setDotLoaderStatus] = useState(true);
   const { login, repositoryName } = useParams();
   const branches = useSelector((data) => data.repositories.branches);
   const branchesProfile = useSelector((data) => data.repositories.branchesData);
-
+  if ("message" in branches) navigate("/error");
   const { dataOnPage, changePage, page } = usePaginationHook(branches);
   useEffect(() => {
     getDataForBranches(dispatch, login, repositoryName);
@@ -47,31 +48,38 @@ const Branches = () => {
                   let branchData = branchesProfile?.find(
                     (branchData) => branch.commit.sha === branchData.sha
                   );
-
                   return (
                     <Link
                       key={branch.name}
-                      to={`/${branchData?.author.login}/info`}
+                      to={
+                        branchData?.author == null
+                          ? `/${login}/error`
+                          : `/${branchData?.author?.login}/info`
+                      }
                     >
                       <div
-                        className={`flex gap-2 mb-2 mx-2 border-2 border-black shadow h-auto text-[0.7rem]  md:text-[1rem] font-semibold p-0 ${
-                          branch.name === "main"
+                        className={`flex gap-2 mb-2 mx-2 border-2 border-black shadow ${
+                          branch.name == "main" || branch.name == "master"
+                            ? "bg-red-200"
+                            : null
+                        } h-auto text-[0.7rem] ${
+                          branch.name == "main" || branch.name == "master"
                             ? "hover:bg-red-400"
                             : "hover:bg-gray-400"
-                        }  items-center content-center text-center`}
+                        } md:text-[1rem] font-semibold p-0  items-center content-center text-center`}
                       >
                         <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
                           {branch.name}
                         </div>
                         <div className="w-[38%] h-auto flex justify-center items-center   ">
-                          {branchData?.author.login}
+                          {branchData?.author?.login}
                         </div>
                         {dotLoaderStatus === true ? (
-                          <DotLoader color="#0d1117" />
+                          <DotLoader color="#F9A03C" />
                         ) : (
                           <img
                             className="w-[19%]  p-2 rounded-full "
-                            src={`${branchData?.author.avatar_url}`}
+                            src={`${branchData?.author?.avatar_url}`}
                           />
                         )}
                       </div>

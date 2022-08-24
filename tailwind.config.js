@@ -11,7 +11,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
-      backgroundImage: {},
+      backgroundImage: {
+        // "error-404": "url('../src/Content/error-background.jpg')",
+      },
       colors: {
         "background-fill": "#374151",
         "tab-fill": "#0d1117",

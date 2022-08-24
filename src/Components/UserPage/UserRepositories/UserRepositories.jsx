@@ -19,13 +19,14 @@ const UserRepositories = () => {
   );
   const { login } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     getRepositoryData(dispatch, login);
   }, []);
   useEffect(() => {
     getRepositoryData(dispatch, login, sorter, direction);
   }, [sorter, direction]);
-  const { dataOnPage, changePage, page, filter, setFilter, handleSort } =
+  const { dataOnPage, changePage, page, filter, setFilter } =
     usePaginationHook(userRepositories);
 
   return (
@@ -43,7 +44,7 @@ const UserRepositories = () => {
           />
         </div>
         <div className="flex justify-center gap-5 pl-8 pr-4 mt-4 text md:mt-0">
-          <div className="flex flex-col items-center h-6">
+          <div className="flex flex-col items-center align-middle md:h-6">
             <img
               src={date}
               alt="sort-image"
@@ -58,7 +59,7 @@ const UserRepositories = () => {
             />
             <span className="text-white">Created</span>
           </div>
-          <div className="flex flex-col items-center h-6">
+          <div className="flex flex-col items-center align-middle md:h-6">
             <img
               src={name}
               alt="sort-image"
@@ -77,11 +78,11 @@ const UserRepositories = () => {
         <PaginationComponent
           changePage={changePage}
           page={page}
-          modifiers="md:relative absolute bottom-[-15vh] md:bottom-0 z-20"
+          modifiers="md:relative absolute self-center bottom-[-17vh] md:bottom-0 z-20"
         />
       </div>
 
-      <div className="h-auto mb-[20vh] md:mb-0 md:h-[70vh] w-full overflow-hidden">
+      <div className="h-auto mb-[20vh] md:mb-0 md:h-[70vh] mt-2 w-full overflow-hidden">
         {dataOnPage === null ? (
           <DotLoader />
         ) : (
@@ -90,7 +91,7 @@ const UserRepositories = () => {
             className=" flex w-[100vw]  justify-center relative"
           >
             <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
-              {dataOnPage.sort(handleSort()).map((repo) => (
+              {dataOnPage.map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
                   className="grid w-[90%] grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"

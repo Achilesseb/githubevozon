@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   branches: [],
   commits: [],
   branchesData: [],
+  contributors: [],
 };
 const repo_reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -41,6 +42,9 @@ const repo_reducer = (state = INITIAL_STATE, action) => {
         ...state,
         branchesData: [...state.branchesData, action.payload],
       };
+    }
+    case types.SET_DATA_FOR_CONTRIBUTORS: {
+      return { ...state, contributors: action.payload };
     }
     default: {
       return state;

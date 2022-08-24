@@ -13,11 +13,15 @@ const usePaginationHook = (data = []) => {
   let repositoriesData = [];
 
   useEffect(() => {
-    let filteredDataArray = data.filter(
-      (repo) =>
-        repo.name.toLowerCase().includes(filter.toLowerCase()) || filter === ""
-    );
-    setfilteredDataArray(filteredDataArray);
+    if ("message" in data) {
+    } else {
+      let filteredRepositories = data.filter(
+        (repo) =>
+          repo.name?.toLowerCase().includes(filter.toLowerCase()) ||
+          filter === ""
+      );
+      setfilteredDataArray(filteredRepositories);
+    }
   }, [filter]);
   useEffect(() => {
     setData();
@@ -25,21 +29,29 @@ const usePaginationHook = (data = []) => {
   useEffect(() => {
     setfilteredDataArray(data);
   }, [data]);
-  filteredDataArray?.forEach((repo) => {
-    if (!repo.commit) {
-      const { name, language, updated_at, visibility } = repo;
-      const howLongAgo = timeSince(new Date(updated_at));
-      repositoriesData.push({
-        repoName: name,
-        language,
-        Last_update: `${howLongAgo} ago`,
-        visibility,
-      });
-    } else {
-      const { name, commit } = repo;
-      repositoriesData.push({ name: name, commit: commit });
-    }
-  });
+
+  if ("message" in filteredDataArray) {
+  } else {
+    filteredDataArray?.forEach((repo) => {
+      if (repo.id) {
+        const { name, language, updated_at, visibility } = repo;
+        const howLongAgo = timeSince(new Date(updated_at));
+        repositoriesData.push({
+          repoName: name,
+          language,
+          Last_update: `${howLongAgo} ago`,
+          visibility,
+        });
+      } else if (repo.node_id) {
+        const { author, commit } = repo;
+        repositoriesData.push({ author: author, commit: commit });
+      } else if (repo.name) {
+        const { name, commit } = repo;
+        repositoriesData.push({ name: name, commit: commit });
+      } else {
+      }
+    });
+  }
 
   const changePage = (direction) => {
     direction.toLowerCase() === "next" ? setPage(page + 1) : setPage(page - 1);

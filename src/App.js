@@ -13,6 +13,7 @@ import LanguageUsed from "./Components/UserPage/UserRepositories/LanguageUsed";
 import UserActivity from "./Components/UserPage/UserActivity/UserActivity";
 import Commits from "./Components/UserPage/UserRepositories/Commits";
 import MainPaigRepo from "./Components/UserPage/UserRepositories/MainPageRepo";
+import ErrorPage from "./Components/ErrorPage/ErrorPage";
 function App() {
   return (
     <div className="flex flex-col justify-start w-full h-full align-top bg-background-fill">
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/error" element={<ErrorPage />} />
         <Route path={`/:login`} element={<UserPage />}>
           <Route path="" element={<Navigate to="info" />} />
           <Route
@@ -41,10 +43,11 @@ function App() {
         >
           <Route path="" element={<MainPaigRepo />} />
           <Route path="commits" element={<Commits />} />
-          <Route path="merges" element={<LanguageUsed />} />
+          {/* <Route path="merges" element={<Merges />} /> */}
           <Route path={`files/*`} element={<RootFile />} />
           <Route path={`:pathname/viewer`} element={<CodeViewer />} />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

@@ -3,8 +3,10 @@ import { Tab } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { DotLoader } from "react-spinners";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserBasicInfo = () => {
+  const navigate = useNavigate();
   const userData = useSelector((data) => data.repositories.user);
   const [dotLoaderStatus, setDotLoaderStatus] = useState(true);
   useEffect(() => {
