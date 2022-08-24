@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PAGINATION_NUMBER as increaser } from "../utils";
 import { timeSince } from "../utils";
-const usePaginationHook = (data) => {
+const usePaginationHook = (data = []) => {
   const [sortByName, setSortByName] = useState(false);
   const [filteredRepositories, setFilteredRepositories] = useState(data);
   const [filter, setFilter] = useState("");

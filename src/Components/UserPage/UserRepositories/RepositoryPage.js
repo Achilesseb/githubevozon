@@ -15,7 +15,7 @@ export function RepositoryPage() {
   }, []);
 
   return (
-    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 items-start">
+    <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-2 items-start">
       <div className="mt-2 font-serif w-[100%] text-xl text-center text-white ">
         <Link to={`/${login}/repos/${repositoryName}`}>
           <span>{repositoryName}</span>

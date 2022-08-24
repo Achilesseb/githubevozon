@@ -47,31 +47,36 @@ const Branches = () => {
                   let branchData = branchesProfile?.find(
                     (branchData) => branch.commit.sha === branchData.sha
                   );
-                  if (branch.name !== "main") {
-                    return (
-                      <Link
-                        key={branch.name}
-                        to={`/${branchData?.author.login}/info`}
+
+                  return (
+                    <Link
+                      key={branch.name}
+                      to={`/${branchData?.author.login}/info`}
+                    >
+                      <div
+                        className={`flex gap-2 mb-2 mx-2 border-2 border-black shadow h-auto text-[0.7rem]  md:text-[1rem] font-semibold p-0 ${
+                          branch.name === "main"
+                            ? "hover:bg-red-400"
+                            : "hover:bg-gray-400"
+                        }  items-center content-center text-center`}
                       >
-                        <div className="flex gap-2 mb-2 mx-2 border-2 border-black shadow h-auto text-[0.7rem]  md:text-[1rem] font-semibold p-0 hover:bg-gray-400 items-center content-center text-center">
-                          <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
-                            {branch.name}
-                          </div>
-                          <div className="w-[38%] h-auto flex justify-center items-center   ">
-                            {branchData?.author.login}
-                          </div>
-                          {dotLoaderStatus === true ? (
-                            <DotLoader color="#F9A03C" />
-                          ) : (
-                            <img
-                              className="w-[19%]  p-2 rounded-full "
-                              src={`${branchData?.author.avatar_url}`}
-                            />
-                          )}
+                        <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
+                          {branch.name}
                         </div>
-                      </Link>
-                    );
-                  }
+                        <div className="w-[38%] h-auto flex justify-center items-center   ">
+                          {branchData?.author.login}
+                        </div>
+                        {dotLoaderStatus === true ? (
+                          <DotLoader color="#0d1117" />
+                        ) : (
+                          <img
+                            className="w-[19%]  p-2 rounded-full "
+                            src={`${branchData?.author.avatar_url}`}
+                          />
+                        )}
+                      </div>
+                    </Link>
+                  );
                 })}
               </>
             )}

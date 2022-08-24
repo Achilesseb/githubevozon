@@ -36,7 +36,7 @@ const UserRepositories = () => {
   return (
     <>
       {/* SEARCH BAR INPUT */}
-      <div className="flex flex-col justify-center m-4 md:flex-row md:items-center md:justify-start">
+      <div className="flex flex-col justify-center m-2 overflow-hidden md:flex-row md:items-center md:justify-evenly">
         <div className="flex justify-center w-full md:w-auto">
           <span className="mr-4 text-white">Search repository:</span>
           <input
@@ -47,7 +47,7 @@ const UserRepositories = () => {
             onChange={(event) => setFilter(event.target.value)}
           />
         </div>
-        <div className="flex justify-center gap-10 pl-8 pr-4 mt-4 text md:mt-0">
+        <div className="flex justify-center gap-5 pl-8 pr-4 mt-4 text md:mt-0">
           <div className="flex w-[20%] h-4">
             <img
               src={name}
@@ -106,13 +106,21 @@ const UserRepositories = () => {
             ) : null}
           </div>
         </div>
+        <PaginationComponent
+          changePage={changePage}
+          page={page}
+          modifiers="md:relative absolute bottom-[-15vh] md:bottom-0 z-20"
+        />
       </div>
 
-      <div className="h-full">
+      <div className="h-auto mb-[20vh] md:mb-0 md:h-[70vh] w-full overflow-hidden">
         {reposOnPage === null ? (
           <DotLoader />
         ) : (
-          <div idx="repositories" className=" flex w-[100vw]  justify-center">
+          <div
+            idx="repositories"
+            className=" flex w-[100vw]  justify-center relative"
+          >
             <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
               {reposOnPage.sort(handleSort()).map((repo) => (
                 <Link
@@ -126,7 +134,6 @@ const UserRepositories = () => {
                 </Link>
               ))}
             </ul>
-            <PaginationComponent changePage={changePage} page={page} />
           </div>
         )}
       </div>

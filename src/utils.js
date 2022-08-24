@@ -22,7 +22,8 @@ export const colors = {
   JSON: "[#f37c27]",
   TypeScript: "[#f327c0]",
   Shell: "[#27aff3]",
-  Other: "[#a5f327]",
+  C: "bg-blue-900",
+  Python: "bg-red-900",
 };
 export const lines = {};
 // Calc percent of line codes
@@ -72,9 +73,14 @@ export const getUsers = async (dispatch, username) => {
 };
 
 // GET REPOSITORIES FOR A SPECIFIC USER
-export const getRepositoryData = async (dispatch, username, sortBy = 'updated', direction = 'desc') => {
+export const getRepositoryData = async (
+  dispatch,
+  username,
+  sortBy = "updated",
+  direction = "desc"
+) => {
   const url = new URL(`${USERS_URL}${username}/repos`);
-  url.search = new URLSearchParams({sort: sortBy, direction});
+  url.search = new URLSearchParams({ sort: sortBy, direction });
   const repositories = await fetch(url);
   const result = await repositories.json();
   dispatch(setUserRepositories(result));
