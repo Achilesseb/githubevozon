@@ -10,7 +10,7 @@ const Commits = () => {
   const { login, repositoryName } = useParams();
   let commits = useSelector((data) => data.repositories.commits);
 
-  const { reposOnPage, changePage, page } = usePaginationHook(commits);
+  const { dataOnPage, changePage, page } = usePaginationHook(commits);
 
   useEffect(() => {
     getDataForCommits(dispatch, login, repositoryName);
@@ -23,14 +23,14 @@ const Commits = () => {
         page={page}
         modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
       />
-      <div className="h-full w-full flex justify-center mb-4">
+      <div className="flex justify-center w-full h-full mb-4">
         <div className="h-auto h-min-[300px] w-[94vw] bg-gray-200">
-          <div className="rounded drop-shadow-xl border-2 border-gray-300 m-3">
-            {reposOnPage?.map((commit, index) => {
+          <div className="m-3 border-2 border-gray-300 rounded drop-shadow-xl">
+            {dataOnPage?.map((commit, index) => {
               return (
                 <div
                   key={index}
-                  className="flex flex-col m-4 items-start p-2 rounded-md text-sm bg-gray-300 gap-2 hover:scale-105 hover:bg-gray-400 border-2 border-gray-400"
+                  className="flex flex-col items-start gap-2 p-2 m-4 text-sm bg-gray-300 border-2 border-gray-400 rounded-md hover:scale-105 hover:bg-gray-400"
                 >
                   {/* ------COMMIT ------*/}
 
@@ -40,7 +40,7 @@ const Commits = () => {
                   </div>
 
                   {/* USER INFO */}
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <Link to={`/${commit.author?.login}/info`}>
                       <img
                         src={commit.author?.avatar_url}

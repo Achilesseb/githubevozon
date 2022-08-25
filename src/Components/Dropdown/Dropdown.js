@@ -21,7 +21,7 @@ export function Dropdown() {
             key={user.login}
             to={`/${user.login}/info
             `}
-            className="flex items-center gap-3 p-2 transition duration-1000 ease-in-out bg-gray-400 rounded hover:bg-gray-600 hover:cursor-pointer"
+            className="flex items-center gap-3 p-2 transition ease-in-out bg-gray-400 rounded hover:bg-gray-600 hover:cursor-pointer"
           >
             <div>
               <img className="w-20 rounded-full" src={user.avatar} />

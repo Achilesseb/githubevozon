@@ -20,7 +20,7 @@ export function RootFile() {
   if (contents.message == "Not Found") {
     navigate("/error");
   }
-
+  console.log("kplm");
   useEffect(() => {
     getContentFromRepositoryData(
       dispatch,
@@ -29,10 +29,11 @@ export function RootFile() {
       ad
     );
   }, [path]);
+  console.log(contents);
   return (
     <div className="z-0 flex flex-col h-auto gap-1 p-4 mb-8 mx-[4%] bg-white self-center w-[100%]">
       <div className="">{params.repositoryName}</div>
-      {contents.message !== "This repository is empty" ? (
+      {contents.message !== "This repository is empty" && !contents?.message ? (
         contents.type === "file" ? (
           <CodeViewer />
         ) : (

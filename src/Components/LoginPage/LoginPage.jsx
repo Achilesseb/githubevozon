@@ -15,11 +15,11 @@ const LoginPage = () => {
   }, [data.user.id]);
   return (
     <div
-      className="relative flex justify-center mt-8 bg-no-repeat bg-cover"
+      className="relative flex justify-center h-[90vh] bg-no-repeat bg-cover"
       //   style="background-image: url(https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80);"
     >
-      <div className="absolute inset-0 z-0 opacity-75 " />
-      <div className="flex justify-center mx-0 align-middle sm:flex sm:flex-row">
+      <div className="absolute inset-0 z-0 h-auto opacity-75 " />
+      <div className="flex justify-center h-auto mx-0 mt-8 mb-4 align-middle sm:flex sm:flex-row">
         <div className="z-0 flex justify-center a">
           <div className="p-6 mx-auto bg-white rounded-2xl w-100 ">
             <div className="mb-4">

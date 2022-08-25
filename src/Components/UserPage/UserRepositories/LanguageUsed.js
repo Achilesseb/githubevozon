@@ -26,9 +26,9 @@ const LanguageUsed = () => {
   return (
     <div className="flex justify-center w-full h-auto">
       <div className="flex flex-col min-w-[94vw] bg-white md:my-[5%]">
-        <div className="p-2 font-bold text-xl bg-gray-200">Languages</div>
-        <div className="w-full h-full mt-4 flex">
-          <div className="ml-2 py-2 mb-2 flex flex-col gap-2">
+        <div className="p-2 text-xl font-bold bg-gray-200">Languages</div>
+        <div className="flex w-full h-full mt-4">
+          <div className="flex flex-col gap-2 py-2 mb-2 ml-2">
             {Object.entries(languages).map((language, index) => (
               <div
                 key={index}
@@ -39,13 +39,16 @@ const LanguageUsed = () => {
             ))}
           </div>
 
-          <div className="text-sm md:text-base mx-2 md:mx-6 pl-2 py-2 mb-2 flex flex-col gap-2 w-full bg-gray-200 border-l-2 border-b-2 border-black ">
+          <div className="flex flex-col w-full gap-2 py-2 pl-2 mx-2 mb-2 text-sm bg-gray-200 border-b-2 border-l-2 border-black md:text-base md:mx-6 ">
             {Object.entries(languages).map((language, index) => {
+              console.log(colors[language[0]], language[0]);
               return (
-                <div key={index} className="w-full h-full flex ">
+                <div key={index} className="flex w-full h-full ">
                   <div
                     style={lines[language[0]].style}
-                    className={`h-full ${colors[language[0]]}`}
+                    className={`h-full ${
+                      colors[language[0]] ? colors[language[0]] : `bg-Other`
+                    }`}
                   ></div>
                   <div className="pl-4">{lines[language[0]].percent}%</div>
                 </div>

@@ -1,12 +1,17 @@
 import React from "react";
 import { Tab } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { DotLoader } from "react-spinners";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserBasicInfo = () => {
   const navigate = useNavigate();
   const userData = useSelector((data) => data.repositories.user);
-  if ("message" in userData || Object.keys(userData) == 0) navigate("/error");
+  const [dotLoaderStatus, setDotLoaderStatus] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setDotLoaderStatus(false), 1500);
+  }, []);
   const {
     name,
     company,
@@ -34,12 +39,16 @@ const UserBasicInfo = () => {
         {Object.entries(userBasicInfo).map((info) => {
           if (!info[1]) return;
           return info[0] === "avatar" ? (
-            <li key={info[0]} className="order-first">
-              <img
-                src={info[1]}
-                style={{ height: "30vh", borderRadius: "100px" }}
-              />
-            </li>
+            dotLoaderStatus === true ? (
+              <DotLoader className="order-first" color="#0d1117" />
+            ) : (
+              <li key={info[0]} className="order-first">
+                <img
+                  src={info[1]}
+                  style={{ height: "30vh", borderRadius: "100px" }}
+                />
+              </li>
+            )
           ) : (
             <li key={info[0]}>
               {`${info[0].replaceAll("_", " ").toLowerCase()} : ${info[1]}`}

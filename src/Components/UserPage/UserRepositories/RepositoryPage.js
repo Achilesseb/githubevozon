@@ -51,7 +51,7 @@ export function RepositoryPage() {
       {/* ROUTE */}
       <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 items-start">
         <div className="w-full flex-col justify-start items-center mt-2 ml-[3vw]">
-          <div className="py-2 pr-2 text-white flex items-center text-lg mb-2">
+          <div className="flex items-center py-2 pr-2 mb-2 text-lg text-white">
             <bs.BsBookmarks />
             <div className="ml-2">
               <Link to={`/${login}/info`}>
@@ -92,8 +92,8 @@ export function RepositoryPage() {
               >
                 <ai.AiFillCaretDown />
                 <div className="border border-black absolute w-auto h-auto bg-gray-300 mt-2 rounded flex flex-col min-w-[35%] z-10">
-                  <div className="font-semibold px-2 mt-2">Contributors</div>
-                  <div className="bg-white flex flex-col gap-2 p-2">
+                  <div className="px-2 mt-2 font-semibold">Contributors</div>
+                  <div className="flex flex-col gap-2 p-2 bg-white">
                     {contributors.map((contributor, index) => {
                       return (
                         <Contributors key={index} contributor={contributor} />

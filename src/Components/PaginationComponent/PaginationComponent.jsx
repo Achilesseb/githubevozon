@@ -1,7 +1,7 @@
 import Button from "../ButtonComponent/ButtonComponent";
 const PaginationComponent = ({ changePage, page, modifiers }) => {
   const defaultStyle =
-    "absolute bottom-0 flex flex-row text-white align-middle justify-evenly w-sreen md:right-[25px] mb-4";
+    "absolute bottom-0 flex flex-row text-white align-middle justify-evenly w-sreen  mb-4 ";
   return (
     <div className={`${defaultStyle} ${modifiers}`}>
       <Button modifiers="w-[150px]" type="primary" callback={changePage}>

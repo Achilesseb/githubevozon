@@ -23,7 +23,8 @@ export const colors = {
   JSON: "[#f37c27]",
   TypeScript: "[#f327c0]",
   Shell: "[#27aff3]",
-  Other: "[#a5f327]",
+  C: "bg-blue-900",
+  Python: "bg-red-900",
 };
 export const lines = {};
 // Calc percent of line codes
@@ -48,11 +49,11 @@ export const calcPercent = (languagesUsed) => {
 };
 
 // ----------------------------- //
-
-const USER_URL = "https://api.github.com/user/";
-const USERS_URL = "https://api.github.com/users/";
-const SEARCH_USERS_URL = "https://api.github.com/search/users";
-const USER_REPOSITORY_URL = "https://api.github.com/repos/";
+const GIT_HUB_URL = "https://api.github.com/";
+const USER_URL = `${GIT_HUB_URL}user/`;
+const USERS_URL = `${GIT_HUB_URL}users/`;
+const SEARCH_USERS_URL = `${GIT_HUB_URL}search/users`;
+const USER_REPOSITORY_URL = `${GIT_HUB_URL}repos/`;
 
 // Get USER DATA
 export const getData = async (dispatch, username) => {
