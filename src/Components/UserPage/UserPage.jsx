@@ -31,9 +31,9 @@ const UserPage = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-[90vh]">
+    <div className="flex flex-col w-full h-full">
       <Tab.Group>
-        <Tab.List className="flex order-first p-1 m-2 space-x-1 rounded-xl bg-tab-fill">
+        <Tab.List className="flex order-first p-2 mx-2 my-2 mb-4 space-x-1 rounded-xl bg-background-fill">
           {Object.entries(categories).map((category) => (
             <Tab
               onClick={() => navigate(category[1])}

@@ -10,10 +10,14 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
+import * as Icons from "react-icons/ai";
+import * as BS from "react-icons/bs";
+import Button from "../../ButtonComponent/ButtonComponent";
 const UserRepositories = () => {
   const [sorter, setSorter] = useState();
   const [direction, setDirection] = useState();
   const [directionStatus, setDirectionStatus] = useState(true);
+  const [filterContainerStatus, setFilterContainerStatus] = useState(false);
   const userRepositories = useSelector(
     (data) => data.repositories.repositories
   );
@@ -32,22 +36,27 @@ const UserRepositories = () => {
   return (
     <>
       {/* SEARCH BAR INPUT */}
-      <div className="flex flex-col justify-center m-2 overflow-hidden md:flex-row md:items-center md:justify-evenly">
-        <div className="flex justify-center w-full md:w-auto">
-          <span className="mr-4 text-white">Search repository:</span>
+      <div className="flex flex-col justify-center m-4 overflow-hidden md:flex-row md:items-center md:justify-evenly ">
+        <div className="relative flex justify-center w-full mb-4 mx-2 md:w-[40vw] md:justify-between ">
+          <span className="hidden mr-4 text-white">Search repository:</span>
+          <Icons.AiOutlineSearch
+            className="absolute z-10 left-2 top-3 "
+            color="#e5e7eb"
+            size="30px"
+          />
           <input
-            className="rounded"
+            className="pl-12 md:pl-20 w-full h-[6vh] rounded-xl bg-background-fill md:w-[60%] relative text-white"
             name="filter"
             type="text"
+            placeholder="Search repositories"
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
           />
         </div>
-        <div className="flex justify-center gap-5 pl-8 pr-4 mt-4 text md:mt-0">
-          <div className="flex flex-col items-center align-middle md:h-6">
-            <img
-              src={date}
-              alt="sort-image"
+        <div className="flex items-center justify-end  md:w-[20vw] gap-2 h-[55px] md:h-[10vh] md:mt-0  md:absolute md:bottom-2 md:right-[2vw] z-20 ">
+          {filterContainerStatus === true ? (
+            <div
+              className="flex justify-evenly w-[50%] h-full"
               onClick={() => {
                 setSorter("created");
                 directionStatus === true
@@ -55,50 +64,61 @@ const UserRepositories = () => {
                   : setDirection("desc");
                 setDirectionStatus(!directionStatus);
               }}
-              className="cursor-pointer"
-            />
-            <span className="text-white">Created</span>
-          </div>
-          <div className="flex flex-col items-center align-middle md:h-6">
-            <img
-              src={name}
-              alt="sort-image"
-              onClick={() => {
-                setSorter("updated");
-                directionStatus === true
-                  ? setDirection("asc")
-                  : setDirection("desc");
-                setDirectionStatus(!directionStatus);
-              }}
-              className="cursor-pointer"
-            />
-            <span className="text-white">Updated</span>
-          </div>
+            >
+              <div className="flex flex-col items-center justify-between h-full p-2 align-middle md:justify-center ">
+                <BS.BsFillCalendarDateFill color="#e5e7eb" size="25px" />
+                <span className="text-red-400">Created</span>
+              </div>
+              <div
+                className="flex flex-col items-center justify-between h-full p-2 align-middle md:justify-center"
+                onClick={() => {
+                  setSorter("updated");
+                  directionStatus === true
+                    ? setDirection("asc")
+                    : setDirection("desc");
+                  setDirectionStatus(!directionStatus);
+                }}
+              >
+                <BS.BsFillFolderSymlinkFill color="#e5e7eb" size="25px" />
+                <span className="text-red-400">Updated</span>
+              </div>
+            </div>
+          ) : null}
+          <Icons.AiOutlineFilter
+            color="rgb(148 163 184)"
+            size="50px"
+            onClick={() => setFilterContainerStatus(!filterContainerStatus)}
+          />
         </div>
         <PaginationComponent
           changePage={changePage}
           page={page}
-          modifiers="md:relative absolute self-center bottom-[-17vh] md:bottom-0 z-20"
+          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20"
         />
       </div>
 
-      <div className="h-auto mb-[20vh] md:mb-0 md:h-[70vh] mt-2 w-full overflow-hidden">
+      <div className="w-full h-auto my-4 overflow-hidden md:mb-0 md:relative">
         {dataOnPage === null ? (
           <DotLoader />
         ) : (
           <div
             idx="repositories"
-            className=" flex w-[100vw]  justify-center relative"
+            className="relative flex justify-center w-full "
           >
-            <ul className="flex flex-col items-center w-full h-full text-white ustify-start w gap-y-2">
+            <ul className="flex flex-col items-center justify-center w-full h-full gap-4 text-white md:gap-8 md:flex-row md:flex-wrap ">
               {dataOnPage.map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
-                  className="grid w-[90%] grid-cols-2 grid-rows-2 p-2 text-center border-4 border-orange-500 border-dashed rounded-xl"
+                  className="grid w-[90%] md:w-[25vw] md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50"
                   key={repo.repoName}
                 >
                   {Object.values(repo).map((data) => (
-                    <div key={data}>{data}</div>
+                    <div
+                      className="first:text-[1.3rem] text-gray-400 last:text-red-400 first:text-blue-400 drop-shadow-lg shadow-white  "
+                      key={data}
+                    >
+                      {data}
+                    </div>
                   ))}
                 </Link>
               ))}
@@ -106,6 +126,11 @@ const UserRepositories = () => {
           </div>
         )}
       </div>
+      <PaginationComponent
+        changePage={changePage}
+        page={page}
+        modifiers="relative md:hidden"
+      />
     </>
   );
 };
