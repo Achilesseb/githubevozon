@@ -11,6 +11,7 @@ export function SearchBar({ isClicked, onClick }) {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [escNotPressed, setescNotPressed] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
@@ -65,6 +66,9 @@ export function SearchBar({ isClicked, onClick }) {
 
   // RESET HANDLE SUBMIT
   useEffect(() => {
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 500);
     return () => {
       debouncedResults.cancel();
     };
@@ -95,38 +99,42 @@ export function SearchBar({ isClicked, onClick }) {
   };
   return (
     <>
-      <div
-        onClick={(e) => {
-          handleClick(e);
-          setescNotPressed(true);
-        }}
-        className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
-      >
-        {/* SEARCH ICON */}
-        <svg
-          className="absolute left-0 w-5 h-5 ml-1"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
+      {isVisible ? (
+        <>
+          <div
+            onClick={(e) => {
+              handleClick(e);
+              setescNotPressed(true);
+            }}
+            className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
+          >
+            {/* SEARCH ICON */}
+            <svg
+              className="absolute left-0 w-5 h-5 ml-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
 
-        {/* INPUT BAR */}
-        <input
-          // type="text"
-          className="ml-6 bg-transparent "
-          placeholder="GitHub Username"
-          onChange={debouncedResults}
-        />
-      </div>
-      {canRenderDropdown()}
+            {/* INPUT BAR */}
+            <input
+              // type="text"
+              className="ml-6 bg-transparent "
+              placeholder="GitHub Username"
+              onChange={debouncedResults}
+            />
+          </div>
+          {canRenderDropdown()}
+        </>
+      ) : null}
     </>
   );
 }
