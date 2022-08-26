@@ -36,8 +36,11 @@ const UserBasicInfo = () => {
   };
 
   return (
-    <Tab.Panel key="basic-info" className="w-full h-full p-8 align-middle ">
-      <ul className="flex flex-col items-center h-full gap-4 font-serif text-white justify-evenly text-s">
+    <Tab.Panel
+      key="basic-info"
+      className="relative flex justify-center w-full h-full p-8 align-middle"
+    >
+      <ul className="flex flex-col w-full  items-center h-full md:w-[50vw] gap-4 md:gap-8 font-serif text-white justify-evenly text-s md:text-xl">
         {Object.entries(userBasicInfo).map((info) => {
           console.log(info[0].charAt(0).toUpperCase() + info[0].slice(1));
           const icons = `Md${
@@ -48,26 +51,32 @@ const UserBasicInfo = () => {
           if (!info[1]) return;
           return info[0] === "avatar" ? (
             dotLoaderStatus === true ? (
-              <div className="h-[30vh] align-middle content-center order-first">
+              <div className="left-20 order-first h-[30vh] mb-2 md:absolute md:h-[50vh] items-center content-center">
                 <DotLoader size="20vh" key="dotLoader" color="#374151" />
               </div>
             ) : (
-              <li key={info[0]} className="order-first mb-2">
+              <li
+                key={info[0]}
+                className="left-20 order-first h-[30vh] mb-2 md:absolute md:h-[50vh]"
+              >
                 <img
                   src={info[1]}
-                  className="shadow-lg shadow-white"
-                  style={{ height: "30vh", borderRadius: "50%" }}
+                  className="h-full shadow-lg shadow-white"
+                  style={{ borderRadius: "50%" }}
                 />
               </li>
             )
           ) : info[0] === "blog" ? (
             <div className="order-last">
-              <Button type="primary" modifiers="rounded-s w-[150px] h-[50px]">
+              <Button
+                type="primary"
+                modifiers="rounded-s w-[150px] h-[50px] md:absolute left-[10vw] top-[65vh] md:w-[15vw]"
+              >
                 <a href={info[1]}>Blog</a>
               </Button>
             </div>
           ) : (
-            <div className="w-full pb-4 border-b-[1px] border-b-background-fill grid grid-cols-[20%_80%] items-center">
+            <div className="w-full pb-4 border-b-[1px] md:ml-[35vw] md:mt-[5vh] border-b-background-fill grid grid-cols-[20%_80%] items-center ">
               {info[0] === "home" ? (
                 <Md.MdHome />
               ) : info[0] === "work" ? (

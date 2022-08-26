@@ -33,6 +33,9 @@ module.exports = {
       height: {
         150: "80vh",
       },
+      boxShadow: {
+        "3xl": "0 4px 10px 7px #374151",
+      },
     },
   },
   plugins: [],

@@ -36,16 +36,16 @@ const UserRepositories = () => {
   return (
     <>
       {/* SEARCH BAR INPUT */}
-      <div className="flex flex-col justify-center m-2 overflow-hidden md:flex-row md:items-center md:justify-evenly">
-        <div className="relative flex justify-center w-full mb-4 md:w-auto ">
+      <div className="flex flex-col justify-center m-4 overflow-hidden md:flex-row md:items-center md:justify-evenly ">
+        <div className="relative flex justify-center w-full mb-4 mx-2 md:w-[40vw] md:justify-between ">
           <span className="hidden mr-4 text-white">Search repository:</span>
           <Icons.AiOutlineSearch
-            className="absolute z-10 left-2 top-2 "
+            className="absolute z-10 left-2 top-3 "
             color="#e5e7eb"
             size="30px"
           />
           <input
-            className="pl-12 w-full h-[6vh] rounded-xl bg-background-fill relative text-white"
+            className="pl-12 md:pl-20 w-full h-[6vh] rounded-xl bg-background-fill md:w-[60%] relative text-white"
             name="filter"
             type="text"
             placeholder="Search repositories"
@@ -53,10 +53,10 @@ const UserRepositories = () => {
             onChange={(event) => setFilter(event.target.value)}
           />
         </div>
-        <div className="flex items-center justify-end gap-2 h-[55px] md:mt-0">
+        <div className="flex items-center justify-end  md:w-[20vw] gap-2 h-[55px] md:h-[10vh] md:mt-0  md:absolute md:bottom-2 md:right-[2vw] z-20 ">
           {filterContainerStatus === true ? (
             <div
-              className="flex justify-evenly w-[50%]"
+              className="flex justify-evenly w-[50%] h-full"
               onClick={() => {
                 setSorter("created");
                 directionStatus === true
@@ -65,12 +65,12 @@ const UserRepositories = () => {
                 setDirectionStatus(!directionStatus);
               }}
             >
-              <div className="flex flex-col items-center justify-between h-full p-2 align-middle md:h-6">
+              <div className="flex flex-col items-center justify-between h-full p-2 align-middle md:justify-center ">
                 <BS.BsFillCalendarDateFill color="#e5e7eb" size="25px" />
                 <span className="text-red-400">Created</span>
               </div>
               <div
-                className="flex flex-col items-center justify-between h-full p-2 align-middle md:h-6"
+                className="flex flex-col items-center justify-between h-full p-2 align-middle md:justify-center"
                 onClick={() => {
                   setSorter("updated");
                   directionStatus === true
@@ -93,23 +93,23 @@ const UserRepositories = () => {
         <PaginationComponent
           changePage={changePage}
           page={page}
-          modifiers="md:relative absolute self-center hidden bottom-0 md:bottom-0 z-20"
+          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20"
         />
       </div>
 
-      <div className="h-auto my-4 md:mb-0 md:h-[70vh]  w-full overflow-hidden">
+      <div className="w-full h-auto my-4 overflow-hidden md:mb-0 md:relative">
         {dataOnPage === null ? (
           <DotLoader />
         ) : (
           <div
             idx="repositories"
-            className="relative flex justify-center w-full"
+            className="relative flex justify-center w-full "
           >
-            <ul className="flex flex-col items-center justify-center w-full h-full gap-4 text-white md:flex-row md:flex-wrap ">
+            <ul className="flex flex-col items-center justify-center w-full h-full gap-4 text-white md:gap-8 md:flex-row md:flex-wrap ">
               {dataOnPage.map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
-                  className="grid w-[90%] md:w-full  md:h-[25vh] grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none rounded-xl hover:border-slate-50"
+                  className="grid w-[90%] md:w-[25vw] md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50"
                   key={repo.repoName}
                 >
                   {Object.values(repo).map((data) => (
@@ -129,7 +129,7 @@ const UserRepositories = () => {
       <PaginationComponent
         changePage={changePage}
         page={page}
-        modifiers="md-hidden relative"
+        modifiers="relative md:hidden"
       />
     </>
   );
