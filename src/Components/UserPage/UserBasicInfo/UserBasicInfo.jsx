@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { DotLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Md from "react-icons/md";
+import Button from "../../ButtonComponent/ButtonComponent";
 
 const UserBasicInfo = () => {
   const navigate = useNavigate();
@@ -21,42 +23,64 @@ const UserBasicInfo = () => {
     followers,
     following,
     location,
+    blog,
   } = userData;
   const userBasicInfo = {
-    name,
-    company,
+    person: name,
+    blog,
+    work: company,
     avatar,
-    location,
-    bio,
-    repositories,
-    followers,
-    following,
+    home: location,
+    description: bio,
+    inventory: `${repositories} repositories`,
   };
 
   return (
-    <Tab.Panel key="basic-info" className="w-auto h-[80vh] align-middle ">
-      <ul className="flex flex-col items-center h-full font-normal text-white capitalize justify-evenly text-s">
+    <Tab.Panel key="basic-info" className="w-full h-full p-8 align-middle ">
+      <ul className="flex flex-col items-center h-full gap-4 font-serif text-white justify-evenly text-s">
         {Object.entries(userBasicInfo).map((info) => {
+          console.log(info[0].charAt(0).toUpperCase() + info[0].slice(1));
+          const icons = `Md${
+            info[0].charAt(0).toUpperCase() + info[0].slice(1)
+          }`;
+          console.log(icons);
+          console.log(Md[icons]);
           if (!info[1]) return;
           return info[0] === "avatar" ? (
             dotLoaderStatus === true ? (
-              <DotLoader
-                key="dotLoader"
-                className="order-first"
-                color="#0d1117"
-              />
+              <div className="h-[30vh] align-middle content-center order-first">
+                <DotLoader size="20vh" key="dotLoader" color="#374151" />
+              </div>
             ) : (
-              <li key={info[0]} className="order-first">
+              <li key={info[0]} className="order-first mb-2">
                 <img
                   src={info[1]}
-                  style={{ height: "30vh", borderRadius: "100px" }}
+                  className="shadow-lg shadow-white"
+                  style={{ height: "30vh", borderRadius: "50%" }}
                 />
               </li>
             )
+          ) : info[0] === "blog" ? (
+            <div className="order-last">
+              <Button type="primary" modifiers="rounded-s w-[150px] h-[50px]">
+                <a href={info[1]}>Blog</a>
+              </Button>
+            </div>
           ) : (
-            <li key={info[0]}>
-              {`${info[0].replaceAll("_", " ").toLowerCase()} : ${info[1]}`}
-            </li>
+            <div className="w-full pb-4 border-b-[1px] border-b-background-fill grid grid-cols-[20%_80%] items-center">
+              {info[0] === "home" ? (
+                <Md.MdHome />
+              ) : info[0] === "work" ? (
+                <Md.MdWork />
+              ) : info[0] === "description" ? (
+                <Md.MdDescription />
+              ) : info[0] === "person" ? (
+                <Md.MdPerson />
+              ) : (
+                <Md.MdInventory />
+              )}
+              <li key={info[0]}> {` ${info[1]}`}</li>
+            </div>
           );
         })}
       </ul>

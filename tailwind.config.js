@@ -15,9 +15,10 @@ module.exports = {
         // "error-404": "url('../src/Content/error-background.jpg')",
       },
       colors: {
+        "repo-blue": "text-blue-400",
         "background-fill": "#374151",
         "tab-fill": "#0d1117",
-        "orange-primary": "#F9A03C",
+        "orange-primary": "#42A5F5",
         Other: () => {
           var letters = "0123456789ABCDEF";
           let colors = [];
