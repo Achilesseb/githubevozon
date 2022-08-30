@@ -23,25 +23,20 @@ const Branches = () => {
   }, []);
   return (
     <>
-      <PaginationComponent
-        changePage={changePage}
-        page={page}
-        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
-      />
-      <div className="flex justify-center w-full h-full mb-4">
-        <div className="min-h-[300px] w-[94vw] md:w-[50vw] bg-gray-200 p-2">
-          <div className="p-2 text-xl font-bold text-center bg-gray-200 ">
+      <div className="flex justify-center w-full h-full md:mb-4 ">
+        <div className="min-h-[300px] w-[94vw] md:w-[60vw]  p-2">
+          {/* <div className="p-2 text-xl font-bold text-center text-blue-400 ">
             Branches
-          </div>
-          <div className="flex flex-col gap-2 bg-gray-200 border-2 border-black shadow">
+          </div> */}
+          <div className="flex flex-col gap-2 p-4 text-blue-100 border-2 shadow-3xl bg-slate-800">
             {branchesProfile.length === 0 ? (
               <div className="flex justify-center w-full">
-                <DotLoader color="#F9A03C" />
+                <DotLoader color="#374151" />
               </div>
             ) : (
               <>
                 <div className="flex text-center justify-evenly">
-                  <div className="w-[40%]  text-xl font-bold">Branch</div>
+                  <div className="w-[40%]  text-xl font-bold">Branches</div>
                   <div className="w-[60%] text-xl font-bold ml-2 ">Author</div>
                 </div>
                 {dataOnPage?.map((branch) => {
@@ -58,14 +53,14 @@ const Branches = () => {
                       }
                     >
                       <div
-                        className={`flex gap-2 mb-2 mx-2 border-2 border-black shadow ${
+                        className={`flex gap-2 mb-2 mx-2 border-2 border-white shadow ${
                           branch.name == "main" || branch.name == "master"
-                            ? "bg-red-200"
+                            ? "bg-red-400"
                             : null
                         } h-auto text-[0.7rem] ${
                           branch.name == "main" || branch.name == "master"
-                            ? "hover:bg-red-400"
-                            : "hover:bg-gray-400"
+                            ? "hover:bg-red-500"
+                            : "hover:bg-gray-500"
                         } md:text-[1rem] font-semibold p-0  items-center content-center text-center`}
                       >
                         <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
@@ -75,7 +70,7 @@ const Branches = () => {
                           {branchData?.author?.login}
                         </div>
                         {dotLoaderStatus === true ? (
-                          <DotLoader color="#F9A03C" />
+                          <DotLoader color="#374151" />
                         ) : (
                           <img
                             className="w-[19%]  p-2 rounded-full "
@@ -91,6 +86,11 @@ const Branches = () => {
           </div>
         </div>
       </div>
+      <PaginationComponent
+        changePage={changePage}
+        page={page}
+        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
+      />
     </>
   );
 };

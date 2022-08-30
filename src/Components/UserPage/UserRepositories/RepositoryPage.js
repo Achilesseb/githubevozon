@@ -80,7 +80,7 @@ export function RepositoryPage() {
           </div>
 
           {/* COLLAB */}
-          <div>
+          <div className="my-2">
             {!showMenu ? (
               <div
                 onClick={(e) => {
@@ -89,7 +89,7 @@ export function RepositoryPage() {
                 }}
                 className="cursor-pointer"
               >
-                <ai.AiFillCaretRight />
+                <ai.AiFillCaretRight color="#42A5F5" />
               </div>
             ) : (
               <div
@@ -99,10 +99,12 @@ export function RepositoryPage() {
                 }}
                 className="cursor-pointer"
               >
-                <ai.AiFillCaretDown />
-                <div className="border border-black absolute w-auto h-auto bg-gray-300 mt-2 rounded flex flex-col min-w-[35%] z-10">
-                  <div className="px-2 mt-2 font-semibold">Contributors</div>
-                  <div className="flex flex-col gap-2 p-2 bg-white">
+                <ai.AiFillCaretDown color="#42A5F5" />
+                <div className="border border-black absolute w-auto h-auto bg-tab-fill mt-2 rounded flex flex-col min-w-[35%] z-10 text-blue-100">
+                  <div className="px-2 mt-2 font-semibold text-blue-400 ">
+                    Contributors
+                  </div>
+                  <div className="flex flex-col gap-2 p-2 bg-slate-800">
                     {contributors.map((contributor, index) => {
                       return (
                         <Contributors key={index} contributor={contributor} />
@@ -123,18 +125,18 @@ export function RepositoryPage() {
         </div>
 
         {/* MENU */}
-        <nav className="p-0 h-[12vh] w-[100%] flex flex-row justify-around gap-[2%] bg-slate-800 items-center  ">
+        <nav className="p-0 h-[10vh] w-[100%] flex flex-row justify-around gap-[2%] bg-slate-800 items-center  ">
           {options.map((option, index) => {
             return (
               <Link
                 to={`${option.to}`}
                 key={index}
-                className="w-[30vw] md:w-[15vw] md:grid grid-cols-2[50%_50%] hover:border-2 border-white rounded-full transition ease-linear duration-700"
+                className="w-[30vw] md:w-[15vw] md:grid grid-cols-2[50%_50%] "
               >
                 <Button
                   className={option.divClassName}
                   type="primary"
-                  modifiers="w-full flex justify-evenly text-slate-200 first:justify-start grid grid-cols-[30%_70%] md:px-8 transition ease-in-out duration-300"
+                  modifiers="w-full flex justify-evenly text-slate-200 first:justify-start grid grid-cols-[30%_70%] md:px-8 transition ease-in-out delay-150 hover:scale-110 duration-700 hover:text-white"
                 >
                   <bs.BsFileEarmarkCode
                     className={`${option.iconClassName} justify-self-start w-full h-full `}

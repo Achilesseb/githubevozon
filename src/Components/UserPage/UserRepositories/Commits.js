@@ -24,8 +24,8 @@ const Commits = () => {
         modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw] my-4"
       />
       <div className="flex justify-center w-full h-full mb-4">
-        <div className="h-auto h-min-[300px] w-[94vw] bg-gray-200">
-          <div className="m-3 border-2 border-gray-300 rounded drop-shadow-xl">
+        <div className="h-auto h-min-[300px] w-[94vw] bg-slate-800 rounded-md">
+          <div className="p-4 m-3 border-2 border-gray-300 rounded drop-shadow-xl">
             {dataOnPage?.map((commit, index) => {
               return (
                 <div
