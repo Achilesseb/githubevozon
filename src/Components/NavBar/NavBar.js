@@ -71,18 +71,25 @@ export function NavBar() {
       <ul
         className={`md:flex md:items-center w-full content-center md:z-auto md:static absolute ${
           sidebar ? "top-[-200px]" : "top-[20px]"
-        } md:top-[0px] bg-tab-fill z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
+        } md:top-[0px] bg-tab-fill/95 z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
       >
         {MenuList.map((data, index) => {
           return (
             <li key={index} className={data.listClassName}>
               <Link
                 to={data?.to}
-                className={data.anchorClassname}
+                className={`${data.anchorClassname} ${
+                  data.name === "Login" && user
+                    ? "hover:rounded-full hover:bg-white"
+                    : null
+                } `}
                 onClick={() => setSidebar(!sidebar)}
               >
                 {data.name === "Login" && user ? (
-                  <img src={user.avatar_url} className="w-10 rounded-full" />
+                  <img
+                    src={user.avatar_url}
+                    className="w-10 rounded-full hover: bg-tab-fill "
+                  />
                 ) : (
                   data.name
                 )}
