@@ -42,12 +42,6 @@ const UserBasicInfo = () => {
     >
       <ul className="flex flex-col w-full  items-center h-full md:w-[50vw] gap-4 md:gap-8 font-serif text-white justify-evenly text-s md:text-xl">
         {Object.entries(userBasicInfo).map((info) => {
-          console.log(info[0].charAt(0).toUpperCase() + info[0].slice(1));
-          const icons = `Md${
-            info[0].charAt(0).toUpperCase() + info[0].slice(1)
-          }`;
-          console.log(icons);
-          console.log(Md[icons]);
           if (!info[1]) return;
           return info[0] === "avatar" ? (
             dotLoaderStatus === true ? (

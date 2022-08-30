@@ -2,6 +2,7 @@ import {
   Link,
   Navigate,
   Outlet,
+  useLocation,
   useNavigate,
   useParams,
 } from "react-router-dom";
@@ -15,9 +16,17 @@ import {
 } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import Contributors from "./Contributors";
+import Button from "../../ButtonComponent/ButtonComponent";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
+  const params = useParams();
+  const location = useLocation();
+  console.log(location);
+  console.log(params);
+  console.log(
+    location.pathname.slice(location.pathname.lastIndexOf("/")).replace("/", "")
+  );
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,11 +58,11 @@ export function RepositoryPage() {
   return (
     <>
       {/* ROUTE */}
-      <div className="w-auto max-w-[100vw] h-auto min-h-[90vh] flex flex-col gap-4 items-start">
-        <div className="w-full flex-col justify-start items-center mt-2 ml-[3vw]">
+      <div className="flex flex-col items-start w-full h-auto">
+        <div className="flex-col items-center justify-start w-full pl-4 mt-2">
           <div className="flex items-center py-2 pr-2 mb-2 text-lg text-white">
             <bs.BsBookmarks />
-            <div className="ml-2">
+            <div className="">
               <Link to={`/${login}/info`}>
                 <span className="text-blue-300 hover:underline">{login}</span>
               </Link>{" "}
@@ -106,28 +115,34 @@ export function RepositoryPage() {
           </div>
 
           {/* REPO NAME */}
-          <div className="font-serif w-[100%] text-xl text-center text-white ">
+          {/* <div className="font-serif w-[100%] text-xl text-center text-white ">
             <Link to={`/${login}/repos/${repositoryName}`}>
               <span>{repositoryName}</span>
             </Link>
-          </div>
+          </div> */}
         </div>
 
         {/* MENU */}
-        <nav className="p-0 h-[10vh] w-[100%] flex flex-row justify-center gap-[2%] ">
+        <nav className="p-0 h-[12vh] w-[100%] flex flex-row justify-around gap-[2%] bg-slate-800 items-center  ">
           {options.map((option, index) => {
             return (
               <Link
                 to={`${option.to}`}
                 key={index}
-                className="w-[30vw] onClick={() => {
-              dispatch(setDeleteBranches());
-            }} "
+                className="w-[30vw] md:w-[15vw] md:grid grid-cols-2[50%_50%] hover:border-2 border-white rounded-full transition ease-linear duration-700"
               >
-                <div className={option.divClassName}>
-                  <bs.BsFileEarmarkCode className={option.iconClassName} />
-                  <span className="md:w-[70%] ">{option.name}</span>
-                </div>
+                <Button
+                  className={option.divClassName}
+                  type="primary"
+                  modifiers="w-full flex justify-evenly text-slate-200 first:justify-start grid grid-cols-[30%_70%] md:px-8 transition ease-in-out duration-300"
+                >
+                  <bs.BsFileEarmarkCode
+                    className={`${option.iconClassName} justify-self-start w-full h-full `}
+                  />
+                  <span className="flex justify-center capitalize ">
+                    {option.name}
+                  </span>
+                </Button>
               </Link>
             );
           })}

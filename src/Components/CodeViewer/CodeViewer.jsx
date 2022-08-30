@@ -6,6 +6,7 @@ import { Buffer } from "buffer";
 import { javascript } from "react-syntax-highlighter/dist/esm/languages/prism";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import Button from "../ButtonComponent/ButtonComponent";
+import * as Md from "react-icons/md";
 
 const CodeViewer = () => {
   const fileContent = useSelector((data) => data.repositories.content);
@@ -27,15 +28,19 @@ const CodeViewer = () => {
     <>
       <Button
         type="secondary"
-        modifiers="w-[100px] text-[0.5rem] h-auto flex justify-center align-middle p-0 m-0 md:w-[20vw] md:text-[1rem] bg-tab-fill uppercase self-end "
+        modifiers="w-auto  h-auto absolute right-2 top-[42%] align-middle  md:w-[20vw] md:text-[1rem] bg-inherit rounded-xl md:right-0 md:w-[5vw] "
         callback={undoSelections}
       >
-        undo selections
+        <Md.MdOutlineCancel size="30px" />
       </Button>
       <SyntaxHighlighter
         language="javascript"
         style={dracula}
-        customStyle={{ width: "100%" }}
+        customStyle={{
+          width: "100%",
+          paddingTop: "40px",
+          backgroundColor: "rgb(30 41 59)",
+        }}
         wrapLines={true}
         showLineNumbers
         lineProps={(lineNumber) => {

@@ -21,7 +21,7 @@ const Commits = () => {
       <PaginationComponent
         changePage={changePage}
         page={page}
-        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
+        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw] my-4"
       />
       <div className="flex justify-center w-full h-full mb-4">
         <div className="h-auto h-min-[300px] w-[94vw] bg-gray-200">

@@ -93,7 +93,7 @@ const UserRepositories = () => {
         <PaginationComponent
           changePage={changePage}
           page={page}
-          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20"
+          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20 "
         />
       </div>
 
@@ -109,7 +109,7 @@ const UserRepositories = () => {
               {dataOnPage.map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
-                  className="grid w-[90%] md:w-[25vw] md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50"
+                  className="grid w-[90%] md:w-[25vw] bg-slate-800 md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50"
                   key={repo.repoName}
                 >
                   {Object.values(repo).map((data) => (
