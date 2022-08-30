@@ -5,7 +5,6 @@ import * as fi from "react-icons/fi";
 const IntroMessage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { user } = useSelector((data) => data.user);
-  console.log(user);
 
   useEffect(() => {
     setTimeout(() => {
@@ -40,7 +39,7 @@ const IntroMessage = () => {
               ></path>
             </svg>
           </div>
-          <div className="mt-2 scale-90 animate-bounce invisible md:visible absolute md:static">
+          <div className="absolute invisible mt-2 scale-90 animate-bounce md:visible md:static">
             <fi.FiArrowDown />
           </div>
         </div>

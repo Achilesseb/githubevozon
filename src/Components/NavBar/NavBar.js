@@ -43,10 +43,10 @@ export function NavBar() {
   };
 
   return (
-    <nav className="h-[10vh] p-2 shadow bg-tab-fill items-end md:flex md:items-center md:justify-between">
+    <nav className="h-[10vh] p-4 shadow bg-tab-fill items-end md:flex md:items-center md:justify-between">
       <div className="z-30 flex items-center justify-between text-center">
         <Link to="/">
-          <div className="absolute top-[1%] md:top-[2%] h-[60px] w-[60px]  border-none  z-30">
+          <div className="absolute top-[1%] md:top-[1%] h-[60px] w-[60px]  border-none  z-30">
             <svg
               className=""
               viewBox="0 0 64 64"
@@ -71,7 +71,7 @@ export function NavBar() {
       <ul
         className={`md:flex md:items-center w-full content-center md:z-auto md:static absolute ${
           sidebar ? "top-[-200px]" : "top-[20px]"
-        } md:top-[0px] bg-tab-fill/80 z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
+        } md:top-[0px] bg-tab-fill z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
       >
         {MenuList.map((data, index) => {
           return (

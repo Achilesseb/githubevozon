@@ -22,11 +22,6 @@ export function RepositoryPage() {
   const { repositoryName, login } = useParams();
   const params = useParams();
   const location = useLocation();
-  console.log(location);
-  console.log(params);
-  console.log(
-    location.pathname.slice(location.pathname.lastIndexOf("/")).replace("/", "")
-  );
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
