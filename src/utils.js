@@ -16,15 +16,61 @@ export const PAGINATION_NUMBER = 6;
 
 // Calc percent for Code Lines
 export const colors = {
-  JavaScript: "bg-red-600",
-  HTML: "bg-yellow-400",
-  CSS: "bg-blue-700",
-  SCSS: "bg-green-600",
-  JSON: "[#f37c27]",
-  TypeScript: "[#f327c0]",
-  Shell: "[#27aff3]",
-  C: "bg-blue-900",
-  Python: "bg-red-900",
+  JavaScript: {
+    shadow: "shadow-[red]",
+    background: "bg-red-200",
+    color: "stroke-[red]",
+  },
+  HTML: {
+    shadow: "shadow-[yellow]",
+    background: "bg-yellow-200",
+    color: "stroke-[yellow]",
+  },
+  CSS: {
+    shadow: "shadow-[blue]",
+    background: "bg-blue-200",
+    color: "stroke-[blue]",
+  },
+  SCSS: {
+    shadow: "shadow-[green]",
+    background: "bg-green-200",
+    color: "stroke-[green]",
+  },
+  JSON: {
+    shadow: "[#f37c27]",
+    background: "bg-[#f37c27]",
+    color: "stroke-[#f37c27]",
+  },
+  TypeScript: {
+    shadow: "[#f327c0]",
+    background: "bg-[#f327c0]",
+    color: "stroke-[#f327c0]",
+  },
+  Shell: {
+    shadow: "[#27aff3]",
+    background: "bg-[#27aff3]",
+    color: "stroke-[#27aff3]",
+  },
+  C: {
+    shadow: "shadow-[#A9005C]",
+    background: "bg-[#A9005C]",
+    color: "stroke-[#A9005C]",
+  },
+  "C++": {
+    shadow: "shadow-[#B1626C]",
+    background: "bg-[#B1626C]",
+    color: "stroke-[#B1626C]",
+  },
+  Python: {
+    shadow: "shadow-[#D18A00]",
+    background: "bg-[#D18A00]",
+    color: "stroke-[#D18A00]",
+  },
+  Dockerfile: {
+    shadow: "shadow-[#4D068D]",
+    background: "bg-[#4D068D]",
+    color: "stroke-[#4D068D]",
+  },
 };
 export const lines = {};
 // Calc percent of line codes

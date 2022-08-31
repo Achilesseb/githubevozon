@@ -71,7 +71,7 @@ export function NavBar() {
       <ul
         className={`md:flex md:items-center w-full content-center md:z-auto md:static absolute ${
           sidebar ? "top-[-200px]" : "top-[20px]"
-        } md:top-[0px] bg-tab-fill/50 z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
+        } md:top-[0px] bg-tab-fill/90 z-20 right-0 md:w-auto md:py-0 py-2 md:pl-0 pl-2 transition ease-in-out duration-5000`}
       >
         {MenuList.map((data, index) => {
           return (

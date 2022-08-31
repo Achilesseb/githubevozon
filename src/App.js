@@ -16,7 +16,7 @@ import MainPaigRepo from "./Components/UserPage/UserRepositories/MainPageRepo";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
 function App() {
   return (
-    <div className="flex flex-col justify-start w-full h-full min-h-screen align-top bg-tab-fill">
+    <div className="flex flex-col justify-start w-full h-auto min-h-[100vh] align-top bg-tab-fill">
       <div>
         <NavBar />
       </div>
