@@ -28,7 +28,7 @@ const CodeViewer = () => {
     <>
       <Button
         type="secondary"
-        modifiers="w-auto  h-auto absolute right-2 top-[42%] align-middle  md:w-[20vw] md:text-[1rem] bg-inherit rounded-xl md:right-0 md:w-[5vw] "
+        modifiers="w-auto h-auto hover:scale-100 transition-none absolute right-2 top-[42%] align-middle  md:w-[20vw] md:text-[1rem] bg-inherit rounded-xl md:right-0 md:w-[5vw] "
         callback={undoSelections}
       >
         <Md.MdOutlineCancel size="30px" />
