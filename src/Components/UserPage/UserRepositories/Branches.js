@@ -21,22 +21,23 @@ const Branches = () => {
   useEffect(() => {
     setTimeout(() => setDotLoaderStatus(false), 1000);
   }, []);
+  // console.log(branchData);
   return (
     <>
-      <div className="flex justify-center w-full h-full md:mb-4 ">
-        <div className="min-h-[300px] w-[94vw] md:w-[60vw]  p-2">
-          {/* <div className="p-2 text-xl font-bold text-center text-blue-400 ">
+      <div className="flex justify-center w-full h-full mb-4">
+        <div className="min-h-[300px] flex flex-col gap-4 w-[94vw] md:w-[50%] p-2">
+          <div className="p-2 text-xl text-white font-bold text-center bg-background-fill/50 rounded-lg shadow-md shadow-gray-400">
             Branches
-          </div> */}
-          <div className="flex flex-col gap-2 p-4 text-blue-100 border-2 shadow-3xl bg-slate-800">
+          </div>
+          <div className="flex flex-col text-white gap-2">
             {branchesProfile.length === 0 ? (
               <div className="flex justify-center w-full">
                 <DotLoader color="#374151" />
               </div>
             ) : (
               <>
-                <div className="flex text-center justify-evenly">
-                  <div className="w-[40%]  text-xl font-bold">Branches</div>
+                <div className="flex text-center mb-2 justify-evenly py-2 bg-background-fill rounded-lg">
+                  <div className="w-[40%]  text-xl font-bold">Branch</div>
                   <div className="w-[60%] text-xl font-bold ml-2 ">Author</div>
                 </div>
                 {dataOnPage?.map((branch) => {
@@ -53,27 +54,23 @@ const Branches = () => {
                       }
                     >
                       <div
-                        className={`flex gap-2 mb-2 mx-2 border-2 border-white shadow ${
+                        className={`flex rounded-2xl gap-2 mb-2 mx-2 h-auto shadow-lg bg-background-fill/50 ${
                           branch.name == "main" || branch.name == "master"
-                            ? "bg-red-400"
-                            : null
-                        } h-auto text-[0.7rem] ${
-                          branch.name == "main" || branch.name == "master"
-                            ? "hover:bg-red-500"
-                            : "hover:bg-gray-500"
-                        } md:text-[1rem] font-semibold p-0  items-center content-center text-center`}
+                            ? "hover:shadow-red-600"
+                            : "hover:shadow-white"
+                        } h-auto text-[0.7rem] md:text-[1rem] font-semibold p-0  items-center content-center text-center`}
                       >
-                        <div className="w-[38%] h-auto flex justify-center items-center m-2 ">
+                        <div className="w-[38%] h-auto flex justify-center items-center m-2">
                           {branch.name}
                         </div>
-                        <div className="w-[38%] h-auto flex justify-center items-center   ">
+                        <div className="w-[38%] h-auto flex justify-center items-center">
                           {branchData?.author?.login}
                         </div>
                         {dotLoaderStatus === true ? (
                           <DotLoader color="#374151" />
                         ) : (
                           <img
-                            className="w-[19%]  p-2 rounded-full "
+                            className="w-[15%] md:w-[15%] p-2 rounded-full "
                             src={`${branchData?.author?.avatar_url}`}
                           />
                         )}

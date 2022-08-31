@@ -14,21 +14,11 @@ export function LandingPage() {
   return (
     <div className=" full-page min-h-[90vh]">
       <div className="mt-10 search-container">
-        {/* {isSearchVisible ? (
-          <SearchBar isClicked={isClicked} onClick={handleClick} />
-        ) : (
-          <button
-            onClick={() => setIsSearchVisible(!isSearchVisible)}
-            className="px-10 py-4 font-sans text-xl font-bold text-white border-2 border-white border-solid durations-500 hover:bg-white hover:text-black "
-          >
-            Get Started
-          </button>
-        )} */}
         <div className="relative w-auto h-auto min-w-[90vw] min-h-[100px] md:min-w-[600px] md:h-[350px] rounded-[20px] flex items-center ">
           <div
             onMouseEnter={() => setIsSearchVisible(true)}
             onMouseLeave={() => setIsSearchVisible(false)}
-            className="flex justify-center items-center hover:before:duration-500 w-full h-full top-0 left-0 before:absolute before:top-0 before:left-0  before:bg-gray-200/30 before:rounded-full before:w-[120px] before:h-[120px] before:left-[120px] before:top-[-10px] md:before:top-[115px] md:before:left-[240px] hover:before:bg-gray-300/50  hover:before:top-0 hover:before:left-0 hover:before:w-full hover:before:h-full hover:before:rounded-[20px]"
+            className="flex justify-center items-center hover:before:duration-500 w-full h-full top-0 left-0 before:absolute before:top-0 before:left-0  before:bg-gray-200/30 before:rounded-full before:w-[120px] before:h-[120px] before:left-[calc(50%-60px)] before:top-[-10%] md:before:top-[115px] md:before:left-[240px] hover:before:bg-gray-300/50  hover:before:top-0 hover:before:left-0 hover:before:w-full hover:before:h-full hover:before:rounded-[20px]"
           >
             {isSearchVisible ? (
               <div className="absolute h-full w-full flex flex-col justify-center items-center">

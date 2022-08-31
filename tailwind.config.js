@@ -7,12 +7,18 @@ function getRandomColor() {
   }
   return color;
 }
+
+// const fill
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       backgroundImage: {
         // "error-404": "url('../src/Content/error-background.jpg')",
+      },
+      keyframes: {
+        fillPercent: { "100%": { "stroke-dashoffset": 20 } },
       },
       colors: {
         "repo-blue": "text-blue-400",
