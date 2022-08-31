@@ -36,7 +36,7 @@ const UserRepositories = () => {
   return (
     <>
       {/* SEARCH BAR INPUT */}
-      <div className="flex flex-col justify-center m-4 overflow-hidden md:flex-row md:items-center md:justify-evenly ">
+      <div className="flex flex-col justify-center m-2 overflow-hidden md:flex-row md:items-center md:justify-evenly ">
         <div className="relative flex justify-center w-full mb-4 mx-2 md:w-[40vw] md:justify-between ">
           <span className="hidden mr-4 text-white">Search repository:</span>
           <Icons.AiOutlineSearch
@@ -93,7 +93,7 @@ const UserRepositories = () => {
         <PaginationComponent
           changePage={changePage}
           page={page}
-          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20"
+          modifiers="md:relative md:w-[30vw] md:flex absolute self-center hidden md:block bottom-0 md:bottom-0 z-20 "
         />
       </div>
 
@@ -103,13 +103,13 @@ const UserRepositories = () => {
         ) : (
           <div
             idx="repositories"
-            className="relative flex justify-center w-full "
+            className="relative flex justify-center w-full pb-4 "
           >
             <ul className="flex flex-col items-center justify-center w-full h-full gap-4 text-white md:gap-8 md:flex-row md:flex-wrap ">
               {dataOnPage.map((repo) => (
                 <Link
                   to={`${repo.repoName}`}
-                  className="grid w-[90%] md:w-[25vw] md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50"
+                  className="grid w-[90%] md:w-[25vw] bg-slate-800 md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50 transition ease-in-out hover:shadow-blue-400 delay-200 shadow-sm duration-700  "
                   key={repo.repoName}
                 >
                   {Object.values(repo).map((data) => (

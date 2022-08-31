@@ -1,6 +1,11 @@
 import * as AiIcons from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { getContentFromRepositoryData } from "../../../utils";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -12,6 +17,7 @@ export function RootFile() {
   const handleOpenViewer = (e, file) => {
     dispatch(setDataForNesting(file));
   };
+  const location = useLocation();
   let contents = useSelector((data) => data.repositories.content);
   const dispatch = useDispatch();
   const path = useMatch("/*");
@@ -20,7 +26,6 @@ export function RootFile() {
   if (contents.message == "Not Found") {
     navigate("/error");
   }
-  console.log("kplm");
   useEffect(() => {
     getContentFromRepositoryData(
       dispatch,
@@ -29,10 +34,16 @@ export function RootFile() {
       ad
     );
   }, [path]);
-  console.log(contents);
   return (
-    <div className="z-0 flex flex-col h-auto gap-1 p-4 mb-8 mx-[4%] bg-white self-center w-[100%]">
-      <div className="">{params.repositoryName}</div>
+    <div className="z-0 flex flex-col self-center w-full h-auto gap-4 px-4 pb-4 mb-4 overflow-hidden bg-inherit">
+      <div className="flex items-center p-2 text-2xl text-blue-400">
+        <AiIcons.AiOutlineFile className="h-full" />
+        <span>
+          {location.pathname
+            .slice(location.pathname.lastIndexOf("/"))
+            .replace("/", "")}
+        </span>
+      </div>
       {contents.message !== "This repository is empty" && !contents?.message ? (
         contents.type === "file" ? (
           <CodeViewer />
@@ -42,7 +53,7 @@ export function RootFile() {
               <Link
                 to={`${path.pathname}/${file.name}`}
                 key={index}
-                className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
+                className="flex items-center gap-4 p-4 text-white border-b-4 border-l-4 border-solid rounded-br-none bg-slate-800 hover:shadow-3xl border-slate-400 md:rounded-br-xl rounded-xl hover:border-slate-50"
               >
                 <AiIcons.AiFillFolderOpen />
                 {file.name}
@@ -54,7 +65,7 @@ export function RootFile() {
                   handleOpenViewer(e, file);
                 }}
                 key={index}
-                className="flex items-center gap-4 p-4 border-2 border-gray-300 shadow hover:bg-gray-200 hover:cursor-pointer"
+                className="flex items-center gap-4 p-4 text-white border-b-4 border-l-4 border-solid bg-slate-800 border-slate-400 hover:shadow-3xl md:rounded-br-xl rounded-xl hover:border-slate-50"
               >
                 <AiIcons.AiOutlineFile />
                 {file.name}

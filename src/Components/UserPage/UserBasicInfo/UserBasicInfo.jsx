@@ -20,8 +20,6 @@ const UserBasicInfo = () => {
     avatar_url: avatar,
     bio,
     public_repos: repositories,
-    followers,
-    following,
     location,
     blog,
   } = userData;
@@ -42,16 +40,13 @@ const UserBasicInfo = () => {
     >
       <ul className="flex flex-col w-full  items-center h-full md:w-[50vw] gap-4 md:gap-8 font-serif text-white justify-evenly text-s md:text-xl">
         {Object.entries(userBasicInfo).map((info) => {
-          console.log(info[0].charAt(0).toUpperCase() + info[0].slice(1));
-          const icons = `Md${
-            info[0].charAt(0).toUpperCase() + info[0].slice(1)
-          }`;
-          console.log(icons);
-          console.log(Md[icons]);
           if (!info[1]) return;
           return info[0] === "avatar" ? (
             dotLoaderStatus === true ? (
-              <div className="left-20 order-first h-[30vh] mb-2 md:absolute md:h-[50vh] items-center content-center">
+              <div
+                className="left-20 order-first h-[30vh] mb-2 md:absolute md:h-[50vh] items-center content-center"
+                key="dotLoader"
+              >
                 <DotLoader size="20vh" key="dotLoader" color="#374151" />
               </div>
             ) : (
@@ -61,13 +56,14 @@ const UserBasicInfo = () => {
               >
                 <img
                   src={info[1]}
+                  key={`${info[1]}_avatar`}
                   className="h-full shadow-lg shadow-white"
                   style={{ borderRadius: "50%" }}
                 />
               </li>
             )
           ) : info[0] === "blog" ? (
-            <div className="order-last">
+            <div className="order-last" key="blog">
               <Button
                 type="primary"
                 modifiers="rounded-s w-[150px] h-[50px] md:absolute left-[10vw] top-[65vh] md:w-[15vw]"
@@ -76,7 +72,10 @@ const UserBasicInfo = () => {
               </Button>
             </div>
           ) : (
-            <div className="w-full pb-4 border-b-[1px] md:ml-[35vw] md:mt-[5vh] border-b-background-fill grid grid-cols-[20%_80%] items-center ">
+            <div
+              className="w-full pb-4 border-b-[1px] md:ml-[35vw] md:mt-[5vh] border-b-background-fill grid grid-cols-[20%_80%] items-center"
+              key={`${info[0]}_icon`}
+            >
               {info[0] === "home" ? (
                 <Md.MdHome />
               ) : info[0] === "work" ? (

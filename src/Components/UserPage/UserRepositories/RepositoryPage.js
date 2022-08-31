@@ -20,6 +20,8 @@ import { Tab } from "@headlessui/react";
 
 export function RepositoryPage() {
   const { repositoryName, login } = useParams();
+  const params = useParams();
+
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ export function RepositoryPage() {
         <div className="w-full flex-col justify-start items-center mt-2 pl-[3vw] ">
           <div className="flex items-center py-2 pr-2 mb-2 text-lg text-white">
             <bs.BsBookmarks />
-            <div className="ml-2">
+            <div className="">
               <Link to={`/${login}/info`}>
                 <span className="text-blue-300 hover:underline">{login}</span>
               </Link>{" "}
@@ -83,7 +85,7 @@ export function RepositoryPage() {
           </div>
 
           {/* COLLAB */}
-          <div>
+          <div className="my-2">
             {!showMenu ? (
               <div
                 onClick={(e) => {
@@ -118,11 +120,11 @@ export function RepositoryPage() {
           </div>
 
           {/* REPO NAME */}
-          <div className="font-serif w-[100%] text-xl text-center text-white ">
+          {/* <div className="font-serif w-[100%] text-xl text-center text-white ">
             <Link to={`/${login}/repos/${repositoryName}`}>
               <span>{repositoryName}</span>
             </Link>
-          </div>
+          </div> */}
         </div>
 
         {/* MENU */}

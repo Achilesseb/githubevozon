@@ -40,7 +40,6 @@ const LanguageUsed = () => {
   }, [counter, count]);
 
   calcPercent(languagesUsed);
-
   return (
     <div className="flex flex-wrap justify-center w-full h-full md:mb-8">
       {Object.entries(languages).map((language, index) => (

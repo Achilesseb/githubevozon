@@ -18,7 +18,7 @@ export function LandingPage() {
           <div
             onMouseEnter={() => setIsSearchVisible(true)}
             onMouseLeave={() => setIsSearchVisible(false)}
-            className="flex justify-center items-center hover:before:duration-500 w-full h-full top-0 left-0 before:absolute before:top-0 before:left-0  before:bg-gray-200/30 before:rounded-full before:w-[120px] before:h-[120px] before:left-[120px] before:top-[-10px] md:before:top-[115px] md:before:left-[240px] hover:before:bg-gray-300/50  hover:before:top-0 hover:before:left-0 hover:before:w-full hover:before:h-full hover:before:rounded-[20px]"
+            className="flex justify-center items-center hover:before:duration-500 w-full h-full top-0 left-0 before:absolute before:top-0 before:left-0  before:bg-gray-200/30 before:rounded-full before:w-[120px] before:h-[120px] before:left-[calc(50%-60px)] before:top-[-10%] md:before:top-[115px] md:before:left-[240px] hover:before:bg-gray-300/50  hover:before:top-0 hover:before:left-0 hover:before:w-full hover:before:h-full hover:before:rounded-[20px]"
           >
             {isSearchVisible ? (
               <div className="absolute h-full w-full flex flex-col justify-center items-center">

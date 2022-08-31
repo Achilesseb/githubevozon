@@ -24,12 +24,6 @@ const Branches = () => {
   // console.log(branchData);
   return (
     <>
-      <PaginationComponent
-        changePage={changePage}
-        page={page}
-        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
-      />
-
       <div className="flex justify-center w-full h-full mb-4">
         <div className="min-h-[300px] flex flex-col gap-4 w-[94vw] md:w-[50%] p-2">
           <div className="p-2 text-xl text-white font-bold text-center bg-background-fill/50 rounded-lg shadow-md shadow-gray-400">
@@ -38,7 +32,7 @@ const Branches = () => {
           <div className="flex flex-col text-white gap-2">
             {branchesProfile.length === 0 ? (
               <div className="flex justify-center w-full">
-                <DotLoader color="#F9A03C" />
+                <DotLoader color="#374151" />
               </div>
             ) : (
               <>
@@ -73,7 +67,7 @@ const Branches = () => {
                           {branchData?.author?.login}
                         </div>
                         {dotLoaderStatus === true ? (
-                          <DotLoader color="#F9A03C" />
+                          <DotLoader color="#374151" />
                         ) : (
                           <img
                             className="w-[15%] md:w-[15%] p-2 rounded-full "
@@ -89,6 +83,11 @@ const Branches = () => {
           </div>
         </div>
       </div>
+      <PaginationComponent
+        changePage={changePage}
+        page={page}
+        modifiers="relative w-[80vw] flex justify-center self-center md:w-[50vw]"
+      />
     </>
   );
 };

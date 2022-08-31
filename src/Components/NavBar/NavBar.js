@@ -43,10 +43,10 @@ export function NavBar() {
   };
 
   return (
-    <nav className="h-[10vh] p-2 shadow bg-tab-fill items-end md:flex md:items-center md:justify-between">
-      <div className="flex items-center text-center justify-between z-30">
+    <nav className="h-[10vh] p-4 shadow bg-tab-fill items-end md:flex md:items-center md:justify-between">
+      <div className="z-30 flex items-center justify-between text-center">
         <Link to="/">
-          <div className="absolute top-[1%] md:top-[2%] h-[60px] w-[60px]  border-none  z-30">
+          <div className="absolute top-[1%] md:top-[1%] h-[60px] w-[60px]  border-none  z-30">
             <svg
               className=""
               viewBox="0 0 64 64"
@@ -78,11 +78,18 @@ export function NavBar() {
             <li key={index} className={data.listClassName}>
               <Link
                 to={data?.to}
-                className={data.anchorClassname}
+                className={`${data.anchorClassname} ${
+                  data.name === "Login" && user
+                    ? "hover:rounded-full hover:bg-white"
+                    : null
+                } `}
                 onClick={() => setSidebar(!sidebar)}
               >
                 {data.name === "Login" && user ? (
-                  <img src={user.avatar_url} className="w-10 rounded-full" />
+                  <img
+                    src={user.avatar_url}
+                    className="w-10 rounded-full hover: bg-tab-fill "
+                  />
                 ) : (
                   data.name
                 )}
