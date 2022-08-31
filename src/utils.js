@@ -56,6 +56,11 @@ export const colors = {
     background: "bg-[#A9005C]",
     color: "stroke-[#A9005C]",
   },
+  "C#": {
+    shadow: "shadow-[#A9002C]",
+    background: "bg-[#A9002C]",
+    color: "stroke-[#A9002C]",
+  },
   "C++": {
     shadow: "shadow-[#B1626C]",
     background: "bg-[#B1626C]",
