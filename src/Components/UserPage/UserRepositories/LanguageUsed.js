@@ -49,11 +49,11 @@ const LanguageUsed = () => {
         >
           {!count ? (
             <div className="flex justify-center w-full">
-              <DotLoader color="#F9A03C" />
+              <DotLoader color="#374151" />
             </div>
           ) : (
             <div
-              className={`flex flex-col relative flex items-center justify-center w-[calc(100%-50px)] h-[calc(100%-50px)] ${
+              className={`flex flex-col relative items-center justify-center w-[calc(100%-50px)] h-[calc(100%-50px)] ${
                 colors[language[0]]?.background
               } rounded-full shadow-[0_0_5px_3px] ${
                 colors[language[0]]?.shadow

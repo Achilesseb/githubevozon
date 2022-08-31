@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 import PaginationComponent from "../../PaginationComponent/PaginationComponent";
 import * as Icons from "react-icons/ai";
 import * as BS from "react-icons/bs";
-import Button from "../../ButtonComponent/ButtonComponent";
+import LinesEllipsis from "react-lines-ellipsis";
+
 const UserRepositories = () => {
   const [sorter, setSorter] = useState();
   const [direction, setDirection] = useState();
@@ -112,14 +113,24 @@ const UserRepositories = () => {
                   className="grid w-[90%] md:w-[25vw] bg-slate-800 md:shadow-3xl md:h-[22vh] md:m-4  grid-cols-2 grid-rows-2 p-4 items-center text-center border-b-4 border-l-4 border-slate-400  border-solid rounded-br-none md:rounded-br-xl rounded-xl hover:border-slate-50 transition ease-in-out hover:shadow-blue-400 delay-200 shadow-sm duration-700  "
                   key={repo.repoName}
                 >
-                  {Object.values(repo).map((data) => (
-                    <div
-                      className="first:text-[1.3rem] text-gray-400 last:text-red-400 first:text-blue-400 drop-shadow-lg shadow-white  "
-                      key={data}
-                    >
-                      {data}
-                    </div>
-                  ))}
+                  {Object.entries(repo).map((data) =>
+                    data[0] === "repoName" ? (
+                      <LinesEllipsis
+                        maxLine="2"
+                        ellipsis="..."
+                        trimRight
+                        basedOn="letters"
+                        text={data[1]}
+                      />
+                    ) : (
+                      <div
+                        className="first:text-[1.3rem] text-gray-400 last:text-red-400 first:text-blue-400 drop-shadow-lg shadow-white  "
+                        key={data[1]}
+                      >
+                        {data[1]}
+                      </div>
+                    )
+                  )}
                 </Link>
               ))}
             </ul>

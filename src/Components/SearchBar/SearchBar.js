@@ -106,7 +106,7 @@ export function SearchBar({ isClicked, onClick }) {
               handleClick(e);
               setescNotPressed(true);
             }}
-            className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80"
+            className="relative p-2 text-gray-300 bg-gray-900 border-2 border-gray-400 rounded w-80 md:w-[30vw]"
           >
             {/* SEARCH ICON */}
             <svg
@@ -127,7 +127,7 @@ export function SearchBar({ isClicked, onClick }) {
             {/* INPUT BAR */}
             <input
               // type="text"
-              className="ml-6 bg-transparent "
+              className="ml-6 bg-transparent w-[70%]"
               placeholder="GitHub Username"
               onChange={debouncedResults}
             />

@@ -21,9 +21,9 @@ export function LandingPage() {
             className="flex justify-center items-center hover:before:duration-500 w-full h-full top-0 left-0 before:absolute before:top-0 before:left-0  before:bg-gray-200/30 before:rounded-full before:w-[120px] before:h-[120px] before:left-[calc(50%-60px)] before:top-[-10%] md:before:top-[115px] md:before:left-[240px] hover:before:bg-gray-300/50  hover:before:top-0 hover:before:left-0 hover:before:w-full hover:before:h-full hover:before:rounded-[20px]"
           >
             {isSearchVisible ? (
-              <div className="absolute h-full w-full flex flex-col justify-center items-center">
+              <div className="absolute flex flex-col items-center justify-center w-full h-full">
                 <IntroMessage />
-                <div className="h-full flex justify-center w-full mb-2">
+                <div className="flex justify-center w-full h-full mb-2">
                   <div className="absolute">
                     <SearchBar isClicked={isClicked} onClick={handleClick} />
                   </div>

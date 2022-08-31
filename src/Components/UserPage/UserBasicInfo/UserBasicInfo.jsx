@@ -52,7 +52,7 @@ const UserBasicInfo = () => {
             ) : (
               <li
                 key={info[0]}
-                className="left-20 order-first h-[30vh] mb-2 md:absolute md:h-[50vh]"
+                className="left-20 order-first h-[30vh] mb-2 bottom-10 md:absolute md:h-[50vh]"
               >
                 <img
                   src={info[1]}
@@ -66,7 +66,7 @@ const UserBasicInfo = () => {
             <div className="order-last" key="blog">
               <Button
                 type="primary"
-                modifiers="rounded-s w-[150px] h-[50px] md:absolute left-[10vw] top-[65vh] md:w-[15vw]"
+                modifiers="rounded-s w-[150px] h-[50px] md:absolute left-[10vw] top-[5vh] md:w-[15vw]"
               >
                 <a href={info[1]}>Blog</a>
               </Button>

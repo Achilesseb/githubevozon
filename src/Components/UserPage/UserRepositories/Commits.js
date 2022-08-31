@@ -25,12 +25,12 @@ const Commits = () => {
       />
       <div className="flex justify-center w-full h-full mb-4 text-white">
         <div className="h-auto h-min-[300px] w-[94vw]">
-          <div className="m-3 rounded drop-shadow-xl flex flex-col items-center">
+          <div className="flex flex-col items-center m-3 rounded drop-shadow-xl">
             {dataOnPage?.map((commit, index) => {
               return (
                 <div
                   key={index}
-                  className="flex flex-col w-[30%] items-start gap-2 p-2 m-4 text-sm bg-slate-800 border-b-4 border-l-4 border-slate-400 rounded-md hover:shadow-3xl hover:border-slate-50"
+                  className="flex flex-col w-[90%] md:w-[50%] items-start gap-2 p-2 m-2 text-sm bg-slate-800 border-b-4 border-l-4 border-slate-400 rounded-md hover:shadow-3xl hover:border-slate-50"
                 >
                   {/* ------COMMIT ------*/}
 

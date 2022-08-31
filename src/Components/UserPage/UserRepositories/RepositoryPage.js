@@ -94,7 +94,7 @@ export function RepositoryPage() {
                 }}
                 className="cursor-pointer"
               >
-                <ai.AiFillCaretRight className="text-white" />
+                <ai.AiFillCaretRight className="text-blue-400" />
               </div>
             ) : (
               <div
@@ -104,10 +104,10 @@ export function RepositoryPage() {
                 }}
                 className="cursor-pointer"
               >
-                <ai.AiFillCaretDown className="text-white" />
-                <div className="border border-black absolute w-auto h-auto bg-gray-300 mt-2 rounded flex flex-col min-w-[35%] z-10">
+                <ai.AiFillCaretDown className="text-blue-400" />
+                <div className="border border-black absolute w-auto h-auto bg-slate-800 mt-2 rounded flex flex-col min-w-[35%] z-10 text-blue-100">
                   <div className="px-2 mt-2 font-semibold">Contributors</div>
-                  <div className="flex flex-col gap-2 p-2 bg-white">
+                  <div className="flex flex-col gap-2 p-2">
                     {contributors.map((contributor, index) => {
                       return (
                         <Contributors key={index} contributor={contributor} />
@@ -155,7 +155,7 @@ export function RepositoryPage() {
             </Tab.List>
           </Tab.Group>
         </div>
-        <div className="mt-2 flex flex-col w-full">
+        <div className="flex flex-col w-full mt-2">
           <Outlet />
         </div>
       </div>
